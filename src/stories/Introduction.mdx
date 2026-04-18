@@ -1,0 +1,63 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Introduction" />
+
+# Storefront DS
+
+Storefront DS is a React component library built for B2B SaaS and commerce applications. It provides a complete set of accessible, token-driven UI components that map directly to a Figma design source of truth.
+
+---
+
+## Design Principles
+
+### Consistency
+Every visual decision — color, spacing, typography, radius, shadow — comes from a named design token. No component hardcodes a hex value or pixel size. Tokens are defined once and consumed everywhere, so changing a token updates every component at once.
+
+### Accessibility first
+Every interactive component is fully keyboard-navigable, ships with correct ARIA attributes, and meets WCAG 2.1 AA contrast requirements. Focus rings are always visible. Disabled states use both visual and semantic signals.
+
+### Composability over configuration
+Atoms compose into molecules. Molecules compose into organisms. Each level can be used independently or assembled into complex UIs. Props remain minimal — only what the component genuinely needs.
+
+### Figma as the source of truth
+Every component originates from the Figma file. Before any React component is written, the Figma context is fetched. Design tokens flow from Figma variables to CSS custom properties to Tailwind classes. Figma Code Connect maps every component back to its Figma counterpart.
+
+---
+
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Framework | React 19 |
+| Language | TypeScript |
+| Styling | Tailwind CSS v4 (CSS-first, `@theme` config) |
+| Design tokens | CSS custom properties (`--storefront-*`) |
+| Documentation | Storybook 10 |
+| Visual testing | Chromatic |
+| Figma integration | Code Connect + MCP |
+| Build | Vite 8 |
+
+---
+
+## Atomic Architecture
+
+Components are organised in three layers:
+
+**Atoms** — the smallest indivisible units. No component dependencies.
+`Button` · `Badge` · `Input` · `Avatar`
+
+**Molecules** — compositions of 2–4 atoms with a specific interaction pattern.
+`FormField` · `SearchBar` · `Pagination` · `Dropdown`
+
+**Organisms** — full UI sections composed from atoms and molecules.
+`MetricCard` · `OrderCard` · `TopBar` · `Sidebar` · `FilterPanel` · `DataTable`
+
+---
+
+## Figma Source of Truth
+
+Every component in this library has a corresponding Figma component at:
+
+**[Storefront DS — Figma file](https://www.figma.com/design/2P3ina6EjiCFUORJtD56hE)**
+
+Figma Code Connect mappings (`.figma.tsx` files) are co-located with every component, linking the React implementation back to its Figma node so designers see live code snippets in Figma's Dev Mode.

@@ -5,7 +5,7 @@ import type { ButtonVariant, ButtonSize } from './Button';
 const meta = {
   title: 'Atoms/Button',
   component: Button,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     variant: {

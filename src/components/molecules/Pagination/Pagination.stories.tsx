@@ -5,7 +5,7 @@ import { Pagination } from './Pagination';
 const meta = {
   title: 'Molecules/Pagination',
   component: Pagination,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     currentPage: { control: { type: 'number', min: 1 } },

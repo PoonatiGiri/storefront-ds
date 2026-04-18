@@ -1,0 +1,166 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Getting Started" />
+
+# Getting Started
+
+---
+
+## Installation
+
+```bash
+npm install
+```
+
+The design system is currently a local package. Import components directly from the `src/components` path in your project.
+
+---
+
+## CSS Tokens Setup
+
+The design tokens are defined as CSS custom properties in `src/index.css`. Import it once at your app entry point:
+
+```tsx
+// main.tsx or App.tsx
+import './src/index.css';
+```
+
+This makes all `--storefront-*` tokens available globally. Tailwind picks them up automatically via `@theme` in the CSS file.
+
+---
+
+## Importing Components
+
+All components are exported from the top-level barrel:
+
+```tsx
+import { Button, Badge, Input, Avatar } from './src/components';
+import { FormField, SearchBar, Pagination, Dropdown } from './src/components';
+import { MetricCard, OrderCard, TopBar, Sidebar, FilterPanel, DataTable } from './src/components';
+```
+
+Or import directly from a component folder:
+
+```tsx
+import { Button } from './src/components/atoms/Button';
+import { DataTable } from './src/components/organisms/DataTable';
+```
+
+---
+
+## Basic Usage
+
+### A simple form
+
+```tsx
+import { FormField, Button } from './src/components';
+
+function LoginForm() {
+  return (
+    <form>
+      <FormField
+        label="Email address"
+        placeholder="you@example.com"
+        type="email"
+        required
+      />
+      <FormField
+        label="Password"
+        placeholder="••••••••"
+        type="password"
+        required
+      />
+      <Button variant="primary" size="md" type="submit">
+        Sign in
+      </Button>
+    </form>
+  );
+}
+```
+
+### A data table with filtering
+
+```tsx
+import { DataTable, FilterPanel } from './src/components';
+
+function OrdersPage() {
+  return (
+    <div style={{ display: 'flex', gap: '24px' }}>
+      <FilterPanel variant="sidebar-panel" />
+      <DataTable
+        title="Orders"
+        totalCount={2847}
+        currentPage={1}
+        totalPages={10}
+      />
+    </div>
+  );
+}
+```
+
+### Status badge with avatar
+
+```tsx
+import { Avatar, Badge } from './src/components';
+
+function CustomerRow({ name, initials, status }) {
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+      <Avatar type="initials" size="sm" initials={initials} />
+      <span>{name}</span>
+      <Badge type={status === 'active' ? 'success' : 'default'} label={status} />
+    </div>
+  );
+}
+```
+
+---
+
+## TypeScript
+
+Every component exports its props interface. Use them for typed wrappers or extension:
+
+```tsx
+import type { ButtonProps } from './src/components/atoms/Button';
+import type { DataTableRow } from './src/components/organisms/DataTable';
+
+// Extend a component's props
+interface MyButtonProps extends ButtonProps {
+  analyticsId: string;
+}
+
+// Type your data
+const rows: DataTableRow[] = [
+  {
+    id: '1',
+    orderId: '#ORD-1001',
+    customerName: 'Sarah Johnson',
+    customerInitials: 'SJ',
+    status: 'completed',
+    amount: '$134.96',
+    date: 'Dec 18, 2024',
+  },
+];
+```
+
+---
+
+## Design Tokens in Custom Components
+
+Use `--storefront-*` tokens directly in your own components to stay consistent:
+
+```tsx
+function CustomCard({ children }) {
+  return (
+    <div style={{
+      background: 'var(--storefront-color-surface-background)',
+      border: '1px solid var(--storefront-color-surface-border)',
+      borderRadius: 'var(--storefront-radius-xl)',
+      padding: 'var(--storefront-spacing-5)',
+      boxShadow: 'var(--storefront-shadow-sm)',
+    }}>
+      {children}
+    </div>
+  );
+}
+```

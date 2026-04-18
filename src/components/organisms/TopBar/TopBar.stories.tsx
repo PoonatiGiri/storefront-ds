@@ -5,7 +5,7 @@ import type { TopBarVariant } from './TopBar';
 const meta = {
   title: 'Organisms/TopBar',
   component: TopBar,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'fullscreen' },
   argTypes: {
     variant: { control: 'select', options: ['default', 'with-back-button'] satisfies TopBarVariant[] },

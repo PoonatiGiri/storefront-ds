@@ -12,7 +12,7 @@ const OPTIONS = [
 const meta = {
   title: 'Molecules/Dropdown',
   component: Dropdown,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   decorators: [
     (Story) => (

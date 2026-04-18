@@ -1,0 +1,124 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as MetricCardStories from './MetricCard.stories';
+
+<Meta of={MetricCardStories} />
+
+# MetricCard
+
+A KPI summary card. Displays a metric title, formatted value, and a trend indicator badge. Use MetricCard in dashboard grids to surface key business metrics at a glance.
+
+---
+
+## Overview
+
+**When to use:**
+- Dashboard summary rows showing revenue, order volume, conversion rate, etc.
+- Any single-number metric that benefits from trend context
+- Side-by-side KPI grids (2, 3, or 4 across)
+
+**When not to use:**
+- Metrics with complex breakdowns — use a chart or data table
+- Non-numeric summaries — use a standard card with body text
+
+---
+
+## Default
+
+<Canvas of={MetricCardStories.Default} />
+
+## All Variants
+
+<Canvas of={MetricCardStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={MetricCardStories.AllSizes} />
+
+## All States
+
+<Canvas of={MetricCardStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={MetricCardStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { MetricCard } from './src/components';
+
+// Revenue metric (positive trend)
+<MetricCard
+  title="Total Revenue"
+  value="$24,530"
+  trend="up"
+  trendValue="12.5%"
+  period="vs last month"
+  size="md"
+/>
+
+// Order volume (neutral trend)
+<MetricCard
+  title="Orders"
+  value="1,248"
+  trend="neutral"
+  trendValue="0.2%"
+  period="vs last week"
+/>
+
+// Return rate (negative trend)
+<MetricCard
+  title="Return Rate"
+  value="3.4%"
+  trend="down"
+  trendValue="1.1%"
+  period="vs last month"
+  size="lg"
+/>
+
+// Custom icon
+<MetricCard
+  title="Active Users"
+  value="8,412"
+  trend="up"
+  trendValue="22%"
+  icon={<UsersIcon />}
+/>
+```
+
+---
+
+## Size reference
+
+| Size | Width | Title text | Value text |
+|---|---|---|---|
+| `sm` (default) | 200px | `label-sm` | `text-h3` |
+| `md` | 260px | `label-md` | `text-h1` |
+| `lg` | 320px | `label-md` | `text-display-sm` |
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Use `trend="up"` only for metrics where up is positive — adjust for metrics like error rate where down is positive
+- Format `value` before passing — the component renders it verbatim
+- Use `icon` to differentiate cards visually in a grid
+
+**Don't**
+- Use `trend="up"` for a metric where an increase is bad (e.g., return rate) — use `trend="down"` with positive context in `period`
+- Truncate `value` at the prop level — let the card size set the limit
+- Put more than 4 MetricCards in a single row at `sm` size
+
+---
+
+## Accessibility
+
+- The card is a presentational `<div>` — no interactive role
+- Screen readers read the title, value, and trend text in DOM order
+- The icon badge has `aria-hidden="true"` — it's decorative
+- Trend arrows (↑ ↓ →) are inline text, readable by screen readers in context

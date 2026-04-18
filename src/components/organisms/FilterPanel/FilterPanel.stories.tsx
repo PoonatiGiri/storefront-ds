@@ -5,7 +5,7 @@ import type { FilterPanelVariant } from './FilterPanel';
 const meta = {
   title: 'Organisms/FilterPanel',
   component: FilterPanel,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     variant: { control: 'select', options: ['sidebar-panel', 'modal-panel'] satisfies FilterPanelVariant[] },

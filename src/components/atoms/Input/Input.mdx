@@ -1,0 +1,94 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as InputStories from './Input.stories';
+
+<Meta of={InputStories} />
+
+# Input
+
+A single-line text field. The base atom for all text-entry interactions. Use Input directly when you need a bare field; use FormField when you need a label, helper text, or error messaging.
+
+---
+
+## Overview
+
+**When to use:**
+- Standalone text entry where you manage labeling separately
+- Composing custom field layouts with FormField
+
+**When not to use:**
+- When the field needs a visible label — use FormField
+- Multi-line text entry — use a `<textarea>` directly
+- Numeric steppers — use a dedicated number input
+
+---
+
+## Default
+
+<Canvas of={InputStories.Default} />
+
+## All Variants
+
+<Canvas of={InputStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={InputStories.AllSizes} />
+
+## All States
+
+<Canvas of={InputStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={InputStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Input } from './src/components';
+
+// Default
+<Input placeholder="Enter your email" type="email" />
+
+// Error state — shows red border + indicator dot
+<Input variant="error" placeholder="Invalid value" />
+
+// Disabled
+<Input disabled placeholder="Cannot edit" />
+
+// With value and change handler
+<Input
+  value={email}
+  onChange={(e) => setEmail(e.target.value)}
+  type="email"
+  placeholder="you@example.com"
+/>
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Always pair with a visible label using FormField for user-facing fields
+- Use `variant="error"` together with an error message (via FormField) — never error styling alone
+- Pass `aria-label` for icon-only inputs where a visible label isn't present
+
+**Don't**
+- Set `outline-none` without a focus ring — the component handles this with `focus-visible:`
+- Use `variant="error"` for warning states — it implies a validation failure
+- Recreate a search input with `type="text"` — use the SearchBar molecule
+
+---
+
+## Accessibility
+
+- Extends native `<input>` — all standard HTML attributes and ARIA props are forwarded
+- `variant="error"` sets `aria-invalid="true"` when used inside FormField
+- `disabled` uses the native HTML attribute, not `aria-disabled`
+- Focus ring is `focus-visible:` only — keyboard users always see it, mouse users never do
+- The error indicator dot has `aria-hidden="true"` — error state is communicated via `aria-invalid` and the error message text

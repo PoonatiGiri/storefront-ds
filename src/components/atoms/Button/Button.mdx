@@ -1,0 +1,92 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ButtonStories from './Button.stories';
+
+<Meta of={ButtonStories} />
+
+# Button
+
+The foundational interactive element. Use Button for any action that triggers a change — submitting a form, navigating, opening a dialog, or performing a destructive operation.
+
+---
+
+## Overview
+
+**When to use:**
+- Primary actions: form submission, creating new records
+- Secondary actions: cancel, go back, export
+- Destructive actions: delete, revoke access
+- Inline ghost actions: table row actions, toolbar buttons
+
+**When not to use:**
+- Navigation to a different page — use an `<a>` tag or router link instead
+- Toggle state — use a Checkbox or Switch
+
+---
+
+## Default
+
+<Canvas of={ButtonStories.Default} />
+
+## All Variants
+
+<Canvas of={ButtonStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={ButtonStories.AllSizes} />
+
+## All States
+
+<Canvas of={ButtonStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={ButtonStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Button } from './src/components';
+
+// Primary action
+<Button variant="primary" size="md">Save changes</Button>
+
+// Destructive action
+<Button variant="destructive" size="sm">Delete order</Button>
+
+// Loading state (disables interaction automatically)
+<Button variant="primary" loading>Saving…</Button>
+
+// With icons
+<Button variant="secondary" iconLeft={<PlusIcon />}>New order</Button>
+<Button variant="ghost" iconRight={<ArrowRightIcon />}>View all</Button>
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Use `primary` for the single most important action on a page
+- Use `ghost` for low-emphasis actions that appear inline with content
+- Use `loading` when an async operation is in progress — never let the user click twice
+- Use `destructive` for irreversible actions only
+
+**Don't**
+- Place two `primary` buttons side-by-side — one action should be primary
+- Use `disabled` when the reason is unclear — prefer showing validation errors instead
+- Hard-code `pointer-events-none` separately — `loading` and `disabled` both apply it
+
+---
+
+## Accessibility
+
+- All button states are keyboard accessible via `Tab` and `Enter`/`Space`
+- `loading` sets `aria-busy="true"` automatically
+- `disabled` uses the native HTML `disabled` attribute — no `aria-disabled` needed
+- Icon-only usage must add `aria-label` to the button element
+- Focus ring uses `focus-visible:` so it only appears for keyboard navigation, never on mouse click

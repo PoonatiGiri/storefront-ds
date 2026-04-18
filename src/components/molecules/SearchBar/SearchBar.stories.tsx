@@ -4,7 +4,7 @@ import { SearchBar } from './SearchBar';
 const meta = {
   title: 'Molecules/SearchBar',
   component: SearchBar,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   decorators: [
     (Story) => (

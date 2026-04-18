@@ -1,0 +1,103 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as FormFieldStories from './FormField.stories';
+
+<Meta of={FormFieldStories} />
+
+# FormField
+
+A complete form control unit — label, Input, helper text, and error messaging in one component. Use FormField for every user-facing text entry field.
+
+---
+
+## Overview
+
+**When to use:**
+- Any labeled text entry in a form
+- Login, registration, settings, and search forms
+- Inline edit fields that need validation feedback
+
+**When not to use:**
+- Search inputs — use SearchBar (has a built-in clear button and search icon)
+- Hidden or programmatic inputs — use Input directly
+- Non-text fields (select, checkbox) — wrap with a custom label + field pattern
+
+---
+
+## Default
+
+<Canvas of={FormFieldStories.Default} />
+
+## All Variants
+
+<Canvas of={FormFieldStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={FormFieldStories.AllSizes} />
+
+## All States
+
+<Canvas of={FormFieldStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={FormFieldStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { FormField } from './src/components';
+
+// Basic field
+<FormField label="Email address" placeholder="you@example.com" type="email" />
+
+// Required field
+<FormField label="Password" type="password" required placeholder="••••••••" />
+
+// With helper text
+<FormField
+  label="Company name"
+  helperText="This will appear on your invoices"
+  placeholder="Acme Corp"
+/>
+
+// Error state
+<FormField
+  label="Email address"
+  value={email}
+  errorMessage="Please enter a valid email address"
+  onChange={(e) => setEmail(e.target.value)}
+/>
+
+// Disabled
+<FormField label="Account ID" value="ACC-1234" disabled />
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Always provide a `label` — the component requires it
+- Use `errorMessage` (not `variant="error"` directly) to trigger error styling + text
+- Use `helperText` to give context before the user interacts (e.g., format hints)
+- Use `required` to add the visual asterisk and `aria-required`
+
+**Don't**
+- Show both `helperText` and `errorMessage` simultaneously — error message replaces helper text
+- Use `disabled` without making it visually obvious why — consider explaining in nearby text
+- Nest FormField inside another FormField
+
+---
+
+## Accessibility
+
+- `<label>` is always programmatically linked to the input via auto-generated `id`
+- `aria-invalid="true"` is set on the input when `errorMessage` is provided
+- `aria-describedby` links the input to its helper/error text for screen reader announcement
+- `aria-required="true"` is set when `required` is true
+- The red asterisk (`*`) is hidden from screen readers with `aria-hidden="true"` — `aria-required` carries the semantic signal

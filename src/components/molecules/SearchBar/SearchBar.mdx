@@ -1,0 +1,93 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SearchBarStories from './SearchBar.stories';
+
+<Meta of={SearchBarStories} />
+
+# SearchBar
+
+A search input with a built-in clear button. Use SearchBar in top bars, filter panels, and data tables where users need to query and reset a search query.
+
+---
+
+## Overview
+
+**When to use:**
+- Global search in the top navigation bar
+- Filtering a data table or list
+- Searching within a dropdown or picker
+
+**When not to use:**
+- General text input — use FormField or Input
+- Multi-field filtering — use FilterPanel with individual inputs
+
+---
+
+## Default
+
+<Canvas of={SearchBarStories.Default} />
+
+## All Variants
+
+<Canvas of={SearchBarStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={SearchBarStories.AllSizes} />
+
+## All States
+
+<Canvas of={SearchBarStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={SearchBarStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { SearchBar } from './src/components';
+
+// Uncontrolled with a clear callback
+<SearchBar
+  placeholder="Search orders…"
+  onClear={() => console.log('cleared')}
+/>
+
+// Controlled
+const [query, setQuery] = useState('');
+<SearchBar
+  value={query}
+  onChange={(e) => setQuery(e.target.value)}
+  onClear={() => setQuery('')}
+/>
+
+// Custom placeholder
+<SearchBar placeholder="Search customers by name or email…" />
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Use `onClear` to reset the search state — the clear button only appears when there is a value
+- Provide a descriptive `placeholder` matching the search scope ("Search orders…" not just "Search")
+- Use the controlled pattern (`value` + `onChange` + `onClear`) when you need to read the current query
+
+**Don't**
+- Replace the browser's native search clear button — it's already suppressed internally
+- Use SearchBar for non-search text entry — use Input or FormField
+- Forget to handle `onClear` when in controlled mode — the clear button will appear but won't reset the value
+
+---
+
+## Accessibility
+
+- The internal `<input>` has `type="search"` — screen readers announce it as a search field
+- The clear button has `aria-label="Clear search"` — screen readers announce its purpose
+- Focus management: clicking the clear button returns focus to the input automatically
+- The component is keyboard accessible — Tab to reach it, type to search, Tab again to reach the clear button

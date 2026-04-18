@@ -4,7 +4,7 @@ import { FormField } from './FormField';
 const meta = {
   title: 'Molecules/FormField',
   component: FormField,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     disabled: { control: 'boolean' },

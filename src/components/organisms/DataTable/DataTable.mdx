@@ -1,0 +1,139 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DataTableStories from './DataTable.stories';
+
+<Meta of={DataTableStories} />
+
+# DataTable
+
+A full-featured data table for order management. Includes a search bar, column headers, sortable rows with status badges and avatars, row selection, pagination, and export controls. Supports loading skeleton and empty state variants.
+
+---
+
+## Overview
+
+**When to use:**
+- Tabular display of orders, customers, products, or any structured data set
+- Data that needs filtering, searching, and pagination
+- Any list where multi-row selection and bulk actions are needed
+
+**When not to use:**
+- Small static lists (fewer than 5 rows) — use a simple `<ul>` or card list
+- Single-record detail view — use OrderCard or a detail panel
+
+---
+
+## Default
+
+<Canvas of={DataTableStories.Default} />
+
+## All Variants
+
+<Canvas of={DataTableStories.AllVariants} />
+
+## Loading Skeleton
+
+<Canvas of={DataTableStories.LoadingSkeleton} />
+
+## Empty State
+
+<Canvas of={DataTableStories.EmptyState} />
+
+## Row Selected
+
+<Canvas of={DataTableStories.RowSelected} />
+
+---
+
+## Props
+
+<ArgTypes of={DataTableStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { DataTable } from './src/components';
+
+const rows = [
+  {
+    id: '1',
+    orderId: '#ORD-1001',
+    customerName: 'Sarah Johnson',
+    customerInitials: 'SJ',
+    status: 'completed',
+    amount: '$134.96',
+    date: 'Dec 18, 2024',
+  },
+];
+
+// Default usage
+<DataTable
+  title="Orders"
+  rows={rows}
+  totalCount={2847}
+  currentPage={1}
+  totalPages={57}
+  onPageChange={(page) => fetchPage(page)}
+  onRowView={(row) => openOrderDrawer(row)}
+  onExport={() => downloadCSV()}
+  onNewOrder={() => router.push('/orders/new')}
+/>
+
+// Loading state
+<DataTable variant="loading-skeleton" title="Orders" />
+
+// Empty state
+<DataTable
+  variant="empty-state"
+  title="Orders"
+  emptyTitle="No orders found"
+  emptyMessage="Try adjusting your search or filters to find what you are looking for."
+/>
+
+// With row selection
+<DataTable
+  rows={rows}
+  selectedIds={selectedIds}
+  onSelectionChange={setSelectedIds}
+/>
+```
+
+---
+
+## Variants
+
+| Variant | Description |
+|---|---|
+| `default` | Normal table with data rows |
+| `loading-skeleton` | Animated pulse placeholders while data loads |
+| `empty-state` | Message + action CTA when no records match |
+| `row-selected` | Shows selected row highlight and selection count |
+| `row-hover` | Shows row hover state |
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Use `variant="loading-skeleton"` while fetching — never show a spinner for a full table
+- Always provide `emptyTitle` and `emptyMessage` for the empty state — never leave it blank
+- Wire `onExport` and `onNewOrder` — they appear in the toolbar and users expect them to work
+- Use `selectedIds` + `onSelectionChange` for controlled multi-row selection
+
+**Don't**
+- Pass more than 50 rows at once — paginate server-side and use `totalCount` / `totalPages`
+- Show DataTable without `totalCount` — the footer label needs it
+- Use `variant="loading-skeleton"` after data has loaded — switch to `default` immediately
+
+---
+
+## Accessibility
+
+- Table renders as a semantic `<table>` with `<thead>`, `<tbody>`, `<th>`, `<td>`
+- Column headers (`<th>`) use `scope="col"`
+- Row checkboxes have `aria-label` including the order ID
+- The select-all checkbox controls individual row selections
+- Status badges are inline text — screen readers read the status label
+- Search bar is a labelled search input accessible via keyboard
+- Pagination controls follow the Pagination component's a11y implementation

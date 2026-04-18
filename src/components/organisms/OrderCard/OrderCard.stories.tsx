@@ -5,7 +5,7 @@ import type { OrderStatus } from './OrderCard';
 const meta = {
   title: 'Organisms/OrderCard',
   component: OrderCard,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     status: { control: 'select', options: ['pending', 'processing', 'completed', 'cancelled'] satisfies OrderStatus[] },

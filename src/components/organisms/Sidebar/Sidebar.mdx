@@ -1,0 +1,107 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SidebarStories from './Sidebar.stories';
+
+<Meta of={SidebarStories} />
+
+# Sidebar
+
+The primary navigation rail. Displays a user profile row, main nav items with optional badge counts, and a footer section for settings and logout. Supports expanded (labels visible) and collapsed (icons only) modes.
+
+---
+
+## Overview
+
+**When to use:**
+- Primary vertical navigation in admin and dashboard applications
+- Paired with TopBar to form the full application shell
+
+**When not to use:**
+- Horizontal navigation — use a tab bar or top nav instead
+- Nested navigation trees — Sidebar is a flat single-level nav
+
+---
+
+## Default
+
+<Canvas of={SidebarStories.Default} />
+
+## All Variants
+
+<Canvas of={SidebarStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={SidebarStories.AllSizes} />
+
+## All States
+
+<Canvas of={SidebarStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={SidebarStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Sidebar } from './src/components';
+
+const navItems = [
+  { key: 'dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
+  { key: 'orders', label: 'Orders', icon: <OrdersIcon />, badgeCount: 12 },
+  { key: 'customers', label: 'Customers', icon: <UsersIcon /> },
+];
+
+const footerItems = [
+  { key: 'settings', label: 'Settings', icon: <SettingsIcon /> },
+  { key: 'logout', label: 'Logout', icon: <LogoutIcon /> },
+];
+
+// Expanded sidebar
+<Sidebar
+  variant="expanded"
+  activeKey="orders"
+  navItems={navItems}
+  footerItems={footerItems}
+  onNavClick={(key) => router.push(`/${key}`)}
+  userName="Alex Morgan"
+  userRole="Store Admin"
+  userInitials="AM"
+/>
+
+// Collapsed (icon-only)
+<Sidebar
+  variant="collapsed"
+  activeKey="dashboard"
+  navItems={navItems}
+  footerItems={footerItems}
+  onNavClick={(key) => router.push(`/${key}`)}
+/>
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Keep `navItems` to 5–7 items — more causes visual clutter especially in collapsed mode
+- Use `badgeCount` for actionable counts (unread messages, pending items) — not for metrics
+- Toggle between `expanded` and `collapsed` via state — the component transitions smoothly
+
+**Don't**
+- Put deeply nested sub-navigation inside Sidebar — it doesn't support sub-menus
+- Use Sidebar without a `footerItems` section — Settings and Logout should always be present
+
+---
+
+## Accessibility
+
+- Renders as `<nav aria-label="Main navigation">` — screen readers can navigate to it directly
+- Each nav button has `aria-current="page"` when it matches `activeKey`
+- Badge counts are rendered as text inside Badge component — screen readers read them
+- Collapsed mode hides labels visually only — icons are presentational (`aria-hidden`)
+- All nav buttons are keyboard accessible via Tab and Enter/Space

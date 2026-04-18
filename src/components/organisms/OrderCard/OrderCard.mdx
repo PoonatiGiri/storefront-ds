@@ -1,0 +1,113 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as OrderCardStories from './OrderCard.stories';
+
+<Meta of={OrderCardStories} />
+
+# OrderCard
+
+A self-contained order summary card. Displays customer identity, order metadata, line items, total, and status-aware action buttons. Use OrderCard in order detail drawers, recent-orders panels, and customer profile pages.
+
+---
+
+## Overview
+
+**When to use:**
+- Displaying a single order's summary in a panel or list
+- Recent orders widget on a dashboard
+- Order detail views in a customer profile
+
+**When not to use:**
+- Tabular lists of many orders — use DataTable
+- Minimal order references — use a simple row with Badge and amount
+
+---
+
+## Default
+
+<Canvas of={OrderCardStories.Default} />
+
+## All Variants
+
+<Canvas of={OrderCardStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={OrderCardStories.AllSizes} />
+
+## All States
+
+<Canvas of={OrderCardStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={OrderCardStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { OrderCard } from './src/components';
+
+// Pending order
+<OrderCard
+  status="pending"
+  customerName="Sarah Johnson"
+  customerInitials="SJ"
+  orderId="ORD-2024-0891"
+  orderDate="Dec 18, 2024"
+  items={[
+    { name: 'Wireless Headphones', quantity: 1, price: '$89.99' },
+    { name: 'USB-C Cable 2m', quantity: 2, price: '$19.98' },
+  ]}
+  total="$109.97"
+  onPrimaryAction={() => cancelOrder()}
+  onDetails={() => viewDetails()}
+/>
+
+// Completed order (Reorder button)
+<OrderCard
+  status="completed"
+  customerName="Alex Chen"
+  customerInitials="AC"
+  orderId="ORD-2024-0444"
+  orderDate="Nov 5, 2024"
+  total="$249.00"
+  onPrimaryAction={() => reorder()}
+/>
+```
+
+---
+
+## Status behavior
+
+| Status | Badge | Primary action | Details button |
+|---|---|---|---|
+| `pending` | Warning | Cancel (destructive) | Visible |
+| `processing` | Info | Track (secondary) | Visible |
+| `completed` | Success | Reorder (primary) | Visible |
+| `cancelled` | Default | View Details (ghost) | Hidden |
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Pass formatted price strings — the component renders them verbatim
+- Use `onPrimaryAction` and `onDetails` to handle all button interactions
+- Keep `items` to 3–5 line items — more will overflow without scroll
+
+**Don't**
+- Mutate order status inside the component — pass new `status` from the parent
+- Use OrderCard in a DataTable row — it's a card-level component for panels
+
+---
+
+## Accessibility
+
+- Customer avatar reads initials via `aria-label` on the Avatar component
+- Order status Badge is inline text — screen readers read it in document order
+- Action buttons have visible labels (Cancel, Track, Reorder) — no icon-only buttons
+- The card itself is a `<div>` — if the entire card is clickable, wrap in a `<button>` or `<a>`

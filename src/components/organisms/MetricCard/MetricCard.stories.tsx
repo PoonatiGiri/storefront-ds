@@ -5,7 +5,7 @@ import type { MetricTrend, MetricSize } from './MetricCard';
 const meta = {
   title: 'Organisms/MetricCard',
   component: MetricCard,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     trend: { control: 'select', options: ['up', 'neutral', 'down'] satisfies MetricTrend[] },

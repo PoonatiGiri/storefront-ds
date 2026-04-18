@@ -1,0 +1,205 @@
+import { Meta } from '@storybook/addon-docs/blocks';
+
+<Meta title="Docs/Contributing" />
+
+# Contributing
+
+This guide covers how to add new components to Storefront DS and the rules every component must follow.
+
+---
+
+## Before You Start
+
+1. **Check Figma first.** Every component must exist in the [Figma file](https://www.figma.com/design/2P3ina6EjiCFUORJtD56hE) before implementation begins. Use `get_design_context` to fetch the design.
+2. **Check atomic level.** Is this an atom (no DS dependencies), molecule (composes atoms), or organism (composes molecules + atoms)? Never skip levels.
+3. **Check existing atoms.** If you need a button, input, or badge — use the existing ones. Don't recreate.
+
+---
+
+## File Structure
+
+Every component lives in its own folder:
+
+```
+src/components/{level}/{ComponentName}/
+├── ComponentName.tsx          # Component implementation
+├── ComponentName.stories.tsx  # Storybook stories
+├── ComponentName.mdx          # Documentation (this format)
+├── ComponentName.figma.tsx    # Figma Code Connect mapping
+└── index.ts                   # Barrel export
+```
+
+The folder name and all files use **PascalCase** matching the component name exactly.
+
+---
+
+## Scaffolding a New Component
+
+### 1. Create the component file
+
+```tsx
+// src/components/atoms/Spinner/Spinner.tsx
+
+export type SpinnerSize = 'sm' | 'md' | 'lg';
+
+export interface SpinnerProps {
+  /** Visual size of the spinner */
+  size?: SpinnerSize;
+  /** Accessible label for screen readers */
+  label?: string;
+  className?: string;
+}
+
+export function Spinner({ size = 'md', label = 'Loading…', className = '' }: SpinnerProps) {
+  return (
+    <span role="status" aria-label={label} className={className}>
+      {/* implementation */}
+    </span>
+  );
+}
+```
+
+**Rules:**
+- Props interface named `{ComponentName}Props` — no exceptions
+- Required props first, optional last
+- Every optional prop has a typed default in the destructure
+- Export both the component and its types
+
+### 2. Create the barrel export
+
+```ts
+// src/components/atoms/Spinner/index.ts
+export { Spinner } from './Spinner';
+export type { SpinnerProps, SpinnerSize } from './Spinner';
+```
+
+### 3. Add to the main barrel
+
+```ts
+// src/components/index.ts
+export * from './atoms/Spinner';
+```
+
+### 4. Create stories
+
+```tsx
+// src/components/atoms/Spinner/Spinner.stories.tsx
+import type { Meta, StoryObj } from '@storybook/react';
+import { Spinner } from './Spinner';
+
+const meta = {
+  title: 'Atoms/Spinner',
+  component: Spinner,
+  tags: ['autodocs'],
+  parameters: { layout: 'centered' },
+  argTypes: {
+    size: { control: 'select', options: ['sm', 'md', 'lg'] },
+  },
+} satisfies Meta<typeof Spinner>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
+export const Default: Story = { args: { size: 'md' } };
+export const AllVariants: Story = { render: () => <> ... </> };
+export const AllSizes: Story = { render: () => <> ... </> };
+export const AllStates: Story = { render: () => <> ... </> };
+```
+
+**Minimum story exports:** `Default`, `AllVariants`, `AllSizes`, `AllStates`.
+
+### 5. Create the Figma Code Connect mapping
+
+```tsx
+// src/components/atoms/Spinner/Spinner.figma.tsx
+import figma from '@figma/code-connect';
+import { Spinner } from './Spinner';
+
+figma.connect(Spinner, 'https://www.figma.com/design/2P3ina6EjiCFUORJtD56hE?node-id=XX-XX', {
+  props: {
+    size: figma.enum('size', { sm: 'sm', md: 'md', lg: 'lg' }),
+  },
+  example: ({ size }) => <Spinner size={size} />,
+});
+```
+
+### 6. Create MDX documentation
+
+Follow the MDX template pattern from any existing component doc.
+
+### 7. Run checks
+
+```bash
+npx tsc --noEmit --skipLibCheck   # must pass with zero errors
+npm run storybook                  # verify component renders correctly
+npx chromatic --project-token=...  # publish and visual-test
+```
+
+---
+
+## Token Rules
+
+| Rule | Detail |
+|---|---|
+| No hardcoded hex values | Use `var(--storefront-color-*)` |
+| No hardcoded px spacing | Use `var(--storefront-spacing-*)` |
+| No arbitrary Tailwind colors | `bg-[#2563eb]` is a violation |
+| Arbitrary Tailwind spacing is minor | `gap-[3px]` — add a token if used in 2+ places |
+| Inline styles with tokens are OK | `style={{ color: 'var(--storefront-color-*)' }}` is fine |
+| Inline styles with raw values are not | `style={{ color: '#2563eb' }}` is a violation |
+
+When adding a new visual value used in 2+ components, add it to `src/tokens/spacing.ts` and `src/index.css` first.
+
+---
+
+## State Requirements
+
+Every interactive component must implement all six states:
+
+| State | How |
+|---|---|
+| `default` | Base appearance |
+| `hover` | `hover:` Tailwind variant |
+| `focus` | `focus-visible:` — never `:focus` alone |
+| `active` | `active:` Tailwind variant |
+| `disabled` | `disabled` HTML attr + `disabled:` Tailwind + `pointer-events-none` |
+| `error` | Prop-driven (`variant="error"` or `error?: boolean`) |
+
+Data-fetching components additionally need:
+- **Loading skeleton** — `animate-pulse` placeholder, never spinner alone for layout components
+- **Empty state** — message + action CTA, never a blank space
+
+---
+
+## Naming Conventions
+
+| Item | Convention | Example |
+|---|---|---|
+| Component | PascalCase | `MetricCard` |
+| Props interface | `{Name}Props` | `MetricCardProps` |
+| Variant type | `{Name}Variant` | `ButtonVariant` |
+| File | PascalCase | `MetricCard.tsx` |
+| Folder | PascalCase | `MetricCard/` |
+| CSS token | kebab-case | `--storefront-color-brand-primary-default` |
+| Story export | PascalCase | `AllVariants` |
+
+---
+
+## Definition of Done
+
+A component is **not done** until all boxes are checked:
+
+- [ ] Figma context fetched before writing any code
+- [ ] Props interface exported as `{ComponentName}Props`
+- [ ] All 6 interactive states implemented
+- [ ] Commerce states (skeleton, empty, status) where applicable
+- [ ] Zero hardcoded color, spacing, or typography values
+- [ ] `Default`, `AllVariants`, `AllSizes`, `AllStates` story exports
+- [ ] `tags: ['autodocs']` on story meta
+- [ ] Fully keyboard accessible
+- [ ] `index.ts` barrel created
+- [ ] Added to `src/components/index.ts`
+- [ ] `.figma.tsx` Code Connect mapping created
+- [ ] MDX documentation file created
+- [ ] `tsc --noEmit` passes with zero errors
+- [ ] Chromatic build passes (no unexpected visual changes)

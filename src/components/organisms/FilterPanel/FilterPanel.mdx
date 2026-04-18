@@ -1,0 +1,124 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as FilterPanelStories from './FilterPanel.stories';
+
+<Meta of={FilterPanelStories} />
+
+# FilterPanel
+
+A checkbox-based filter panel with grouped options, Apply, and Reset controls. Use FilterPanel alongside DataTable to let users narrow down a data set by multiple criteria simultaneously.
+
+---
+
+## Overview
+
+**When to use:**
+- Filtering a data table or list by multiple dimensions (status, date range, value range)
+- Sidebar filter panel for a product catalog or order list
+- Modal filter sheet on mobile-style layouts
+
+**When not to use:**
+- Single-dimension filtering — use a Dropdown or a tab bar
+- Search-as-you-type filtering — use SearchBar
+
+---
+
+## Default
+
+<Canvas of={FilterPanelStories.Default} />
+
+## All Variants
+
+<Canvas of={FilterPanelStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={FilterPanelStories.AllSizes} />
+
+## All States
+
+<Canvas of={FilterPanelStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={FilterPanelStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { FilterPanel } from './src/components';
+
+const [selected, setSelected] = useState({});
+
+// Sidebar panel (narrow, no close button)
+<FilterPanel
+  variant="sidebar-panel"
+  groups={[
+    {
+      key: 'status',
+      label: 'Status',
+      options: [
+        { value: 'pending', label: 'Pending' },
+        { value: 'completed', label: 'Completed' },
+      ],
+    },
+    {
+      key: 'dateRange',
+      label: 'Date Range',
+      options: [
+        { value: 'today', label: 'Today' },
+        { value: 'last30', label: 'Last 30 days' },
+      ],
+    },
+  ]}
+  selected={selected}
+  onChange={setSelected}
+  onApply={(sel) => applyFilters(sel)}
+  onReset={() => setSelected({})}
+/>
+
+// Modal panel (wider, with close button)
+<FilterPanel
+  variant="modal-panel"
+  groups={groups}
+  onClose={() => setShowFilter(false)}
+  onApply={(sel) => applyFilters(sel)}
+/>
+```
+
+---
+
+## Filter groups schema
+
+Each `FilterGroup` has:
+- `key` — unique string used as the key in the `selected` object
+- `label` — section heading shown above the options
+- `options` — array of `{ value: string; label: string }` pairs
+
+The `selected` prop is `Record<string, string[]>` — keys match group keys, values are arrays of selected option values.
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Use `onApply` for server-side filtering — it fires only when the user explicitly applies
+- Use `onChange` for instant client-side filtering — it fires on every checkbox change
+- Always provide `onReset` — users need a way to clear all filters
+
+**Don't**
+- Mix `selected` (controlled) and no `selected` (uncontrolled) across renders — pick one
+- Use more than 4–5 groups — the panel becomes too long to scan
+
+---
+
+## Accessibility
+
+- Checkboxes use native `<input type="checkbox">` with visible labels via `<label htmlFor>`
+- Custom checkbox visual is purely decorative — the real input handles all a11y
+- The close button (modal variant) has `aria-label="Close filters"`
+- Apply and Reset buttons have visible text labels
+- All interactive elements are keyboard accessible

@@ -1,0 +1,99 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DropdownStories from './Dropdown.stories';
+
+<Meta of={DropdownStories} />
+
+# Dropdown
+
+A single-select combobox. Opens a floating listbox when triggered, supports keyboard navigation, and closes on outside click. Use Dropdown for selecting one value from a short list of options.
+
+---
+
+## Overview
+
+**When to use:**
+- Selecting a single value from 3–10 options
+- Filter controls that replace a radio group in tight layouts
+- Sort-by and view-mode selectors
+
+**When not to use:**
+- Binary choices — use a Toggle or radio buttons instead
+- More than 10–15 options — consider a searchable autocomplete
+- Multi-select — this component supports single selection only
+
+---
+
+## Default
+
+<Canvas of={DropdownStories.Default} />
+
+## All Variants
+
+<Canvas of={DropdownStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={DropdownStories.AllSizes} />
+
+## All States
+
+<Canvas of={DropdownStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={DropdownStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Dropdown } from './src/components';
+
+const options = [
+  { value: 'asc', label: 'A → Z' },
+  { value: 'desc', label: 'Z → A' },
+  { value: 'newest', label: 'Newest first' },
+  { value: 'oldest', label: 'Oldest first' },
+];
+
+// Uncontrolled
+<Dropdown options={options} placeholder="Sort by" />
+
+// Controlled
+const [sort, setSort] = useState('newest');
+<Dropdown options={options} value={sort} onChange={setSort} />
+
+// Disabled
+<Dropdown options={options} disabled placeholder="Not available" />
+
+// With aria-label for unlabeled contexts
+<Dropdown options={options} aria-label="Sort orders" />
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Provide a meaningful `placeholder` that describes what the user is selecting
+- Use `aria-label` or `aria-labelledby` when the dropdown has no adjacent visible label
+- Handle `onChange` to update the controlled `value` — the component won't update itself
+
+**Don't**
+- Use for binary choices (yes/no) — a simpler control is more scannable
+- Use for more than ~15 options without a search — long lists are hard to scan
+- Render a Dropdown inside another Dropdown — nest selection differently
+
+---
+
+## Accessibility
+
+- Trigger uses `role="combobox"` with `aria-expanded` and `aria-haspopup="listbox"`
+- The listbox has `role="listbox"` with `aria-label` matching the trigger
+- Each option has `role="option"` and `aria-selected`
+- Keyboard: `Enter`/`Space` toggles the menu, `Escape` closes it, `ArrowDown` opens it
+- Outside-click closes the menu — focus is not trapped
+- Disabled state uses the native `disabled` HTML attribute on the trigger button

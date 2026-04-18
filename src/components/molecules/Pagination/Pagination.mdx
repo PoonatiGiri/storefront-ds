@@ -1,0 +1,104 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as PaginationStories from './Pagination.stories';
+
+<Meta of={PaginationStories} />
+
+# Pagination
+
+Page navigation controls for data tables and lists. Renders a Prev / page numbers / Next row with smart ellipsis truncation for large page counts.
+
+---
+
+## Overview
+
+**When to use:**
+- Data tables with server-side pagination
+- Long lists where loading all records at once is impractical
+- Any content set where the user needs to navigate between discrete pages
+
+**When not to use:**
+- Continuous scroll — pagination implies discrete pages
+- Small data sets that fit on one page — don't render Pagination when `totalPages === 1`
+
+---
+
+## Default
+
+<Canvas of={PaginationStories.Default} />
+
+## All Variants
+
+<Canvas of={PaginationStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={PaginationStories.AllSizes} />
+
+## All States
+
+<Canvas of={PaginationStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={PaginationStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Pagination } from './src/components';
+
+const [page, setPage] = useState(1);
+
+<Pagination
+  currentPage={page}
+  totalPages={24}
+  onPageChange={setPage}
+/>
+
+// Small variant for compact toolbars
+<Pagination
+  currentPage={page}
+  totalPages={10}
+  onPageChange={setPage}
+  size="sm"
+/>
+```
+
+---
+
+## Ellipsis behavior
+
+For 7 or fewer total pages, all page numbers are shown. For more than 7:
+
+- Always shows page 1 and the last page
+- Shows the current page plus one page on either side
+- Inserts `…` where pages are skipped
+
+Example for current page 5 of 20: `← Prev  1  …  4  5  6  …  20  Next →`
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Always handle `onPageChange` — the component is stateless
+- Use `size="sm"` (default) in data table footers, `size="md"` in standalone list views
+- Conditionally render Pagination — hide it when `totalPages <= 1`
+
+**Don't**
+- Manage `currentPage` state inside this component — it's always controlled
+- Use Pagination for filter chips or tab navigation — those are different patterns
+
+---
+
+## Accessibility
+
+- Wrapped in a `<nav aria-label="Pagination">` landmark — screen readers can navigate to it
+- Prev and Next buttons have `aria-label="Previous page"` / `aria-label="Next page"`
+- Each page button has `aria-label="Page N"` and `aria-current="page"` on the active page
+- Ellipsis spans have `aria-hidden="true"` — they're decorative
+- Prev/Next are disabled and marked with the native `disabled` attribute when at the boundary

@@ -5,7 +5,7 @@ import type { DataTableVariant } from './DataTable';
 const meta = {
   title: 'Organisms/DataTable',
   component: DataTable,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'padded' },
   argTypes: {
     variant: {

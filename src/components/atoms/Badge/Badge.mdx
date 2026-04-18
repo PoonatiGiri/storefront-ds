@@ -1,0 +1,92 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as BadgeStories from './Badge.stories';
+
+<Meta of={BadgeStories} />
+
+# Badge
+
+A compact status indicator. Use Badge to communicate the semantic state of an entity — order status, user activity, alert severity — with a consistent dot-plus-label pattern.
+
+---
+
+## Overview
+
+**When to use:**
+- Order and fulfillment status: pending, processing, completed, cancelled
+- User or entity state: active, suspended, error
+- Severity labels: warning, info, success, error
+
+**When not to use:**
+- Counts or numeric values — use a pill counter instead
+- Interactive selection — use a Tag or Chip component
+- Long labels — Badge truncates poorly; use a full label element
+
+---
+
+## Default
+
+<Canvas of={BadgeStories.Default} />
+
+## All Variants
+
+<Canvas of={BadgeStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={BadgeStories.AllSizes} />
+
+## All States
+
+<Canvas of={BadgeStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={BadgeStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Badge } from './src/components';
+
+// Order status
+<Badge type="warning" label="Pending" />
+<Badge type="info" label="Processing" />
+<Badge type="success" label="Completed" />
+<Badge type="default" label="Cancelled" />
+
+// Error state
+<Badge type="error" label="Failed" />
+
+// Small variant (default) inside a table cell
+<Badge type="success" size="sm" label="Active" />
+
+// Medium variant in a card header
+<Badge type="warning" size="md" label="Needs review" />
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Match `type` to semantic meaning: `success` = positive outcome, `error` = failure
+- Use `sm` (default) inside dense layouts like table rows
+- Use `md` in card headers or summary sections with more breathing room
+
+**Don't**
+- Use `error` type for non-error states — it carries strong semantic weight
+- Use multiple badges of the same type in a single row — it loses contrast
+- Override badge colors with arbitrary Tailwind values — always use the `type` prop
+
+---
+
+## Accessibility
+
+- Badge is purely presentational — it renders as an inline `<span>`
+- When the badge represents a critical status change, ensure the parent element announces it via `aria-live` or descriptive label
+- The status dot has `aria-hidden="true"` — screen readers read the label text only
+- Color alone is never the only indicator; the dot and label text provide redundant signals

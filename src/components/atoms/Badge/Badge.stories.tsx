@@ -5,7 +5,7 @@ import type { BadgeType, BadgeSize } from './Badge';
 const meta = {
   title: 'Atoms/Badge',
   component: Badge,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     type: {

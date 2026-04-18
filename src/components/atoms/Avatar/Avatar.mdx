@@ -1,0 +1,89 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as AvatarStories from './Avatar.stories';
+
+<Meta of={AvatarStories} />
+
+# Avatar
+
+A circular user representation. Shows either a photo or initials fallback. Use Avatar in nav bars, table rows, card headers, and comment threads to anchor content to a person.
+
+---
+
+## Overview
+
+**When to use:**
+- Representing a user, customer, or team member
+- Pairing with a name and role in a profile row
+- Table cells where a face adds recognition value
+
+**When not to use:**
+- Abstract entities or organizations without a representative person
+- Purely decorative imagery — use a regular `<img>` with appropriate alt
+
+---
+
+## Default
+
+<Canvas of={AvatarStories.Default} />
+
+## All Variants
+
+<Canvas of={AvatarStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={AvatarStories.AllSizes} />
+
+## All States
+
+<Canvas of={AvatarStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={AvatarStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Avatar } from './src/components';
+
+// Initials (default)
+<Avatar type="initials" size="md" initials="SJ" />
+
+// Photo
+<Avatar type="image" size="lg" src="/photos/sarah.jpg" alt="Sarah Johnson" />
+
+// With online status indicator
+<Avatar type="initials" size="md" initials="AM" showStatus />
+
+// Extra small for dense table rows
+<Avatar type="initials" size="xs" initials="JD" />
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Always provide `alt` text when `type="image"` — screen readers announce it
+- Use `initials` as a reliable fallback when `src` may be empty or fail to load
+- Keep initials to 2 characters maximum — the component enforces this automatically
+- Use `showStatus` only when online presence is functionally meaningful
+
+**Don't**
+- Use `type="image"` without providing `src` — the component renders a grey placeholder, but always prefer a real image or fall back to initials
+- Use `size="lg"` in dense table rows — prefer `xs` or `sm`
+- Show the status dot just for decoration — it implies the person is online/available
+
+---
+
+## Accessibility
+
+- Initials are wrapped in a `<span aria-label={initials}>` — screen readers announce the person's initials
+- Images use the `alt` prop directly on the `<img>` element
+- The status dot (`showStatus`) has `aria-label="Online"` — screen readers announce availability
+- Avatar itself has no interactive role — if clicking opens a profile, wrap it in a button with `aria-label`

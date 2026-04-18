@@ -5,7 +5,7 @@ import type { AvatarSize, AvatarType } from './Avatar';
 const meta = {
   title: 'Atoms/Avatar',
   component: Avatar,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     type: {

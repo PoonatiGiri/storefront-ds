@@ -5,7 +5,7 @@ import type { SidebarVariant } from './Sidebar';
 const meta = {
   title: 'Organisms/Sidebar',
   component: Sidebar,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'fullscreen' },
   argTypes: {
     variant: { control: 'select', options: ['expanded', 'collapsed'] satisfies SidebarVariant[] },

@@ -5,7 +5,7 @@ import type { InputVariant } from './Input';
 const meta = {
   title: 'Atoms/Input',
   component: Input,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     variant: {

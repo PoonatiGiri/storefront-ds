@@ -1,0 +1,101 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TopBarStories from './TopBar.stories';
+
+<Meta of={TopBarStories} />
+
+# TopBar
+
+The application header. Contains the brand identity or back navigation, a centered search bar, and a right-side user control area. Use TopBar as the fixed top-level header in every application view.
+
+---
+
+## Overview
+
+**When to use:**
+- Top of every primary application view
+- Secondary views that need back navigation (`with-back-button` variant)
+
+**When not to use:**
+- Modal or drawer headers — use a simpler header pattern
+- Section headings within a page — use heading elements
+
+---
+
+## Default
+
+<Canvas of={TopBarStories.Default} />
+
+## All Variants
+
+<Canvas of={TopBarStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={TopBarStories.AllSizes} />
+
+## All States
+
+<Canvas of={TopBarStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={TopBarStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { TopBar } from './src/components';
+
+// Default — shows logo + search + avatar/bell
+<TopBar
+  appName="Storefront DS"
+  userInitials="JD"
+  notificationCount={3}
+  onNotifications={() => openNotificationsPanel()}
+/>
+
+// Back navigation variant
+<TopBar
+  variant="with-back-button"
+  pageTitle="Order Details"
+  onBack={() => router.back()}
+/>
+
+// Custom right slot
+<TopBar
+  appName="Admin"
+  rightSlot={
+    <div className="flex gap-2">
+      <Button size="sm" variant="ghost">Help</Button>
+      <Avatar type="initials" initials="JD" size="sm" />
+    </div>
+  }
+/>
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Use `notificationCount` to surface unread notification counts — it appears as a dot on the bell
+- Use `rightSlot` to completely replace the default bell + avatar with custom content
+- Use `variant="with-back-button"` for detail views; `variant="default"` for top-level sections
+
+**Don't**
+- Place TopBar inside a scrolling container — it should be sticky or fixed at the layout level
+- Add extra elements inside TopBar outside of `rightSlot` — the layout is fixed three-column
+- Use `with-back-button` as a replacement for browser history — always wire `onBack` properly
+
+---
+
+## Accessibility
+
+- Renders as a `<header>` landmark — screen reader users can navigate directly to it
+- The notification bell is a `<button>` with `aria-label` that includes the count when non-zero
+- The back button has `aria-label="Go back"` for screen readers
+- Search bar inherits SearchBar accessibility — `type="search"` input
