@@ -1,0 +1,326 @@
+@import "tailwindcss";
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Storefront DS — Design Tokens
+   Source of truth: Figma file 2P3ina6EjiCFUORJtD56hE
+   Collections: Colors (46), Typography (57), Spacing (14), Radius (6), Shadows (4)
+   ──────────────────────────────────────────────────────────────────────────── */
+
+:root {
+  /* ── Colors — Brand ───────────────────────────────────────────────────── */
+  --storefront-color-brand-primary-default:    #2563EB;
+  --storefront-color-brand-primary-hover:      #1D4ED8;
+  --storefront-color-brand-primary-active:     #1E40AF;
+  --storefront-color-brand-primary-disabled:   #93C5FD;
+
+  --storefront-color-brand-secondary-default:  #4F46E5;
+  --storefront-color-brand-secondary-hover:    #4338CA;
+  --storefront-color-brand-secondary-active:   #3730A3;
+  --storefront-color-brand-secondary-disabled: #A5B4FC;
+
+  --storefront-color-brand-accent-default:     #7C3AED;
+  --storefront-color-brand-accent-hover:       #6D28D9;
+  --storefront-color-brand-accent-active:      #5B21B6;
+  --storefront-color-brand-accent-disabled:    #C4B5FD;
+
+  /* ── Colors — Neutral ─────────────────────────────────────────────────── */
+  --storefront-color-neutral-50:  #F8FAFC;
+  --storefront-color-neutral-100: #F1F5F9;
+  --storefront-color-neutral-200: #E2E8F0;
+  --storefront-color-neutral-300: #CBD5E1;
+  --storefront-color-neutral-400: #94A3B8;
+  --storefront-color-neutral-500: #64748B;
+  --storefront-color-neutral-600: #475569;
+  --storefront-color-neutral-700: #334155;
+  --storefront-color-neutral-800: #1E293B;
+  --storefront-color-neutral-900: #0F172A;
+
+  /* ── Colors — Semantic ────────────────────────────────────────────────── */
+  --storefront-color-semantic-success-default:  #16A34A;
+  --storefront-color-semantic-success-hover:    #15803D;
+  --storefront-color-semantic-success-active:   #166534;
+  --storefront-color-semantic-success-disabled: #86EFAC;
+
+  --storefront-color-semantic-warning-default:  #D97706;
+  --storefront-color-semantic-warning-hover:    #B45309;
+  --storefront-color-semantic-warning-active:   #92400E;
+  --storefront-color-semantic-warning-disabled: #FCD34D;
+
+  --storefront-color-semantic-error-default:  #DC2626;
+  --storefront-color-semantic-error-hover:    #B91C1C;
+  --storefront-color-semantic-error-active:   #991B1B;
+  --storefront-color-semantic-error-disabled: #FCA5A5;
+
+  --storefront-color-semantic-info-default:  #0284C7;
+  --storefront-color-semantic-info-hover:    #0369A1;
+  --storefront-color-semantic-info-active:   #075985;
+  --storefront-color-semantic-info-disabled: #7DD3FC;
+
+  /* ── Colors — Surface ─────────────────────────────────────────────────── */
+  --storefront-color-surface-background: #FFFFFF;
+  --storefront-color-surface-foreground: #0F172A;
+  --storefront-color-surface-border:     #E2E8F0;
+  --storefront-color-surface-overlay:    rgba(15, 24, 41, 0.5);
+
+  /* ── Colors — Commerce ────────────────────────────────────────────────── */
+  --storefront-color-commerce-price:    #0F172A;
+  --storefront-color-commerce-discount: #DC2626;
+  --storefront-color-commerce-stock:    #16A34A;
+  --storefront-color-commerce-rating:   #D97706;
+
+  /* ── Typography — Display ─────────────────────────────────────────────── */
+  --storefront-typography-display-lg-size:        60px;
+  --storefront-typography-display-lg-weight:      700;
+  --storefront-typography-display-lg-line-height: 66px;
+  --storefront-typography-display-lg-tracking:    -0.025em;
+
+  --storefront-typography-display-md-size:        48px;
+  --storefront-typography-display-md-weight:      700;
+  --storefront-typography-display-md-line-height: 53px;
+  --storefront-typography-display-md-tracking:    -0.025em;
+
+  --storefront-typography-display-sm-size:        36px;
+  --storefront-typography-display-sm-weight:      700;
+  --storefront-typography-display-sm-line-height: 41px;
+  --storefront-typography-display-sm-tracking:    -0.02em;
+
+  /* ── Typography — Heading ─────────────────────────────────────────────── */
+  --storefront-typography-heading-h1-size:        32px;
+  --storefront-typography-heading-h1-weight:      700;
+  --storefront-typography-heading-h1-line-height: 40px;
+  --storefront-typography-heading-h1-tracking:    -0.02em;
+
+  --storefront-typography-heading-h2-size:        28px;
+  --storefront-typography-heading-h2-weight:      600;
+  --storefront-typography-heading-h2-line-height: 36px;
+  --storefront-typography-heading-h2-tracking:    -0.015em;
+
+  --storefront-typography-heading-h3-size:        24px;
+  --storefront-typography-heading-h3-weight:      600;
+  --storefront-typography-heading-h3-line-height: 32px;
+  --storefront-typography-heading-h3-tracking:    -0.01em;
+
+  --storefront-typography-heading-h4-size:        20px;
+  --storefront-typography-heading-h4-weight:      600;
+  --storefront-typography-heading-h4-line-height: 28px;
+  --storefront-typography-heading-h4-tracking:    0em;
+
+  --storefront-typography-heading-h5-size:        18px;
+  --storefront-typography-heading-h5-weight:      500;
+  --storefront-typography-heading-h5-line-height: 26px;
+  --storefront-typography-heading-h5-tracking:    0em;
+
+  --storefront-typography-heading-h6-size:        16px;
+  --storefront-typography-heading-h6-weight:      500;
+  --storefront-typography-heading-h6-line-height: 24px;
+  --storefront-typography-heading-h6-tracking:    0em;
+
+  /* ── Typography — Body ────────────────────────────────────────────────── */
+  --storefront-typography-body-lg-size:        18px;
+  --storefront-typography-body-lg-weight:      400;
+  --storefront-typography-body-lg-line-height: 28px;
+  --storefront-typography-body-lg-tracking:    0em;
+
+  --storefront-typography-body-md-size:        16px;
+  --storefront-typography-body-md-weight:      400;
+  --storefront-typography-body-md-line-height: 24px;
+  --storefront-typography-body-md-tracking:    0em;
+
+  --storefront-typography-body-sm-size:        14px;
+  --storefront-typography-body-sm-weight:      400;
+  --storefront-typography-body-sm-line-height: 20px;
+  --storefront-typography-body-sm-tracking:    0em;
+
+  --storefront-typography-body-xs-size:        12px;
+  --storefront-typography-body-xs-weight:      400;
+  --storefront-typography-body-xs-line-height: 18px;
+  --storefront-typography-body-xs-tracking:    0em;
+
+  /* ── Typography — Label ───────────────────────────────────────────────── */
+  --storefront-typography-label-lg-size:        16px;
+  --storefront-typography-label-lg-weight:      500;
+  --storefront-typography-label-lg-line-height: 20px;
+  --storefront-typography-label-lg-tracking:    0.01em;
+
+  --storefront-typography-label-md-size:        14px;
+  --storefront-typography-label-md-weight:      500;
+  --storefront-typography-label-md-line-height: 18px;
+  --storefront-typography-label-md-tracking:    0.01em;
+
+  --storefront-typography-label-sm-size:        12px;
+  --storefront-typography-label-sm-weight:      500;
+  --storefront-typography-label-sm-line-height: 16px;
+  --storefront-typography-label-sm-tracking:    0.01em;
+
+  /* ── Typography — Code ────────────────────────────────────────────────── */
+  --storefront-typography-code-lg-size:        16px;
+  --storefront-typography-code-lg-weight:      400;
+  --storefront-typography-code-lg-line-height: 26px;
+  --storefront-typography-code-lg-tracking:    0em;
+
+  --storefront-typography-code-md-size:        14px;
+  --storefront-typography-code-md-weight:      400;
+  --storefront-typography-code-md-line-height: 22px;
+  --storefront-typography-code-md-tracking:    0em;
+
+  --storefront-typography-code-sm-size:        12px;
+  --storefront-typography-code-sm-weight:      400;
+  --storefront-typography-code-sm-line-height: 19px;
+  --storefront-typography-code-sm-tracking:    0em;
+
+  /* ── Spacing ──────────────────────────────────────────────────────────── */
+  --storefront-spacing-0:   0px;
+  --storefront-spacing-0-5: 2px;
+  --storefront-spacing-1:   4px;
+  --storefront-spacing-1-5: 6px;
+  --storefront-spacing-2:   8px;
+  --storefront-spacing-3:   12px;
+  --storefront-spacing-3-5: 14px;
+  --storefront-spacing-4:   16px;
+  --storefront-spacing-5:   20px;
+  --storefront-spacing-6:   24px;
+  --storefront-spacing-8:   32px;
+  --storefront-spacing-10:  40px;
+  --storefront-spacing-12:  48px;
+  --storefront-spacing-16:  64px;
+  --storefront-spacing-20:  80px;
+  --storefront-spacing-24:  96px;
+  --storefront-spacing-32:  128px;
+
+  /* ── Dimensions ───────────────────────────────────────────────────────── */
+  --storefront-size-indicator-dot: 6px;
+  --storefront-height-table-row:   52px;
+  --storefront-width-search-bar:   280px;
+  --storefront-width-card-order:   380px;
+  --storefront-width-metric-sm:    200px;
+  --storefront-width-metric-md:    260px;
+  --storefront-width-metric-lg:    320px;
+
+  /* ── Radius ───────────────────────────────────────────────────────────── */
+  --storefront-radius-none: 0px;
+  --storefront-radius-sm:   4px;
+  --storefront-radius-md:   6px;
+  --storefront-radius-lg:   8px;
+  --storefront-radius-xl:   12px;
+  --storefront-radius-full: 9999px;
+
+  /* ── Shadows ──────────────────────────────────────────────────────────── */
+  --storefront-shadow-none: none;
+  --storefront-shadow-sm:   0px 1px 3px 0px rgba(0,0,0,0.06), 0px 1px 2px 0px rgba(0,0,0,0.04);
+  --storefront-shadow-md:   0px 4px 6px 0px rgba(0,0,0,0.07), 0px 2px 4px 0px rgba(0,0,0,0.05);
+  --storefront-shadow-lg:   0px 10px 15px -3px rgba(0,0,0,0.10), 0px 4px 6px -2px rgba(0,0,0,0.05);
+}
+
+/* ────────────────────────────────────────────────────────────────────────────
+   Tailwind v4 Theme Extension
+   Maps --storefront-* tokens → Tailwind utility classes via @theme.
+   Usage: bg-brand-primary, text-neutral-900, shadow-sm, rounded-xl, p-4
+   ──────────────────────────────────────────────────────────────────────────── */
+@theme {
+  /* Colors — Brand */
+  --color-brand-primary:            var(--storefront-color-brand-primary-default);
+  --color-brand-primary-hover:      var(--storefront-color-brand-primary-hover);
+  --color-brand-primary-active:     var(--storefront-color-brand-primary-active);
+  --color-brand-primary-disabled:   var(--storefront-color-brand-primary-disabled);
+  --color-brand-secondary:          var(--storefront-color-brand-secondary-default);
+  --color-brand-secondary-hover:    var(--storefront-color-brand-secondary-hover);
+  --color-brand-secondary-active:   var(--storefront-color-brand-secondary-active);
+  --color-brand-secondary-disabled: var(--storefront-color-brand-secondary-disabled);
+  --color-brand-accent:             var(--storefront-color-brand-accent-default);
+  --color-brand-accent-hover:       var(--storefront-color-brand-accent-hover);
+  --color-brand-accent-active:      var(--storefront-color-brand-accent-active);
+  --color-brand-accent-disabled:    var(--storefront-color-brand-accent-disabled);
+
+  /* Colors — Neutral */
+  --color-neutral-50:  var(--storefront-color-neutral-50);
+  --color-neutral-100: var(--storefront-color-neutral-100);
+  --color-neutral-200: var(--storefront-color-neutral-200);
+  --color-neutral-300: var(--storefront-color-neutral-300);
+  --color-neutral-400: var(--storefront-color-neutral-400);
+  --color-neutral-500: var(--storefront-color-neutral-500);
+  --color-neutral-600: var(--storefront-color-neutral-600);
+  --color-neutral-700: var(--storefront-color-neutral-700);
+  --color-neutral-800: var(--storefront-color-neutral-800);
+  --color-neutral-900: var(--storefront-color-neutral-900);
+
+  /* Colors — Semantic */
+  --color-success:          var(--storefront-color-semantic-success-default);
+  --color-success-hover:    var(--storefront-color-semantic-success-hover);
+  --color-success-active:   var(--storefront-color-semantic-success-active);
+  --color-success-disabled: var(--storefront-color-semantic-success-disabled);
+  --color-warning:          var(--storefront-color-semantic-warning-default);
+  --color-warning-hover:    var(--storefront-color-semantic-warning-hover);
+  --color-warning-active:   var(--storefront-color-semantic-warning-active);
+  --color-warning-disabled: var(--storefront-color-semantic-warning-disabled);
+  --color-error:            var(--storefront-color-semantic-error-default);
+  --color-error-hover:      var(--storefront-color-semantic-error-hover);
+  --color-error-active:     var(--storefront-color-semantic-error-active);
+  --color-error-disabled:   var(--storefront-color-semantic-error-disabled);
+  --color-info:             var(--storefront-color-semantic-info-default);
+  --color-info-hover:       var(--storefront-color-semantic-info-hover);
+  --color-info-active:      var(--storefront-color-semantic-info-active);
+  --color-info-disabled:    var(--storefront-color-semantic-info-disabled);
+
+  /* Colors — Surface */
+  --color-surface-bg:      var(--storefront-color-surface-background);
+  --color-surface-fg:      var(--storefront-color-surface-foreground);
+  --color-surface-border:  var(--storefront-color-surface-border);
+  --color-surface-overlay: var(--storefront-color-surface-overlay);
+
+  /* Colors — Commerce */
+  --color-commerce-price:    var(--storefront-color-commerce-price);
+  --color-commerce-discount: var(--storefront-color-commerce-discount);
+  --color-commerce-stock:    var(--storefront-color-commerce-stock);
+  --color-commerce-rating:   var(--storefront-color-commerce-rating);
+
+  /* Spacing — overrides Tailwind defaults with 4px-base scale */
+  --spacing-0:  var(--storefront-spacing-0);
+  --spacing-1:  var(--storefront-spacing-1);
+  --spacing-2:  var(--storefront-spacing-2);
+  --spacing-3:  var(--storefront-spacing-3);
+  --spacing-4:  var(--storefront-spacing-4);
+  --spacing-5:  var(--storefront-spacing-5);
+  --spacing-6:  var(--storefront-spacing-6);
+  --spacing-8:  var(--storefront-spacing-8);
+  --spacing-10: var(--storefront-spacing-10);
+  --spacing-12: var(--storefront-spacing-12);
+  --spacing-16: var(--storefront-spacing-16);
+  --spacing-20: var(--storefront-spacing-20);
+  --spacing-24: var(--storefront-spacing-24);
+  --spacing-32: var(--storefront-spacing-32);
+
+  /* Border Radius */
+  --radius-none: var(--storefront-radius-none);
+  --radius-sm:   var(--storefront-radius-sm);
+  --radius-md:   var(--storefront-radius-md);
+  --radius-lg:   var(--storefront-radius-lg);
+  --radius-xl:   var(--storefront-radius-xl);
+  --radius-full: var(--storefront-radius-full);
+
+  /* Box Shadows */
+  --shadow-none: var(--storefront-shadow-none);
+  --shadow-sm:   var(--storefront-shadow-sm);
+  --shadow-md:   var(--storefront-shadow-md);
+  --shadow-lg:   var(--storefront-shadow-lg);
+
+  /* Font Sizes */
+  --font-size-display-lg: var(--storefront-typography-display-lg-size);
+  --font-size-display-md: var(--storefront-typography-display-md-size);
+  --font-size-display-sm: var(--storefront-typography-display-sm-size);
+  --font-size-h1:         var(--storefront-typography-heading-h1-size);
+  --font-size-h2:         var(--storefront-typography-heading-h2-size);
+  --font-size-h3:         var(--storefront-typography-heading-h3-size);
+  --font-size-h4:         var(--storefront-typography-heading-h4-size);
+  --font-size-h5:         var(--storefront-typography-heading-h5-size);
+  --font-size-h6:         var(--storefront-typography-heading-h6-size);
+  --font-size-body-lg:    var(--storefront-typography-body-lg-size);
+  --font-size-body-md:    var(--storefront-typography-body-md-size);
+  --font-size-body-sm:    var(--storefront-typography-body-sm-size);
+  --font-size-body-xs:    var(--storefront-typography-body-xs-size);
+  --font-size-label-lg:   var(--storefront-typography-label-lg-size);
+  --font-size-label-md:   var(--storefront-typography-label-md-size);
+  --font-size-label-sm:   var(--storefront-typography-label-sm-size);
+  --font-size-code-lg:    var(--storefront-typography-code-lg-size);
+  --font-size-code-md:    var(--storefront-typography-code-md-size);
+  --font-size-code-sm:    var(--storefront-typography-code-sm-size);
+}
