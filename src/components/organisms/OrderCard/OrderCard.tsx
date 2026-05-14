@@ -1,9 +1,7 @@
-import type { ReactNode } from 'react';
 import { Avatar } from '../../atoms/Avatar';
 import { Badge } from '../../atoms/Badge';
 import { Button } from '../../atoms/Button';
-
-export type OrderStatus = 'pending' | 'processing' | 'completed' | 'cancelled';
+import type { OrderStatus } from '../../molecules/StatusBadge';
 
 export interface OrderItem {
   /** Product name */
@@ -40,6 +38,7 @@ const statusBadgeType: Record<OrderStatus, 'default' | 'success' | 'warning' | '
   pending: 'warning',
   processing: 'info',
   completed: 'success',
+  failed: 'error',
   cancelled: 'default',
 };
 
@@ -47,6 +46,7 @@ const statusLabel: Record<OrderStatus, string> = {
   pending: 'Pending',
   processing: 'Processing',
   completed: 'Completed',
+  failed: 'Failed',
   cancelled: 'Cancelled',
 };
 
@@ -54,6 +54,7 @@ const primaryActionConfig: Record<OrderStatus, { label: string; variant: 'primar
   pending: { label: 'Cancel', variant: 'destructive' },
   processing: { label: 'Track', variant: 'secondary' },
   completed: { label: 'Reorder', variant: 'primary' },
+  failed: { label: 'Retry', variant: 'primary' },
   cancelled: { label: 'View Details', variant: 'ghost' },
 };
 

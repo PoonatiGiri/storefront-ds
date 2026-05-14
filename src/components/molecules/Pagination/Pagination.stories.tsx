@@ -29,11 +29,15 @@ function Interactive(props: { size?: 'sm' | 'md'; totalPages?: number }) {
   );
 }
 
+const stubArgs = { currentPage: 1, totalPages: 1, onPageChange: () => {} };
+
 export const Default: Story = {
+  args: stubArgs,
   render: () => <Interactive />,
 };
 
 export const AllVariants: Story = {
+  args: stubArgs,
   render: () => (
     <div className="flex flex-col gap-6 items-start">
       <Interactive size="sm" />
@@ -43,6 +47,7 @@ export const AllVariants: Story = {
 };
 
 export const AllSizes: Story = {
+  args: stubArgs,
   render: () => (
     <div className="flex flex-col gap-6 items-start">
       <div className="flex flex-col gap-2 items-start">
@@ -58,6 +63,7 @@ export const AllSizes: Story = {
 };
 
 export const AllStates: Story = {
+  args: stubArgs,
   render: () => (
     <div className="flex flex-col gap-6 items-start">
       <Pagination currentPage={1} totalPages={10} onPageChange={() => {}} size="sm" />

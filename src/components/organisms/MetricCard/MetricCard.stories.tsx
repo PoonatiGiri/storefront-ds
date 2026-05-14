@@ -28,6 +28,7 @@ export const Default: Story = {
 };
 
 export const AllVariants: Story = {
+  args: { title: '', value: '' },
   render: () => (
     <div className="flex flex-wrap gap-6 items-start">
       {(['up', 'neutral', 'down'] satisfies MetricTrend[]).map((trend) => (
@@ -46,6 +47,7 @@ export const AllVariants: Story = {
 };
 
 export const AllSizes: Story = {
+  args: { title: '', value: '' },
   render: () => (
     <div className="flex flex-wrap gap-6 items-start">
       {(['sm', 'md', 'lg'] satisfies MetricSize[]).map((size) => (
@@ -64,6 +66,7 @@ export const AllSizes: Story = {
 };
 
 export const AllStates: Story = {
+  args: { title: '', value: '' },
   render: () => (
     <div className="flex flex-wrap gap-6 items-start">
       {(['sm', 'md', 'lg'] satisfies MetricSize[]).flatMap((size) =>

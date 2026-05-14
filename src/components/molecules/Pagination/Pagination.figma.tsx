@@ -9,6 +9,6 @@ figma.connect(Pagination, 'https://www.figma.com/design/2P3ina6EjiCFUORJtD56hE?n
     }),
   },
   example: ({ size }) => (
-    <Pagination size={size} currentPage={2} totalPages={10} />
+    <Pagination size={size} currentPage={2} totalPages={10} onPageChange={() => {}} />
   ),
 });

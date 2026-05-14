@@ -31,6 +31,7 @@ export const Default: Story = {
 };
 
 export const AllVariants: Story = {
+  args: { label: '' },
   render: () => (
     <div className="flex flex-col gap-8" style={{ width: 320 }}>
       <FormField
@@ -60,6 +61,7 @@ export const AllVariants: Story = {
 };
 
 export const AllSizes: Story = {
+  args: { label: '' },
   render: () => (
     <div style={{ width: 320 }}>
       <FormField
@@ -72,6 +74,7 @@ export const AllSizes: Story = {
 };
 
 export const AllStates: Story = {
+  args: { label: '' },
   render: () => (
     <div className="flex flex-col gap-8" style={{ width: 320 }}>
       <FormField

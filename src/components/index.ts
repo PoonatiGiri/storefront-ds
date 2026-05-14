@@ -1,5 +1,3 @@
-export * from './Button';
-
 // Atoms
 export * from './atoms/Button';
 export * from './atoms/Badge';

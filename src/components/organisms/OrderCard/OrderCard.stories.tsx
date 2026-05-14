@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { OrderCard } from './OrderCard';
-import type { OrderStatus } from './OrderCard';
+import type { OrderStatus } from '../../molecules/StatusBadge';
 
 const meta = {
   title: 'Organisms/OrderCard',
@@ -8,7 +8,7 @@ const meta = {
   tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
-    status: { control: 'select', options: ['pending', 'processing', 'completed', 'cancelled'] satisfies OrderStatus[] },
+    status: { control: 'select', options: ['pending', 'processing', 'completed', 'failed', 'cancelled'] satisfies OrderStatus[] },
   },
 } satisfies Meta<typeof OrderCard>;
 
@@ -22,7 +22,7 @@ export const Default: Story = {
 export const AllVariants: Story = {
   render: () => (
     <div className="flex flex-wrap gap-6 items-start">
-      {(['pending', 'processing', 'completed', 'cancelled'] satisfies OrderStatus[]).map((status) => (
+      {(['pending', 'processing', 'completed', 'failed', 'cancelled'] satisfies OrderStatus[]).map((status) => (
         <OrderCard key={status} status={status} />
       ))}
     </div>

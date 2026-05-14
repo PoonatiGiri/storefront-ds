@@ -7,6 +7,7 @@ figma.connect(OrderCard, 'https://www.figma.com/design/2P3ina6EjiCFUORJtD56hE?no
       pending: 'pending',
       processing: 'processing',
       completed: 'completed',
+      failed: 'failed',
       cancelled: 'cancelled',
     }),
   },
@@ -16,8 +17,8 @@ figma.connect(OrderCard, 'https://www.figma.com/design/2P3ina6EjiCFUORJtD56hE?no
       orderId="#ORD-1001"
       customerName="Sarah Johnson"
       customerInitials="SJ"
-      amount="$134.96"
-      date="Dec 18, 2024"
+      total="$134.96"
+      orderDate="Dec 18, 2024"
       items={[{ name: 'Product', quantity: 1, price: '$134.96' }]}
     />
   ),

@@ -2,7 +2,7 @@ import { useId } from 'react';
 import { Input } from '../../atoms/Input';
 import type { InputProps } from '../../atoms/Input';
 
-export interface FormFieldProps extends Omit<InputProps, 'variant' | 'id'> {
+export interface FormFieldProps extends Omit<InputProps, 'variant'> {
   /** Label text shown above the input */
   label: string;
   /** Marks the field as required — appends a red asterisk to the label */

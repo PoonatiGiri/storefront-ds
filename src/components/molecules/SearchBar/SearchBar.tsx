@@ -1,4 +1,5 @@
-import { forwardRef, useRef, useState, useImperativeHandle, InputHTMLAttributes } from 'react';
+import { forwardRef, useRef, useState, useImperativeHandle } from 'react';
+import type { InputHTMLAttributes } from 'react';
 
 export interface SearchBarProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
   /** Controlled value */

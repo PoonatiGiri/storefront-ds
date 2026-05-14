@@ -68,7 +68,7 @@ export function TopBar({
   searchPlaceholder = 'Search orders…',
   userInitials = 'JD',
   onBack,
-  onNotifications,
+  onNotifications: _onNotifications,
   notificationCount = 0,
   rightSlot,
   className = '',

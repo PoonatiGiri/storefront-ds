@@ -39,10 +39,12 @@ function Interactive(props: { value?: string }) {
 }
 
 export const Default: Story = {
+  args: { options: OPTIONS },
   render: () => <Interactive />,
 };
 
 export const AllVariants: Story = {
+  args: { options: OPTIONS },
   render: () => (
     <div className="flex flex-col gap-8" style={{ paddingBottom: 200 }}>
       <div>
@@ -62,10 +64,12 @@ export const AllVariants: Story = {
 };
 
 export const AllSizes: Story = {
+  args: { options: OPTIONS },
   render: () => <Interactive />,
 };
 
 export const AllStates: Story = {
+  args: { options: OPTIONS },
   render: () => (
     <div className="flex flex-col gap-6" style={{ paddingBottom: 200 }}>
       <Interactive />
@@ -76,6 +80,7 @@ export const AllStates: Story = {
 };
 
 export const WithSelection: Story = {
+  args: { options: OPTIONS },
   render: () => <Interactive value="option-2" />,
 };
 
