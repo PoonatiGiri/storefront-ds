@@ -1,0 +1,88 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as AmountDisplayStories from './AmountDisplay.stories';
+
+<Meta of={AmountDisplayStories} />
+
+# AmountDisplay
+
+The canonical way to render a currency amount anywhere in the system. Always reach for `AmountDisplay` — never format currency inline. It handles locale rules, currency symbols, missing values, and the strikethrough pattern used for original-price display.
+
+---
+
+## Overview
+
+**When to use:**
+- Anywhere a monetary value appears: price tags, totals, refunds, fees, payouts, KPIs
+- Whenever a number needs to respect a customer's locale or currency
+
+**When not to use:**
+- Plain non-currency numbers (counts, percentages) — use a `Badge` or plain text
+
+---
+
+## Default
+
+<Canvas of={AmountDisplayStories.Default} />
+
+## All Variants
+
+<Canvas of={AmountDisplayStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={AmountDisplayStories.AllSizes} />
+
+## All States
+
+<Canvas of={AmountDisplayStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={AmountDisplayStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { AmountDisplay } from './src/components';
+
+// Standard price
+<AmountDisplay amount={1249.99} currency="USD" locale="en-US" />
+
+// Original price (paired with the sale price)
+<AmountDisplay amount={1999} currency="USD" strikethrough muted />
+
+// Adjustment / credit (forces +/- sign)
+<AmountDisplay amount={-49} currency="USD" showSign />
+
+// Missing data — renders an em-dash by default
+<AmountDisplay amount={null} currency="USD" />
+
+// Display in the customer's locale
+<AmountDisplay amount={124999} currency="INR" locale="en-IN" />
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Pass `amount` in major units (12.5 = $12.50), never minor units (cents)
+- Always pass a `currency` code — it controls the symbol, decimal precision, and locale-specific formatting
+- Use `strikethrough` + `muted` together for "was X" original prices
+
+**Don't**
+- Concatenate symbols by hand: `${amount}` — wrong for INR, JPY, EUR, GBP, etc.
+- Hardcode the `$` sign — the formatter handles it per currency
+- Show `0` when the value is actually missing — pass `null` to get the placeholder
+
+---
+
+## Accessibility
+
+- Renders inline as a `<span>` so it flows with surrounding text
+- When `amount` is missing, sets `aria-label="Amount unavailable"` so screen readers don't read the em-dash as nothing
+- Uses `tabular-nums` so columns of amounts align vertically — important in tables and summaries

@@ -1,0 +1,86 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as StepperStories from './Stepper.stories';
+
+<Meta of={StepperStories} />
+
+# Stepper
+
+Communicates the user's position in a multi-step flow. Use Stepper for checkouts, onboarding wizards, and any process where progress is meaningful and order is fixed.
+
+---
+
+## Overview
+
+**When to use:**
+- Checkout (cart → shipping → payment → confirm)
+- Multi-step forms with discrete stages
+- Onboarding flows where each step depends on the previous
+
+**When not to use:**
+- Parallel sections without order — use `Tabs`
+- A linear list of items — use a regular list
+- Loose progress without discrete steps — use `ProgressBar`
+
+---
+
+## Default
+
+<Canvas of={StepperStories.Default} />
+
+## All Variants
+
+<Canvas of={StepperStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={StepperStories.AllSizes} />
+
+## All States
+
+<Canvas of={StepperStories.AllStates} />
+
+## Interactive (click back to a completed step)
+
+<Canvas of={StepperStories.Interactive} />
+
+---
+
+## Props
+
+<ArgTypes of={StepperStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Stepper } from './src/components';
+
+const steps = [
+  { label: 'Cart' },
+  { label: 'Shipping', description: 'Address & method' },
+  { label: 'Payment' },
+  { label: 'Confirm' },
+];
+
+// Static (read-only)
+<Stepper steps={steps} currentStep={1} />
+
+// Vertical for narrow side panels
+<Stepper steps={steps} currentStep={1} orientation="vertical" />
+
+// Allow jumping back to completed steps
+<Stepper steps={steps} currentStep={step} onStepClick={setStep} />
+
+// Mark all complete (set currentStep === steps.length)
+<Stepper steps={steps} currentStep={steps.length} />
+```
+
+---
+
+## Accessibility
+
+- Renders as an ordered list `<ol aria-label="Progress">`
+- The current step has `aria-current="step"`
+- Clickable completed steps are actual `<button>` elements with a visible focus ring
+- Number/checkmark indicators are visual — the label is the source of truth for screen readers

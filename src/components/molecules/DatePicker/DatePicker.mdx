@@ -1,0 +1,96 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as DatePickerStories from './DatePicker.stories';
+
+<Meta of={DatePickerStories} />
+
+# DatePicker
+
+A single-date or date-range picker with a calendar popover. Use DatePicker for any field whose answer is a calendar day or a span of days — order filters, billing dates, scheduled exports, reservations.
+
+---
+
+## Overview
+
+**When to use:**
+- Filtering orders, payouts, transactions by date
+- Scheduling a one-off action (export, payout, campaign)
+- Booking flows where the selection is a discrete day or range
+
+**When not to use:**
+- Free-text dates ("end of next quarter") — keep using a plain `Input`
+- Times of day — date picker is for days; pair with a separate time input if needed
+
+---
+
+## Default
+
+<Canvas of={DatePickerStories.Default} />
+
+## All Variants
+
+<Canvas of={DatePickerStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={DatePickerStories.AllSizes} />
+
+## All States
+
+<Canvas of={DatePickerStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={DatePickerStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { DatePicker } from './src/components';
+
+// Single date — controlled
+<DatePicker
+  mode="single"
+  label="Order date"
+  value={value}
+  onChange={setValue}
+/>
+
+// Date range
+<DatePicker
+  mode="range"
+  label="Period"
+  value={range}
+  onChange={setRange}
+  minDate={new Date('2024-01-01')}
+/>
+
+// Constraints
+<DatePicker
+  mode="single"
+  label="Available delivery"
+  minDate={new Date()}
+  maxDate={addDays(new Date(), 14)}
+/>
+```
+
+---
+
+## Accessibility
+
+- The trigger is a `<button aria-haspopup="dialog">` that opens the calendar
+- The calendar renders with `role="dialog"` and reflects the field label as its accessible name
+- Day cells are real `<button>` elements; arrow-key navigation is delegated to native focus
+- `Escape` closes the popover; clicking outside also closes it
+- `aria-invalid` is set when `error` is true; helper text inherits the error tone
+
+---
+
+## Behaviour
+
+- In **range** mode, the first click picks the start, the second picks the end. Clicking an earlier date than the start swaps them.
+- Picking a date in single mode auto-closes the calendar; range mode closes once both ends are set.
+- Out-of-range days (outside `minDate`/`maxDate`) are visually dimmed and not clickable.

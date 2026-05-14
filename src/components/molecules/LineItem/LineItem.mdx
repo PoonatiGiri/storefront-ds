@@ -1,0 +1,90 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as LineItemStories from './LineItem.stories';
+
+<Meta of={LineItemStories} />
+
+# LineItem
+
+A single row representing a product in a cart, order, invoice, or refund. Each line shows the item identity, quantity, unit price, and optional line total — and exposes slots for quantity control and removal.
+
+---
+
+## Overview
+
+**When to use:**
+- Cart and checkout drawers
+- Order detail pages (read-only) and order edit views
+- Refund / return flows where you list items being credited
+
+**When not to use:**
+- Browse / catalog grids — use `ProductCard`
+- Aggregate totals — use `OrderSummary`
+
+---
+
+## Default
+
+<Canvas of={LineItemStories.Default} />
+
+## All Variants
+
+<Canvas of={LineItemStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={LineItemStories.AllSizes} />
+
+## All States
+
+<Canvas of={LineItemStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={LineItemStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { LineItem } from './src/components';
+
+// Read-only line in an order detail
+<LineItem
+  name="Linen Tailored Shirt"
+  variant="Size M / Sand"
+  sku="LIN-M-SND"
+  image={product.image}
+  unitPrice={79}
+  currency="USD"
+  quantity={2}
+/>
+
+// Cart line with a quantity stepper + remove
+<LineItem
+  name={item.name}
+  image={item.image}
+  unitPrice={item.price}
+  currency="USD"
+  quantity={item.qty}
+  quantityControl={<QtyStepper value={item.qty} onChange={updateQty} />}
+  onRemove={() => removeLine(item.id)}
+/>
+```
+
+---
+
+## Layout rules
+
+- The line total appears below the unit price **only when `quantity > 1`** — otherwise the single unit price is the only amount
+- `quantityControl` replaces the static "Qty N" label — pass any control (stepper, dropdown) that owns the quantity state
+- Composes `AmountDisplay` internally — currency formatting and missing-value handling are inherited
+
+---
+
+## Accessibility
+
+- The image has an empty `alt=""` by default (decorative) — pass `imageAlt` when the image carries meaning the line text doesn't
+- The remove button has an explicit `aria-label` (default "Remove item")

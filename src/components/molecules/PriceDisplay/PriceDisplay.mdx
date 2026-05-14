@@ -1,0 +1,79 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as PriceDisplayStories from './PriceDisplay.stories';
+
+<Meta of={PriceDisplayStories} />
+
+# PriceDisplay
+
+The pricing-aware wrapper around `AmountDisplay`. Use PriceDisplay anywhere a product, line, or order shows a price the customer pays — especially when there's a discount to surface.
+
+---
+
+## Overview
+
+**When to use:**
+- Product cards, product detail pages, cart line totals
+- Anywhere a "was X / now Y" pattern needs to render correctly
+
+**When not to use:**
+- Plain monetary values without discount context — use `AmountDisplay` directly
+- Subtotals, taxes, fees inside an `OrderSummary` — those are amounts, not prices
+
+---
+
+## Default
+
+<Canvas of={PriceDisplayStories.Default} />
+
+## All Variants
+
+<Canvas of={PriceDisplayStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={PriceDisplayStories.AllSizes} />
+
+## All States
+
+<Canvas of={PriceDisplayStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={PriceDisplayStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { PriceDisplay } from './src/components';
+
+// Plain price
+<PriceDisplay amount={49.5} currency="USD" />
+
+// Sale price (auto strikes the original when lower than current)
+<PriceDisplay amount={79} originalAmount={129} currency="USD" />
+
+// Sale price + discount badge
+<PriceDisplay amount={79} originalAmount={129} currency="USD" showDiscount />
+
+// Stacked layout for narrow card columns
+<PriceDisplay amount={79} originalAmount={129} currency="USD" layout="stacked" />
+```
+
+---
+
+## Behaviour
+
+- If `originalAmount` is **lower than or equal to** `amount`, no strikethrough is shown — we never invent a fake discount
+- Discount percentage is rounded to the nearest integer
+- Internally composes `AmountDisplay`, so currency rules + locale + missing-value handling stay consistent
+
+---
+
+## Accessibility
+
+- The strikethrough original price gets an `aria-label="Original price"` so screen readers understand why a second amount is read
+- The "-XX%" badge is decorative — the surrounding text and the strikethrough amount carry the semantic meaning

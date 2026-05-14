@@ -1,0 +1,103 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ProductCardStories from './ProductCard.stories';
+
+<Meta of={ProductCardStories} />
+
+# ProductCard
+
+The product tile used across catalog grids, search results, related-product strips, and merchandising rails. Composes `PriceDisplay` for amount rendering and `Tag` for the overlay badge.
+
+---
+
+## Overview
+
+**When to use:**
+- Catalog grids, search results, recommendation rails
+- Merchandising sections on the storefront
+
+**When not to use:**
+- A line in a cart or order — use `LineItem`
+- A summary stat — use `MetricCard`
+- Generic content card — use a plain container
+
+---
+
+## Default
+
+<Canvas of={ProductCardStories.Default} />
+
+## All Variants
+
+<Canvas of={ProductCardStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={ProductCardStories.AllSizes} />
+
+## All States
+
+<Canvas of={ProductCardStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={ProductCardStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { ProductCard, Button, Tag } from './src/components';
+
+// Catalog grid tile
+<ProductCard
+  name="Linen Tailored Shirt"
+  meta="Apparel"
+  image={product.image}
+  price={79}
+  originalPrice={129}
+  currency="USD"
+  badge={<Tag size="sm" variant="brand">New</Tag>}
+  stockStatus="in-stock"
+  onSelect={() => navigate(`/products/${product.id}`)}
+  action={<Button size="sm" className="w-full">Add to cart</Button>}
+/>
+
+// Horizontal list-style row
+<ProductCard
+  name={product.name}
+  image={product.image}
+  price={product.price}
+  currency="USD"
+  orientation="horizontal"
+/>
+```
+
+---
+
+## Composition
+
+- Price rendering is delegated to `PriceDisplay` — strikethrough + discount badge logic stays consistent system-wide
+- `badge` accepts either a string (rendered as a brand-variant `Tag`) or any React node (use a custom `Tag` or icon when needed)
+- The `action` slot is the right place for an "Add to cart" button. Its `onClick` is **stopped from propagating** so it doesn't trigger the parent `onSelect`.
+
+---
+
+## Stock states
+
+| `stockStatus` | Visual treatment |
+|---|---|
+| `in-stock` | Green "In stock" label below the price |
+| `low` | Warning-tone "Low stock" label |
+| `out-of-stock` | Sold-out overlay across the image; the rest of the card stays readable |
+| _(undefined)_ | No stock indicator |
+
+---
+
+## Accessibility
+
+- When `onSelect` is provided, the card becomes a `role="button"` with `tabIndex=0` and responds to `Enter` / `Space`
+- The action slot stops both `click` and `keydown` propagation so clicking "Add to cart" doesn't also fire `onSelect`
+- Always provide `imageAlt` when the image carries information not in the name (e.g. "Front view in sand colorway")

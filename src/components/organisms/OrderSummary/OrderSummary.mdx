@@ -1,0 +1,103 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as OrderSummaryStories from './OrderSummary.stories';
+
+<Meta of={OrderSummaryStories} />
+
+# OrderSummary
+
+The aggregate-totals card. Use OrderSummary at the bottom of carts, checkout flows, order detail pages, and refund previews — anywhere a list of charges needs to add up to a clearly displayed total.
+
+---
+
+## Overview
+
+**When to use:**
+- Cart / checkout right-rail
+- Order detail bottom card
+- Refund / return previews (use `totalLabel="Refund total"`)
+- Invoice totals
+
+**When not to use:**
+- A single price — use `AmountDisplay` or `PriceDisplay`
+- KPI tiles on dashboards — use `MetricCard`
+
+---
+
+## Default
+
+<Canvas of={OrderSummaryStories.Default} />
+
+## All Variants
+
+<Canvas of={OrderSummaryStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={OrderSummaryStories.AllSizes} />
+
+## All States
+
+<Canvas of={OrderSummaryStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={OrderSummaryStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { OrderSummary, Button } from './src/components';
+
+// Standard checkout summary
+<OrderSummary
+  currency="USD"
+  total={cart.total}
+  lines={[
+    { label: 'Subtotal', amount: cart.subtotal },
+    { label: 'Shipping', amount: cart.shipping },
+    { label: 'Tax',      amount: cart.tax, muted: true },
+    { label: `Promo (${cart.promoCode})`, amount: -cart.discount, discount: true },
+  ]}
+  footer={<Button className="w-full">Place order</Button>}
+/>
+
+// With line items above the totals
+<OrderSummary currency="USD" total={total} lines={lines}>
+  {items.map((item) => <LineItem key={item.id} {...item} />)}
+</OrderSummary>
+
+// Refund preview — totals can be negative
+<OrderSummary
+  title="Refund preview"
+  totalLabel="Refund total"
+  currency="USD"
+  total={-89}
+  lines={[
+    { label: 'Items refunded', amount: -79 },
+    { label: 'Tax refunded',   amount: -10, muted: true },
+  ]}
+/>
+```
+
+---
+
+## Line conventions
+
+| Property | When to use |
+|---|---|
+| `discount: true` | Promos, store credits — renders in discount red and forces the `+/-` sign |
+| `muted: true` | "Estimated"-style lines (e.g. tax before address entry) |
+| `hint` | Disclaimer or context beneath the label |
+| `amount: null` | When the value can't be computed yet — renders the em-dash placeholder |
+
+---
+
+## Accessibility
+
+- Renders as a `<section aria-label="Order summary">` so screen readers can land directly on it
+- Body lines use a `<dl><dt>/<dd>` structure — semantically a description list, which matches how summaries are typically navigated
+- The total is the last `<dt>/<dd>` pair and is styled larger to convey hierarchy without relying on aria roles

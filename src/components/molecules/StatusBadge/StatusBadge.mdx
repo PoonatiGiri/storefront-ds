@@ -1,0 +1,83 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as StatusBadgeStories from './StatusBadge.stories';
+
+<Meta of={StatusBadgeStories} />
+
+# StatusBadge
+
+The canonical status indicator for orders, payments, refunds, and any other commerce lifecycle entity. Exposes exactly five statuses — additions require design review per `CLAUDE.md`.
+
+---
+
+## Overview
+
+**When to use:**
+- Order, payment, refund, payout, fulfillment statuses
+- Any commerce entity with a lifecycle in the five mandated states
+
+**When not to use:**
+- For arbitrary tags / categories — use `Tag`
+- For numeric counts — use `Badge`
+- For inline alerts — use `Alert`
+
+---
+
+## Default
+
+<Canvas of={StatusBadgeStories.Default} />
+
+## All Variants
+
+<Canvas of={StatusBadgeStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={StatusBadgeStories.AllSizes} />
+
+## All States
+
+<Canvas of={StatusBadgeStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={StatusBadgeStories.Default} />
+
+---
+
+## The five mandated statuses
+
+| Status | Tone | Meaning |
+|---|---|---|
+| `pending` | warning | Action required from someone (customer, ops, payment provider) |
+| `processing` | info | In flight — work is happening, no user action needed |
+| `completed` | success | Terminal success state — the entity is done |
+| `failed` | error | Terminal failure — needs investigation or retry |
+| `cancelled` | neutral | Voluntarily aborted — no fault, no retry expected |
+
+Adding a new status (e.g. "refunded", "on hold") requires explicit design review. Do not extend in feature code.
+
+---
+
+## Usage Examples
+
+```tsx
+import { StatusBadge } from './src/components';
+
+// Order status in a table cell
+<StatusBadge status={order.status} size="sm" />
+
+// Localized label
+<StatusBadge status="completed" label={t('order.statuses.completed')} />
+
+// Inline with text (hide the dot when the surrounding context already conveys status)
+<StatusBadge status="processing" hideDot />
+```
+
+---
+
+## Accessibility
+
+- Renders with `role="status"` and an `aria-label` like `"Status: Pending"` so screen readers always announce the meaning even when the label is icon-only
+- The dot is decorative (`aria-hidden="true"`)
