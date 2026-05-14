@@ -1,0 +1,79 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SkeletonStories from './Skeleton.stories';
+
+<Meta of={SkeletonStories} />
+
+# Skeleton
+
+Animated placeholder shown while content loads. Use Skeleton for layout-preserving loading states — the user sees the shape of the page before the data arrives.
+
+---
+
+## Overview
+
+**When to use:**
+- While fetching list/table/card content where the layout is known
+- For images and avatars that take a moment to download
+- For text blocks where the line count is approximately known
+
+**When not to use:**
+- For short inline async actions — use `Spinner`
+- For determinate progress — use `ProgressBar`
+- For empty results — use `EmptyState`
+
+---
+
+## Default
+
+<Canvas of={SkeletonStories.Default} />
+
+## All Variants
+
+<Canvas of={SkeletonStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={SkeletonStories.AllSizes} />
+
+## All States
+
+<Canvas of={SkeletonStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={SkeletonStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Skeleton } from './src/components';
+
+// Avatar placeholder
+<Skeleton shape="circle" width={40} height={40} />
+
+// Headline placeholder
+<Skeleton shape="text" width="60%" height={20} />
+
+// Paragraph
+<Skeleton shape="text" lines={3} />
+
+// Reuse for known dimensions
+<Skeleton width={320} height={180} />
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Match the skeleton dimensions to the real content's dimensions to avoid jank when content swaps in
+- Use `shape="text"` with `lines={n}` for multi-line text — the last line is shortened automatically for realism
+- Pair with the real content's container so layout doesn't shift
+
+**Don't**
+- Use a single full-screen skeleton — use a spinner if you can't preserve layout
+- Animate when the user has reduced motion enabled — prefer `noAnimation` for that case at the app level

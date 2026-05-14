@@ -1,0 +1,89 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ModalStories from './Modal.stories';
+
+<Meta of={ModalStories} />
+
+# Modal
+
+A focused, blocking dialog rendered above the page. Use Modal when the user must make a decision, confirm a destructive action, or complete a short focused task before continuing.
+
+---
+
+## Overview
+
+**When to use:**
+- Confirm destructive actions (delete order, revoke access)
+- Short focused forms (create / edit a single record)
+- Important notices the user must acknowledge
+
+**When not to use:**
+- Long workflows — use a dedicated page or `Drawer`
+- Transient confirmation — use `Toast`
+- Non-blocking notices — use `Alert`
+
+---
+
+## Default
+
+<Canvas of={ModalStories.Default} />
+
+## All Variants
+
+<Canvas of={ModalStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={ModalStories.AllSizes} />
+
+## All States
+
+<Canvas of={ModalStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={ModalStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Modal, Button } from './src/components';
+
+const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>Delete order</Button>
+
+<Modal
+  open={open}
+  onClose={() => setOpen(false)}
+  size="sm"
+  title="Delete this order?"
+  description="This will permanently remove order #1024."
+  footer={
+    <>
+      <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+      <Button variant="destructive" onClick={confirmDelete}>Delete</Button>
+    </>
+  }
+>
+  All associated refund records will be archived for 30 days.
+</Modal>
+```
+
+For advanced layouts use the compound slots: `ModalHeader`, `ModalBody`, `ModalFooter`.
+
+---
+
+## Accessibility
+
+- Renders as `role="dialog"` with `aria-modal="true"`
+- Title is wired via `aria-labelledby`, description via `aria-describedby`
+- Focus is trapped inside the modal — Tab and Shift+Tab cycle within
+- Escape closes the modal (disable with `disableEscClose`)
+- Overlay click closes the modal (disable with `disableOverlayClose`)
+- On open, focus moves to the first focusable element; on close, focus is restored to the trigger
+- Body scroll is locked while the modal is open
+- Rendered into `document.body` via React portal — so z-index issues with parent stacking contexts are avoided

@@ -1,0 +1,75 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TagStories from './Tag.stories';
+
+<Meta of={TagStories} />
+
+# Tag
+
+A small inline label for categorizing, filtering, or marking metadata. Tags are non-interactive by default but can be removable.
+
+---
+
+## Overview
+
+**When to use:**
+- Filter selections shown above a list ("Status: active ×")
+- Categorical metadata on a record ("VIP", "Beta", "EU only")
+- Inline statuses where `Badge` would be too quiet
+
+**When not to use:**
+- For numeric counts or notifications — use `Badge`
+- For interactive selection — use `Checkbox` or `Switch`
+- For commerce order status — use the dedicated `StatusBadge` molecule
+
+---
+
+## Default
+
+<Canvas of={TagStories.Default} />
+
+## All Variants
+
+<Canvas of={TagStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={TagStories.AllSizes} />
+
+## All States
+
+<Canvas of={TagStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={TagStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Tag } from './src/components';
+
+// Static label
+<Tag variant="success">Active</Tag>
+
+// Removable filter chip
+<Tag variant="brand" onRemove={() => removeFilter('region')}>
+  Region: EU
+</Tag>
+
+// With an icon
+<Tag variant="warning" iconLeft={<ClockIcon className="size-3" />}>
+  Pending
+</Tag>
+```
+
+---
+
+## Accessibility
+
+- The remove button is a real `<button>` with an accessible `removeLabel` prop (defaults to "Remove")
+- Focus ring on the remove button uses `focus-visible:` and inherits the variant color
+- Non-removable tags are plain `<span>` — they don't appear in the tab order

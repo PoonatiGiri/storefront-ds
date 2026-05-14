@@ -1,0 +1,77 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as AlertStories from './Alert.stories';
+
+<Meta of={AlertStories} />
+
+# Alert
+
+A static, inline banner that communicates status to the user about a section, form, or page. Alerts persist until the user dismisses them — they don't auto-disappear.
+
+---
+
+## Overview
+
+**When to use:**
+- Page-level warnings ("Your subscription expires in 3 days")
+- Form-level errors that span multiple fields
+- Success confirmations after a saved action
+- Important informational notes attached to content
+
+**When not to use:**
+- Transient confirmations like "Saved" — use `Toast`
+- Per-field errors — use the `FormField` `error` state instead
+
+---
+
+## Default
+
+<Canvas of={AlertStories.Default} />
+
+## All Variants
+
+<Canvas of={AlertStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={AlertStories.AllSizes} />
+
+## All States
+
+<Canvas of={AlertStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={AlertStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Alert, Button } from './src/components';
+
+// Simple
+<Alert variant="warning" title="Stock low">
+  Only 3 units left for SKU-001.
+</Alert>
+
+// With dismiss + action
+<Alert
+  variant="error"
+  title="Payment failed"
+  action={<Button variant="destructive" size="sm">Retry</Button>}
+  onDismiss={() => hideAlert()}
+>
+  We couldn't process your card.
+</Alert>
+```
+
+---
+
+## Accessibility
+
+- Renders with `role="alert"` so screen readers announce it when it appears
+- Dismiss button has an accessible `dismissLabel` (default "Dismiss")
+- Icons are decorative (`aria-hidden="true"`); the variant meaning is conveyed through the title/body text

@@ -1,0 +1,77 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as CheckboxStories from './Checkbox.stories';
+
+<Meta of={CheckboxStories} />
+
+# Checkbox
+
+Lets users select one or many items from a set, or toggle a single option on/off. Supports an `indeterminate` state for "some-but-not-all" patterns (e.g. a "select all" header checkbox).
+
+---
+
+## Overview
+
+**When to use:**
+- Multi-select lists, filter panels, "select all" rows in a table
+- Optional opt-in/opt-out toggles in forms (newsletter, terms acceptance)
+
+**When not to use:**
+- For exclusive choice from a list — use `Radio`
+- For a single binary setting that should feel immediate — use `Switch`
+
+---
+
+## Default
+
+<Canvas of={CheckboxStories.Default} />
+
+## All Variants
+
+<Canvas of={CheckboxStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={CheckboxStories.AllSizes} />
+
+## All States
+
+<Canvas of={CheckboxStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={CheckboxStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Checkbox } from './src/components';
+
+// Single toggle
+<Checkbox label="I agree to the terms" />
+
+// Controlled
+<Checkbox
+  label="Notify me"
+  checked={value}
+  onChange={(e) => setValue(e.target.checked)}
+/>
+
+// Indeterminate (e.g. table "select all" with partial selection)
+<Checkbox label="Select all" indeterminate />
+
+// Validation error
+<Checkbox label="Accept terms" error helperText="Required to continue." />
+```
+
+---
+
+## Accessibility
+
+- Uses native `<input type="checkbox">` — full keyboard support out of the box (`Space` toggles, `Tab` to move)
+- `label` is wired via `htmlFor`/`id`; clicking the label toggles the checkbox
+- `aria-invalid` is set when `error` is true and `aria-describedby` links to the helper text
+- Indeterminate is set imperatively via DOM (matches the native API)

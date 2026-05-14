@@ -1,0 +1,89 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as BreadcrumbStories from './Breadcrumb.stories';
+
+<Meta of={BreadcrumbStories} />
+
+# Breadcrumb
+
+Shows the user's location within a hierarchy and lets them jump back up the tree. Use Breadcrumb on detail pages where the user got here by drilling down through a list.
+
+---
+
+## Overview
+
+**When to use:**
+- Detail views inside nested sections (Orders → Order #1024)
+- Catalog navigation (Catalog → Apparel → Shirts → Item)
+
+**When not to use:**
+- Top-level pages with no parent
+- Linear flows like a wizard — use `Stepper`
+
+---
+
+## Default
+
+<Canvas of={BreadcrumbStories.Default} />
+
+## All Variants
+
+<Canvas of={BreadcrumbStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={BreadcrumbStories.AllSizes} />
+
+## All States
+
+<Canvas of={BreadcrumbStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={BreadcrumbStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Breadcrumb } from './src/components';
+
+// Basic
+<Breadcrumb
+  items={[
+    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Orders',    href: '/orders' },
+    { label: 'Order #1024' }, // no href = current page
+  ]}
+/>
+
+// Custom separator
+<Breadcrumb
+  items={items}
+  separator={<span className="text-neutral-400">/</span>}
+/>
+
+// Framework router link
+<Breadcrumb
+  items={[
+    {
+      label: 'Dashboard',
+      render: (label) => <Link to="/dashboard">{label}</Link>,
+    },
+  ]}
+/>
+
+// Collapse middle items in deep hierarchies
+<Breadcrumb maxItems={3} items={deepTrail} />
+```
+
+---
+
+## Accessibility
+
+- Renders as `<nav aria-label="Breadcrumb">` containing an ordered list
+- The current page (last item without `href`) gets `aria-current="page"`
+- Separators are `aria-hidden="true"` — they're decorative
+- Use `render` to integrate with your router so navigation stays client-side

@@ -1,0 +1,78 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as RadioStories from './Radio.stories';
+
+<Meta of={RadioStories} />
+
+# Radio
+
+Lets users pick exactly one option from a small set. Almost always rendered inside a `RadioGroup` — the group provides the shared `name` and selection state.
+
+---
+
+## Overview
+
+**When to use:**
+- 2–6 mutually exclusive options where all options should be visible at once
+- Shipping method, payment type, plan selection, sort order
+
+**When not to use:**
+- More than 6 options — use a `Dropdown` instead
+- Multi-select — use `Checkbox`
+- Single immediate-effect toggle — use `Switch`
+
+---
+
+## Default
+
+<Canvas of={RadioStories.Default} />
+
+## All Variants
+
+<Canvas of={RadioStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={RadioStories.AllSizes} />
+
+## All States
+
+<Canvas of={RadioStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={RadioStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Radio, RadioGroup } from './src/components';
+
+// Uncontrolled
+<RadioGroup name="shipping" defaultValue="standard" label="Shipping speed">
+  <Radio value="standard" label="Standard" />
+  <Radio value="express" label="Express" />
+</RadioGroup>
+
+// Controlled
+<RadioGroup
+  name="plan"
+  value={plan}
+  onChange={setPlan}
+  orientation="horizontal"
+>
+  <Radio value="monthly" label="Monthly" />
+  <Radio value="annual" label="Annual" />
+</RadioGroup>
+```
+
+---
+
+## Accessibility
+
+- `RadioGroup` renders `role="radiogroup"` with the optional label exposed as `aria-label`
+- Arrow keys move between radios in the same group natively (browser handles this for inputs sharing a `name`)
+- All children inherit `size`, `disabled`, and `error` from the group — override per-radio when needed

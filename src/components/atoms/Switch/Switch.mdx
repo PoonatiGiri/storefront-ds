@@ -1,0 +1,71 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SwitchStories from './Switch.stories';
+
+<Meta of={SwitchStories} />
+
+# Switch
+
+A binary on/off control for settings that take immediate effect. Use Switch when toggling has a tangible, reversible result the user sees right away.
+
+---
+
+## Overview
+
+**When to use:**
+- Settings panels: notifications, dark mode, two-factor auth
+- "Activate" / "Deactivate" toggles in admin tables
+- Feature flags that the user controls
+
+**When not to use:**
+- Inside a form that must be submitted to apply — use `Checkbox`
+- Mutually exclusive choices — use `Radio`
+
+---
+
+## Default
+
+<Canvas of={SwitchStories.Default} />
+
+## All Variants
+
+<Canvas of={SwitchStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={SwitchStories.AllSizes} />
+
+## All States
+
+<Canvas of={SwitchStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={SwitchStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Switch } from './src/components';
+
+// Controlled toggle
+<Switch
+  label="Two-factor auth"
+  checked={enabled}
+  onChange={(e) => setEnabled(e.target.checked)}
+/>
+
+// Label on left (for settings rows)
+<Switch label="Email digest" labelPosition="left" defaultChecked />
+```
+
+---
+
+## Accessibility
+
+- Renders as a native `<input type="checkbox">` with `role="switch"`
+- Keyboard: `Space` toggles, `Tab` to move focus
+- `label` is linked via `htmlFor`/`id` — clicking the label also toggles

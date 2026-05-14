@@ -1,0 +1,77 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TabsStories from './Tabs.stories';
+
+<Meta of={TabsStories} />
+
+# Tabs
+
+Organizes content into parallel sections that share the same screen real estate. Use Tabs when the user benefits from quickly switching between related views without losing context.
+
+---
+
+## Overview
+
+**When to use:**
+- 2–7 sibling views of the same entity (Orders / Customers / Products)
+- Filters that don't change the page URL (use route-based navigation otherwise)
+
+**When not to use:**
+- One section depends on data from another — keep them on the same view
+- More than 7 sections — consider a sidebar or vertical nav
+
+---
+
+## Default
+
+<Canvas of={TabsStories.Default} />
+
+## All Variants
+
+<Canvas of={TabsStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={TabsStories.AllSizes} />
+
+## All States
+
+<Canvas of={TabsStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={TabsStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Tabs, TabList, Tab, TabPanel, Badge } from './src/components';
+
+// Uncontrolled
+<Tabs defaultValue="orders">
+  <TabList ariaLabel="Account sections">
+    <Tab value="orders" badge={<Badge>12</Badge>}>Orders</Tab>
+    <Tab value="customers">Customers</Tab>
+  </TabList>
+  <TabPanel value="orders"><OrdersTable /></TabPanel>
+  <TabPanel value="customers"><CustomersTable /></TabPanel>
+</Tabs>
+
+// Controlled
+<Tabs value={tab} onChange={setTab} variant="pill" size="sm">
+  ...
+</Tabs>
+```
+
+---
+
+## Accessibility
+
+- WAI-ARIA Tabs pattern: `role="tablist"`, `role="tab"`, `role="tabpanel"`
+- Each tab is linked to its panel via `aria-controls` + `aria-labelledby`
+- Arrow keys move focus between tabs, `Home` / `End` jump to first/last
+- The active tab is the only one with `tabIndex=0`; the others use `tabIndex=-1` so Tab moves into the panel
+- Inactive panels are unmounted to avoid duplicate content for screen readers

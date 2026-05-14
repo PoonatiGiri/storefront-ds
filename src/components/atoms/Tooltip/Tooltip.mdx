@@ -1,0 +1,73 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as TooltipStories from './Tooltip.stories';
+
+<Meta of={TooltipStories} />
+
+# Tooltip
+
+A short text label that appears on hover or focus to clarify a control's purpose. Use Tooltips sparingly — if the UI needs constant explanation, redesign the UI.
+
+---
+
+## Overview
+
+**When to use:**
+- Icon-only buttons in toolbars or tables
+- Truncated text that the user might need to read in full
+- Disabled controls where the reason isn't obvious
+
+**When not to use:**
+- For critical instructions — they must be visible without interaction
+- On touch-only surfaces — tooltips don't fire reliably on touch
+- For interactive content — use `Popover` instead
+
+---
+
+## Default
+
+<Canvas of={TooltipStories.Default} />
+
+## All Variants
+
+<Canvas of={TooltipStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={TooltipStories.AllSizes} />
+
+## All States
+
+<Canvas of={TooltipStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={TooltipStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Tooltip, Button } from './src/components';
+
+// Default — opens on hover or keyboard focus
+<Tooltip content="Save changes">
+  <Button iconLeft={<SaveIcon />} aria-label="Save" />
+</Tooltip>
+
+// Controlled (use for onboarding tours, etc.)
+<Tooltip content="Click to begin" open={showHint}>
+  <Button>Start</Button>
+</Tooltip>
+```
+
+---
+
+## Accessibility
+
+- Tooltip content is linked to the trigger via `aria-describedby` when open
+- Renders with `role="tooltip"`
+- Opens on **keyboard focus** as well as hover — never make tooltips mouse-only
+- Always provide an `aria-label` on icon-only triggers — the tooltip is a visual enhancement, not a replacement for the label

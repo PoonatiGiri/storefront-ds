@@ -1,0 +1,71 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ProgressBarStories from './ProgressBar.stories';
+
+<Meta of={ProgressBarStories} />
+
+# ProgressBar
+
+Shows the completion percentage of a task. Use ProgressBar when the operation has a measurable, ongoing duration the user benefits from seeing.
+
+---
+
+## Overview
+
+**When to use:**
+- File uploads, exports, bulk imports
+- Multi-step wizards with a known step count
+- Long-running background jobs (with periodic updates)
+
+**When not to use:**
+- Short operations (<1s) — use `Spinner`
+- Unknown duration with no progress signal — use `Spinner` or indeterminate `ProgressBar`
+- Layout placeholder — use `Skeleton`
+
+---
+
+## Default
+
+<Canvas of={ProgressBarStories.Default} />
+
+## All Variants
+
+<Canvas of={ProgressBarStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={ProgressBarStories.AllSizes} />
+
+## All States
+
+<Canvas of={ProgressBarStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={ProgressBarStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { ProgressBar } from './src/components';
+
+// Determinate
+<ProgressBar value={62} max={100} label="Uploading…" showValue />
+
+// Indeterminate (no value)
+<ProgressBar label="Processing your export" ariaLabel="Processing" />
+
+// Custom variant for status
+<ProgressBar value={100} variant="success" label="Import complete" showValue />
+```
+
+---
+
+## Accessibility
+
+- Renders as `role="progressbar"` with `aria-valuemin/max/now`
+- In indeterminate mode, `aria-valuenow` is omitted (per ARIA spec)
+- Always provide either a visible `label` or `ariaLabel`

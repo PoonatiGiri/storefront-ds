@@ -1,0 +1,72 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as SpinnerStories from './Spinner.stories';
+
+<Meta of={SpinnerStories} />
+
+# Spinner
+
+A small indeterminate loading indicator. Use for inline loading states where the duration is short and unknown — button submissions, async fetches, inline content reloads.
+
+---
+
+## Overview
+
+**When to use:**
+- Inside a button when an async action is in progress
+- Inline with content that's loading and you don't need a layout placeholder
+- Anywhere you'd say "loading…" — pair the spinner with the label
+
+**When not to use:**
+- For layout-heavy content where the user is waiting for a card, table, or list — use `Skeleton` instead
+- For progress that has a known duration — use `ProgressBar`
+
+---
+
+## Default
+
+<Canvas of={SpinnerStories.Default} />
+
+## All Variants
+
+<Canvas of={SpinnerStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={SpinnerStories.AllSizes} />
+
+## All States
+
+<Canvas of={SpinnerStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={SpinnerStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { Spinner } from './src/components';
+
+// Inline with content
+<Spinner size="sm" />
+
+// In a dark surface
+<div className="bg-neutral-900 p-4">
+  <Spinner tone="inverse" />
+</div>
+
+// Custom accessible label
+<Spinner label="Fetching orders" />
+```
+
+---
+
+## Accessibility
+
+- Renders as `role="status"` with `aria-live="polite"` — screen readers announce loading state on mount
+- Always pass a meaningful `label` when the surrounding context isn't already clear
+- The SVG itself is `aria-hidden="true"` — the label is exposed via `sr-only` text

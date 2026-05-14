@@ -1,0 +1,95 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as EmptyStateStories from './EmptyState.stories';
+
+<Meta of={EmptyStateStories} />
+
+# EmptyState
+
+The placeholder shown when a list, table, or section has no content. A good empty state explains *why* it's empty and gives the user a clear next step.
+
+---
+
+## Overview
+
+**When to use:**
+- First-run experiences before any data exists ("No orders yet — create your first one")
+- Filtered lists with no matches ("No results — clear filters")
+- Disconnected integrations ("Connect a provider to see data")
+
+**When not to use:**
+- While data is loading — use `Skeleton`
+- Recoverable errors — use `Alert`
+
+---
+
+## Default
+
+<Canvas of={EmptyStateStories.Default} />
+
+## All Variants
+
+<Canvas of={EmptyStateStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={EmptyStateStories.AllSizes} />
+
+## All States
+
+<Canvas of={EmptyStateStories.AllStates} />
+
+---
+
+## Props
+
+<ArgTypes of={EmptyStateStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { EmptyState, Button } from './src/components';
+
+// First-run
+<EmptyState
+  title="No orders yet"
+  description="When customers place orders, they'll show up here."
+  primaryAction={<Button>Create your first order</Button>}
+/>
+
+// Filtered-list empty
+<EmptyState
+  title="No results"
+  description="Try adjusting your filters."
+  secondaryAction={<Button variant="ghost">Clear filters</Button>}
+/>
+
+// Custom illustration
+<EmptyState
+  icon={<MyIllustration />}
+  title="Connect a payment provider"
+  primaryAction={<Button>Connect</Button>}
+/>
+```
+
+---
+
+## Do's and Don'ts
+
+**Do**
+- Always provide a meaningful title — never leave the space blank
+- Pair the title with a concrete next action when one exists
+- Match the empty state's size to the container
+
+**Don't**
+- Use empty states to communicate errors — `Alert` is for that
+- Stack multiple CTAs of equal weight — one primary, one secondary at most
+- Show illustrations that obscure the message — keep them simple
+
+---
+
+## Accessibility
+
+- Renders with `role="status"` so the title and description are announced when the empty state appears
+- Action buttons inherit the focus and keyboard behavior from `Button`

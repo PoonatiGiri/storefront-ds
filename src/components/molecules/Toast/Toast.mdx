@@ -1,0 +1,85 @@
+import { Meta, Canvas, ArgTypes } from '@storybook/addon-docs/blocks';
+import * as ToastStories from './Toast.stories';
+
+<Meta of={ToastStories} />
+
+# Toast
+
+A transient notification that appears, communicates an outcome, and dismisses itself. Use Toast for confirmations and lightweight failures — never for blocking decisions.
+
+---
+
+## Overview
+
+**When to use:**
+- Confirming a save / create / delete action
+- Async background results ("Export ready", "Sync failed")
+- Brief warnings the user doesn't need to act on
+
+**When not to use:**
+- Decisions or destructive confirmations — use `Modal`
+- Persistent status — use `Alert`
+- Per-field validation errors — use `FormField` error state
+
+---
+
+## Default
+
+<Canvas of={ToastStories.Default} />
+
+## All Variants
+
+<Canvas of={ToastStories.AllVariants} />
+
+## All Sizes
+
+<Canvas of={ToastStories.AllSizes} />
+
+## All States
+
+<Canvas of={ToastStories.AllStates} />
+
+## Live playground
+
+<Canvas of={ToastStories.Playground} />
+
+---
+
+## Props
+
+<ArgTypes of={ToastStories.Default} />
+
+---
+
+## Usage Examples
+
+```tsx
+import { ToastProvider, useToast } from './src/components';
+
+// Wrap the app once
+<ToastProvider placement="top-right" defaultDuration={4500}>
+  <App />
+</ToastProvider>
+
+// Anywhere inside the tree
+function SaveButton() {
+  const { toast } = useToast();
+  return (
+    <Button onClick={() => toast({ variant: 'success', title: 'Saved', children: 'Order saved.' })}>
+      Save
+    </Button>
+  );
+}
+
+// Persistent toast (must be dismissed manually)
+toast({ variant: 'error', title: 'Sync failed', duration: 0, action: <Button size="sm">Retry</Button> });
+```
+
+---
+
+## Accessibility
+
+- The `ToastContainer` carries `aria-live="polite"` — screen readers announce new toasts without interrupting the user
+- Each `Toast` is `role="status"` — the appropriate live region role for non-critical status updates
+- Auto-dismiss respects the user — keep `defaultDuration` long enough to read (≥4s) and pause on hover at the app level if available
+- The dismiss button has an accessible `dismissLabel` (default "Close")
