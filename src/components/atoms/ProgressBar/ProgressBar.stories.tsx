@@ -5,7 +5,7 @@ import type { ProgressBarVariant, ProgressBarSize } from './ProgressBar';
 const meta = {
   title: 'Atoms/ProgressBar',
   component: ProgressBar,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'padded' },
   argTypes: {
     variant: {

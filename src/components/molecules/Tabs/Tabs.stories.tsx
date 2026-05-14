@@ -6,7 +6,7 @@ import { Badge } from '../../atoms/Badge';
 const meta = {
   title: 'Molecules/Tabs',
   component: Tabs,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'padded' },
   argTypes: {
     variant: { control: 'select', options: ['line', 'pill'] satisfies TabsVariant[] },

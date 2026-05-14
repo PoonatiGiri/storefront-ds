@@ -5,7 +5,7 @@ import type { SpinnerSize, SpinnerTone } from './Spinner';
 const meta = {
   title: 'Atoms/Spinner',
   component: Spinner,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     size: {

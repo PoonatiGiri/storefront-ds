@@ -4,7 +4,7 @@ import { Breadcrumb } from './Breadcrumb';
 const meta = {
   title: 'Molecules/Breadcrumb',
   component: Breadcrumb,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'padded' },
 } satisfies Meta<typeof Breadcrumb>;
 

@@ -6,7 +6,7 @@ import { Button } from '../../atoms/Button/Button';
 const meta = {
   title: 'Molecules/Toast',
   component: Toast,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     variant: {

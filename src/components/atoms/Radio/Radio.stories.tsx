@@ -5,7 +5,7 @@ import type { RadioSize } from './Radio';
 const meta = {
   title: 'Atoms/Radio',
   component: Radio,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     size: { control: 'select', options: ['sm', 'md'] satisfies RadioSize[] },

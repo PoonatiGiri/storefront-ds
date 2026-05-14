@@ -7,7 +7,7 @@ import { Button } from '../../atoms/Button/Button';
 const meta = {
   title: 'Organisms/Modal',
   component: Modal,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'fullscreen' },
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg', 'xl'] satisfies ModalSize[] },

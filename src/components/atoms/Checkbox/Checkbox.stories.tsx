@@ -5,7 +5,7 @@ import type { CheckboxSize } from './Checkbox';
 const meta = {
   title: 'Atoms/Checkbox',
   component: Checkbox,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     size: { control: 'select', options: ['sm', 'md'] satisfies CheckboxSize[] },

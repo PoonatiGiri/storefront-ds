@@ -5,7 +5,7 @@ import type { TagVariant, TagSize } from './Tag';
 const meta = {
   title: 'Atoms/Tag',
   component: Tag,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     variant: {

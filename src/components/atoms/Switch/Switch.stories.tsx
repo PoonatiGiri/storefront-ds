@@ -5,7 +5,7 @@ import type { SwitchSize } from './Switch';
 const meta = {
   title: 'Atoms/Switch',
   component: Switch,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     size: { control: 'select', options: ['sm', 'md'] satisfies SwitchSize[] },

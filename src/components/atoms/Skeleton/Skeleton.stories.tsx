@@ -5,7 +5,7 @@ import type { SkeletonShape } from './Skeleton';
 const meta = {
   title: 'Atoms/Skeleton',
   component: Skeleton,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     shape: {

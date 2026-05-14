@@ -6,7 +6,7 @@ import { Button } from '../Button/Button';
 const meta = {
   title: 'Atoms/Tooltip',
   component: Tooltip,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'centered' },
   argTypes: {
     placement: {

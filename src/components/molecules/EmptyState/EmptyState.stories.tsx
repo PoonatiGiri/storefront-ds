@@ -6,7 +6,7 @@ import { Button } from '../../atoms/Button/Button';
 const meta = {
   title: 'Molecules/EmptyState',
   component: EmptyState,
-  tags: ['autodocs'],
+  tags: [],
   parameters: { layout: 'padded' },
   argTypes: {
     size: { control: 'select', options: ['sm', 'md', 'lg'] satisfies EmptyStateSize[] },
