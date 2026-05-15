@@ -2,44 +2,62 @@
 title: Components
 ---
 
-import { Button } from '../../../src/components/atoms/Button/Button';
-import { ProductCard } from '../../../src/components/organisms/ProductCard/ProductCard';
-
 # Components
 
-36 components organized by atomic level. Atoms are primitives. Molecules combine atoms. Organisms compose
-the application surfaces commerce teams actually ship.
+36 components organized by atomic level. Atoms are primitives. Molecules combine atoms. Organisms compose the application surfaces commerce teams actually ship.
 
-## Atoms (12)
+## Atoms
 
-`Avatar` · `Badge` · `Button` · `Checkbox` · `Input` · `ProgressBar` · `Radio` · `Skeleton` · `Spinner` ·
-`Switch` · `Tag` · `Tooltip`
+The foundational primitives — single responsibility, no domain logic.
 
-## Molecules (15)
+- [Avatar](/components/avatar) — initials or photo, with optional status indicator
+- [Badge](/components/badge) — counts and inline labels
+- [Button](/components/button) — the foundational interactive element
+- [Checkbox](/components/checkbox) — multi-select with indeterminate state
+- [Input](/components/input) — text input primitive
+- [ProgressBar](/components/progress-bar) — determinate or indeterminate progress
+- [Radio](/components/radio) — exclusive choice with RadioGroup
+- [Skeleton](/components/skeleton) — animated loading placeholder
+- [Spinner](/components/spinner) — inline async indicator
+- [Switch](/components/switch) — binary toggle for immediate-effect settings
+- [Tag](/components/tag) — categorical or removable label
+- [Tooltip](/components/tooltip) — hover/focus clarifier for controls
 
-`Alert` · `AmountDisplay` · `Breadcrumb` · `DatePicker` · `Dropdown` · `EmptyState` · `FormField` ·
-`LineItem` · `Pagination` · `PriceDisplay` · `SearchBar` · `Stepper` · `StatusBadge` · `Tabs` · `Toast`
+## Molecules
 
-## Organisms (9)
+Composed of atoms, still focused on a single UI concept.
 
-`DataTable` · `FilterPanel` · `MetricCard` · `Modal` · `OrderCard` · `OrderSummary` · `ProductCard` ·
-`Sidebar` · `TopBar`
+- [Alert](/components/alert) — persistent inline banner
+- [AmountDisplay](/components/amount-display) — canonical currency renderer
+- [Breadcrumb](/components/breadcrumb) — hierarchical location indicator
+- [DatePicker](/components/date-picker) — single or range date picker
+- [Dropdown](/components/dropdown) — select-style menu with keyboard support
+- [EmptyState](/components/empty-state) — empty-list placeholder with CTA
+- [FormField](/components/form-field) — labelled input with helper/error
+- [LineItem](/components/line-item) — cart/order/invoice row
+- [Pagination](/components/pagination) — page navigation for tables/lists
+- [PriceDisplay](/components/price-display) — sale + original price with discount
+- [SearchBar](/components/search-bar) — search input with clear
+- [Stepper](/components/stepper) — multi-step progress indicator
+- [StatusBadge](/components/status-badge) — the five mandated lifecycle statuses
+- [Tabs](/components/tabs) — parallel content sections
+- [Toast](/components/toast) — transient notification
+
+## Organisms
+
+Application surfaces — the views commerce teams actually ship.
+
+- [DataTable](/components/data-table) — orders/customers/payments tables with filters + pagination
+- [FilterPanel](/components/filter-panel) — grouped multi-select filters
+- [MetricCard](/components/metric-card) — KPI tile with trend
+- [Modal](/components/modal) — blocking dialog with focus trap
+- [OrderCard](/components/order-card) — order summary card with status-driven action
+- [OrderSummary](/components/order-summary) — aggregate totals for carts/checkouts
+- [ProductCard](/components/product-card) — product grid tile
+- [Sidebar](/components/sidebar) — primary navigation rail
+- [TopBar](/components/top-bar) — app top bar with search + user actions
 
 ---
 
-This documentation site shows a curated set of components with live previews. For the complete catalog
-of every state, variant, and prop, browse the [Storybook](https://poonatigiri.github.io/storefront-ds).
-
-## Featured
-
-- [**Button**](/components/button) — the foundational interactive primitive
-- [**ProductCard**](/components/product-card) — the commerce tile that anchors browse and search
-
-<div style={{ display: 'flex', gap: 12, marginTop: 32 }}>
-  <a href="/components/button" style={{ textDecoration: 'none' }}>
-    <Button>Browse Button →</Button>
-  </a>
-  <a href="https://poonatigiri.github.io/storefront-ds" target="_blank" rel="noreferrer" style={{ textDecoration: 'none' }}>
-    <Button variant="ghost">Open Storybook</Button>
-  </a>
-</div>
+Want the complete catalog of every state, variant, and prop? Browse the
+[Storybook](https://poonatigiri.github.io/storefront-ds).

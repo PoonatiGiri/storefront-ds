@@ -1,0 +1,59 @@
+---
+title: Sidebar
+---
+
+import { Sidebar } from '../../../src/components/organisms/Sidebar/Sidebar';
+import { Preview } from '../../components/Preview';
+
+# Sidebar
+
+The primary app navigation rail. Supports expanded (icon + label) and collapsed (icon only) variants, nav items with badge counts, and a footer for settings / logout.
+
+## Variants
+
+| Variant | Use |
+|---|---|
+| `expanded` | Default — full labels visible |
+| `collapsed` | Icon-only mode for compact layouts |
+
+```tsx
+<Sidebar
+  variant="expanded"
+  activeKey="orders"
+  navItems={[
+    { key: 'dashboard', label: 'Dashboard', icon: <DashboardIcon /> },
+    { key: 'orders',    label: 'Orders',    icon: <CartIcon />, badgeCount: 12 },
+    { key: 'customers', label: 'Customers', icon: <UsersIcon /> },
+  ]}
+  footerItems={[
+    { key: 'settings', label: 'Settings', icon: <GearIcon /> },
+    { key: 'logout',   label: 'Logout',   icon: <LogoutIcon /> },
+  ]}
+  onNavClick={(key) => router.push(`/${key}`)}
+  userName="Sarah Johnson"
+  userRole="Store admin"
+  userInitials="SJ"
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'expanded' \| 'collapsed'` | `'expanded'` | Layout variant |
+| `activeKey` | `string` | — | Currently active nav item key |
+| `navItems` | `NavItem[]` | _defaults_ | Main nav items |
+| `footerItems` | `NavItem[]` | _defaults_ | Footer nav items (settings, logout) |
+| `onNavClick` | `(key: string) => void` | — | Nav item click |
+| `userName` | `string` | — | Footer user display name |
+| `userRole` | `string` | — | Footer user role/subtitle |
+| `userInitials` | `string` | — | Avatar initials |
+
+### `NavItem`
+
+| Field | Type | Description |
+|---|---|---|
+| `key` | `string` | Unique key for this item |
+| `label` | `string` | Display label (hidden when collapsed) |
+| `icon` | `ReactNode` | Icon inside the badge |
+| `badgeCount` | `number` | Optional count shown right (expanded only) |

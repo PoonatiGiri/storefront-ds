@@ -1,0 +1,105 @@
+---
+title: Toast
+---
+
+import { Toast } from '../../../src/components/molecules/Toast/Toast';
+import { Button } from '../../../src/components/atoms/Button/Button';
+import { Preview } from '../../components/Preview';
+
+# Toast
+
+A transient notification that appears, communicates an outcome, and dismisses itself. Use Toast for confirmations and lightweight failures — never for blocking decisions.
+
+**When to use**: confirming a save/create/delete, async background results, brief warnings.
+**When not to use**: decisions (use `Modal`), persistent status (use `Alert`), per-field validation (use `FormField` error).
+
+## Default
+
+<Preview>
+  <Toast variant="success" title="Order saved" onDismiss={() => {}}>
+    Your draft order has been saved.
+  </Toast>
+</Preview>
+
+```tsx
+import { ToastProvider, useToast } from 'storefront-ds';
+
+// Wrap your app once
+<ToastProvider placement="top-right" defaultDuration={4500}>
+  <App />
+</ToastProvider>
+
+// Anywhere inside the tree
+function SaveButton() {
+  const { toast } = useToast();
+  return (
+    <Button onClick={() => toast({ variant: 'success', title: 'Saved', children: 'Order saved.' })}>
+      Save
+    </Button>
+  );
+}
+
+// Persistent toast (must be dismissed manually)
+toast({ variant: 'error', title: 'Sync failed', duration: 0, action: <Button size="sm">Retry</Button> });
+```
+
+## Variants
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Toast variant="info" title="Heads up" onDismiss={() => {}}>Sync starts in 30 seconds.</Toast>
+    <Toast variant="success" title="Saved" onDismiss={() => {}}>Order #1024 was saved.</Toast>
+    <Toast variant="warning" title="Stock low" onDismiss={() => {}}>Only 3 left of SKU-001.</Toast>
+    <Toast variant="error" title="Failed" onDismiss={() => {}}>We couldn't reach the server.</Toast>
+  </div>
+</Preview>
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Toast variant="info" title="Default" onDismiss={() => {}}>Basic toast.</Toast>
+    <Toast
+      variant="error"
+      title="With action"
+      action={<Button size="sm" variant="ghost">Retry</Button>}
+      onDismiss={() => {}}
+    >
+      Action plus a dismiss button.
+    </Toast>
+    <Toast variant="success" title="Without dismiss">Auto-dismisses only.</Toast>
+  </div>
+</Preview>
+
+## Placements
+
+The `ToastProvider` accepts a `placement` prop:
+
+`top-right` (default) · `top-center` · `top-left` · `bottom-right` · `bottom-center` · `bottom-left`
+
+## Props (Toast)
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Semantic variant |
+| `title` | `ReactNode` | — | Title (bolded) |
+| `children` | `ReactNode` | — | Body text |
+| `action` | `ReactNode` | — | Inline action next to close button |
+| `onDismiss` | `() => void` | — | Close handler — called on X click or auto-dismiss |
+
+## Provider hook
+
+```tsx
+const { toast, dismiss } = useToast();
+
+toast({ variant: 'success', title: 'Saved' });        // auto-dismisses after defaultDuration
+toast({ variant: 'error',   title: 'Failed', duration: 0 }); // persistent
+dismiss(id);                                          // manually dismiss
+```
+
+## Accessibility
+
+- The `ToastContainer` carries `aria-live="polite"` — screen readers announce new toasts without interrupting
+- Each `Toast` is `role="status"`
+- Auto-dismiss respects the user — keep `defaultDuration` ≥ 4s
+- The dismiss button has an accessible `dismissLabel`

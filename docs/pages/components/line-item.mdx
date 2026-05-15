@@ -1,0 +1,82 @@
+---
+title: LineItem
+---
+
+import { LineItem } from '../../../src/components/molecules/LineItem/LineItem';
+import { Preview } from '../../components/Preview';
+
+# LineItem
+
+A single row representing a product in a cart, order, invoice, or refund. Shows item identity, quantity, unit price, optional line total, and exposes slots for quantity control and removal.
+
+**When to use**: cart drawers, order detail (read-only or edit), refund flows.
+**When not to use**: catalog grids (use `ProductCard`), aggregate totals (use `OrderSummary`).
+
+## Default
+
+<Preview>
+  <div style={{ width: '100%', background: 'white', padding: 16, border: '1px solid var(--storefront-color-surface-border)', borderRadius: 8 }}>
+    <LineItem
+      name="Linen Tailored Shirt"
+      variant="Size M / Sand"
+      sku="LIN-M-SND"
+      unitPrice={79}
+      currency="USD"
+      quantity={2}
+    />
+  </div>
+</Preview>
+
+```tsx
+// Read-only line in an order detail
+<LineItem
+  name="Linen Tailored Shirt"
+  variant="Size M / Sand"
+  sku="LIN-M-SND"
+  image={product.image}
+  unitPrice={79}
+  currency="USD"
+  quantity={2}
+/>
+
+// Cart line with quantity stepper + remove
+<LineItem
+  name={item.name}
+  image={item.image}
+  unitPrice={item.price}
+  currency="USD"
+  quantity={item.qty}
+  quantityControl={<QtyStepper value={item.qty} onChange={updateQty} />}
+  onRemove={() => removeLine(item.id)}
+/>
+```
+
+## Layout rules
+
+- The line total appears below the unit price **only when `quantity > 1`** — otherwise the single unit price is the only amount
+- `quantityControl` replaces the static "Qty N" label — pass any control (stepper, dropdown) that owns the quantity state
+- Composes `AmountDisplay` internally — currency formatting and missing-value handling are inherited
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `name` | `ReactNode` | _required_ | Product / line title |
+| `variant` | `ReactNode` | — | Variant / option label (e.g. "Size M / Black") |
+| `sku` | `string` | — | SKU or external id |
+| `image` | `string` | — | Product image URL |
+| `imageAlt` | `string` | `''` | Image alt text |
+| `unitPrice` | `number \| null \| undefined` | _required_ | Unit price |
+| `currency` | `string` | _required_ | ISO 4217 currency code |
+| `locale` | `string` | `'en-US'` | Locale |
+| `quantity` | `number` | _required_ | Cart/order quantity |
+| `quantityControl` | `ReactNode` | — | Inline qty stepper / control |
+| `size` | `'sm' \| 'md'` | `'md'` | Size |
+| `showLineTotal` | `boolean` | `true` | Show line total when qty > 1 |
+| `onRemove` | `() => void` | — | Show remove button |
+| `removeLabel` | `string` | `'Remove item'` | Accessible label for remove |
+
+## Accessibility
+
+- The image has empty `alt=""` by default (decorative) — pass `imageAlt` when the image carries meaning
+- The remove button has an explicit `aria-label`

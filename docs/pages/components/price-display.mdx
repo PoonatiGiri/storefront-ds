@@ -1,0 +1,88 @@
+---
+title: PriceDisplay
+---
+
+import { PriceDisplay } from '../../../src/components/molecules/PriceDisplay/PriceDisplay';
+import { Preview } from '../../components/Preview';
+
+# PriceDisplay
+
+The pricing-aware wrapper around `AmountDisplay`. Use anywhere a product, line, or order shows a price the customer pays — especially when there's a discount to surface.
+
+**When to use**: product cards, product detail pages, cart line totals.
+**When not to use**: plain monetary values (use `AmountDisplay`), subtotals inside `OrderSummary`.
+
+## Default
+
+<Preview>
+  <PriceDisplay amount={79} originalAmount={129} currency="USD" showDiscount size="lg" />
+</Preview>
+
+```tsx
+// Plain price
+<PriceDisplay amount={49.5} currency="USD" />
+
+// Sale price (auto strikes the original when lower than current)
+<PriceDisplay amount={79} originalAmount={129} currency="USD" />
+
+// Sale price + discount badge
+<PriceDisplay amount={79} originalAmount={129} currency="USD" showDiscount />
+
+// Stacked layout for narrow card columns
+<PriceDisplay amount={79} originalAmount={129} currency="USD" layout="stacked" />
+```
+
+## Variants
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <PriceDisplay amount={79} currency="USD" />
+    <PriceDisplay amount={79} originalAmount={129} currency="USD" />
+    <PriceDisplay amount={79} originalAmount={129} currency="USD" showDiscount />
+    <PriceDisplay amount={79} originalAmount={129} currency="USD" layout="stacked" showDiscount />
+  </div>
+</Preview>
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
+    <PriceDisplay amount={79} originalAmount={129} currency="USD" size="sm" showDiscount />
+    <PriceDisplay amount={79} originalAmount={129} currency="USD" size="md" showDiscount />
+    <PriceDisplay amount={79} originalAmount={129} currency="USD" size="lg" showDiscount />
+    <PriceDisplay amount={79} originalAmount={129} currency="USD" size="xl" showDiscount />
+  </div>
+</Preview>
+
+## Multi-currency
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+    <PriceDisplay amount={79} originalAmount={129} currency="USD" showDiscount />
+    <PriceDisplay amount={124999} originalAmount={199999} currency="INR" locale="en-IN" showDiscount />
+    <PriceDisplay amount={4900} originalAmount={7900} currency="JPY" locale="ja-JP" showDiscount />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `amount` | `number \| null \| undefined` | _required_ | Price the customer pays |
+| `originalAmount` | `number \| null` | — | When higher than `amount`, renders strikethrough + discount |
+| `currency` | `string` | _required_ | ISO 4217 currency code |
+| `locale` | `string` | `'en-US'` | Locale |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Size of the sale price; original is one tier smaller |
+| `layout` | `'inline' \| 'stacked'` | `'inline'` | Side-by-side or stacked |
+| `showDiscount` | `boolean` | `false` | Show "-XX%" badge next to the price |
+
+## Behaviour
+
+- If `originalAmount` is **lower than or equal to** `amount`, no strikethrough — we never invent a fake discount
+- Discount percentage is rounded to the nearest integer
+- Internally composes `AmountDisplay`, so currency rules + locale + missing-value handling stay consistent
+
+## Accessibility
+
+- The strikethrough original price gets `aria-label="Original price"` so screen readers understand why a second amount is read
+- The "-XX%" badge is decorative — the strikethrough amount and surrounding text carry the semantic meaning

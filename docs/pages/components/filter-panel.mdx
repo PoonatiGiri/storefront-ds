@@ -1,0 +1,85 @@
+---
+title: FilterPanel
+---
+
+import { FilterPanel } from '../../../src/components/organisms/FilterPanel/FilterPanel';
+import { Preview } from '../../components/Preview';
+
+# FilterPanel
+
+A grouped filter panel with checkboxes, apply/reset actions, and two layout variants (sidebar vs modal). Use FilterPanel anywhere a list or table needs more than one or two filters.
+
+## Default
+
+<Preview padded>
+  <div style={{ width: 280 }}>
+    <FilterPanel
+      groups={[
+        {
+          key: 'status',
+          label: 'Status',
+          options: [
+            { value: 'pending', label: 'Pending' },
+            { value: 'processing', label: 'Processing' },
+            { value: 'completed', label: 'Completed' },
+          ],
+        },
+        {
+          key: 'region',
+          label: 'Region',
+          options: [
+            { value: 'us', label: 'United States' },
+            { value: 'eu', label: 'Europe' },
+            { value: 'apac', label: 'APAC' },
+          ],
+        },
+      ]}
+    />
+  </div>
+</Preview>
+
+```tsx
+<FilterPanel
+  variant="sidebar-panel"
+  groups={filterGroups}
+  selected={selected}
+  onChange={setSelected}
+  onApply={applyFilters}
+  onReset={resetFilters}
+/>
+
+// Modal variant — wider, with close button
+<FilterPanel
+  variant="modal-panel"
+  groups={filterGroups}
+  onClose={() => setOpen(false)}
+  onApply={applyFilters}
+/>
+```
+
+## Variants
+
+| Variant | Use |
+|---|---|
+| `sidebar-panel` | Narrow column docked to the side |
+| `modal-panel` | Wider panel with a close button, used inside `Modal` |
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'sidebar-panel' \| 'modal-panel'` | `'sidebar-panel'` | Layout variant |
+| `groups` | `FilterGroup[]` | _defaults_ | Filter groups |
+| `selected` | `Record<string, string[]>` | — | Controlled selection per group key |
+| `onChange` | `(selected) => void` | — | Selection change |
+| `onApply` | `(selected) => void` | — | Apply button click |
+| `onReset` | `() => void` | — | Reset button click |
+| `onClose` | `() => void` | — | Close button click (modal variant) |
+
+### `FilterGroup`
+
+| Field | Type | Description |
+|---|---|---|
+| `key` | `string` | Internal group ID |
+| `label` | `string` | Section heading |
+| `options` | `{ value: string; label: string }[]` | Options in this group |

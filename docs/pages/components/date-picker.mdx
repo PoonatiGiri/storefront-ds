@@ -1,0 +1,94 @@
+---
+title: DatePicker
+---
+
+import { DatePicker } from '../../../src/components/molecules/DatePicker/DatePicker';
+import { Preview } from '../../components/Preview';
+
+# DatePicker
+
+A single-date or date-range picker with a calendar popover. Use for any field whose answer is a calendar day or a span of days — order filters, billing dates, scheduled exports, reservations.
+
+**When to use**: filtering orders by date, scheduling one-off actions, booking flows.
+**When not to use**: free-text dates ("end of next quarter"), times of day.
+
+## Default
+
+<Preview padded>
+  <div style={{ width: 280 }}>
+    <DatePicker mode="single" label="Order date" placeholder="Pick a date" />
+  </div>
+</Preview>
+
+```tsx
+// Single date — controlled
+<DatePicker
+  mode="single"
+  label="Order date"
+  value={value}
+  onChange={setValue}
+/>
+
+// Date range
+<DatePicker
+  mode="range"
+  label="Period"
+  value={range}
+  onChange={setRange}
+/>
+
+// Constraints
+<DatePicker
+  mode="single"
+  label="Available delivery"
+  minDate={new Date()}
+  maxDate={addDays(new Date(), 14)}
+/>
+```
+
+## States
+
+<Preview padded>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 280 }}>
+    <DatePicker mode="single" label="Default" placeholder="Pick a date" />
+    <DatePicker
+      mode="single"
+      label="With helper"
+      helperText="We'll bill on this day each month."
+      placeholder="Pick a date"
+    />
+    <DatePicker mode="single" label="Error" error helperText="A date is required." placeholder="Pick a date" />
+    <DatePicker mode="single" label="Disabled" disabled defaultValue={new Date()} />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `mode` | `'single' \| 'range'` | `'single'` | Picker mode |
+| `value` | `Date \| null \| DateRange` | — | Controlled value |
+| `defaultValue` | `Date \| null \| DateRange` | — | Uncontrolled default |
+| `onChange` | function | — | Fires when selection changes |
+| `label` | `string` | — | Field label |
+| `helperText` | `string` | — | Helper / error text below input |
+| `error` | `boolean` | `false` | Error styling |
+| `disabled` | `boolean` | `false` | Disable the field |
+| `minDate` | `Date` | — | Earliest selectable date |
+| `maxDate` | `Date` | — | Latest selectable date |
+| `locale` | `string` | `'en-US'` | Locale for formatting |
+| `size` | `'sm' \| 'md'` | `'md'` | Field size |
+
+## Behaviour
+
+- In **range** mode: first click sets start, second sets end. Clicking earlier than the start swaps them.
+- Single mode auto-closes on selection; range closes once both ends are set.
+- Out-of-range days are visually dimmed and not clickable.
+
+## Accessibility
+
+- Trigger is `<button aria-haspopup="dialog">`
+- Calendar renders with `role="dialog"` and field label as accessible name
+- Day cells are real `<button>` elements
+- `Escape` closes; clicking outside also closes
+- `aria-invalid` is set when `error` is true

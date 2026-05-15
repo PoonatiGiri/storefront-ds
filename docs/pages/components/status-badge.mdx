@@ -1,0 +1,81 @@
+---
+title: StatusBadge
+---
+
+import { StatusBadge } from '../../../src/components/molecules/StatusBadge/StatusBadge';
+import { Preview } from '../../components/Preview';
+
+# StatusBadge
+
+The canonical status indicator for orders, payments, refunds, and any other commerce lifecycle entity. Exposes exactly five statuses — additions require design review per CLAUDE.md.
+
+## Default
+
+<Preview>
+  <StatusBadge status="processing" />
+</Preview>
+
+```tsx
+<StatusBadge status={order.status} size="sm" />
+
+// Localized label
+<StatusBadge status="completed" label={t('order.statuses.completed')} />
+
+// Hide the dot when surrounding context conveys status
+<StatusBadge status="processing" hideDot />
+```
+
+## The five mandated statuses
+
+<Preview>
+  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+    <StatusBadge status="pending" />
+    <StatusBadge status="processing" />
+    <StatusBadge status="completed" />
+    <StatusBadge status="failed" />
+    <StatusBadge status="cancelled" />
+  </div>
+</Preview>
+
+| Status | Tone | Meaning |
+|---|---|---|
+| `pending` | warning | Action required (customer, ops, payment provider) |
+| `processing` | info | In flight — work is happening, no user action needed |
+| `completed` | success | Terminal success state |
+| `failed` | error | Terminal failure — needs investigation or retry |
+| `cancelled` | neutral | Voluntarily aborted — no fault, no retry expected |
+
+Adding a new status (e.g. "refunded", "on hold") requires explicit design review. Do not extend in feature code.
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+    <StatusBadge status="processing" size="sm" />
+    <StatusBadge status="processing" size="md" />
+  </div>
+</Preview>
+
+## Without dot
+
+<Preview>
+  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+    <StatusBadge status="pending" hideDot />
+    <StatusBadge status="completed" hideDot />
+    <StatusBadge status="failed" hideDot />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `status` | `'pending' \| 'processing' \| 'completed' \| 'failed' \| 'cancelled'` | _required_ | Lifecycle status |
+| `size` | `'sm' \| 'md'` | `'md'` | Size |
+| `label` | `ReactNode` | _status default_ | Override the default text (for i18n) |
+| `hideDot` | `boolean` | `false` | Hide the leading status dot |
+
+## Accessibility
+
+- Renders with `role="status"` and an `aria-label` like `"Status: Pending"` — screen readers always announce the meaning
+- The dot is decorative (`aria-hidden="true"`)

@@ -1,0 +1,107 @@
+---
+title: Stepper
+---
+
+import { Stepper } from '../../../src/components/molecules/Stepper/Stepper';
+import { Preview } from '../../components/Preview';
+
+# Stepper
+
+Communicates the user's position in a multi-step flow. Use for checkouts, onboarding wizards, and any process where progress is meaningful and order is fixed.
+
+**When to use**: checkout (cart → shipping → payment → confirm), multi-step forms, onboarding.
+**When not to use**: parallel sections (use `Tabs`), loose progress (use `ProgressBar`).
+
+## Default
+
+<Preview>
+  <div style={{ width: '100%' }}>
+    <Stepper
+      currentStep={1}
+      steps={[
+        { label: 'Cart', description: 'Review items' },
+        { label: 'Shipping', description: 'Address & method' },
+        { label: 'Payment', description: 'Card or bank' },
+        { label: 'Confirm', description: 'Place the order' },
+      ]}
+    />
+  </div>
+</Preview>
+
+```tsx
+const steps = [
+  { label: 'Cart' },
+  { label: 'Shipping', description: 'Address & method' },
+  { label: 'Payment' },
+  { label: 'Confirm' },
+];
+
+// Static (read-only)
+<Stepper steps={steps} currentStep={1} />
+
+// Allow jumping back to completed steps
+<Stepper steps={steps} currentStep={step} onStepClick={setStep} />
+
+// Mark all complete
+<Stepper steps={steps} currentStep={steps.length} />
+```
+
+## Vertical orientation
+
+<Preview>
+  <div style={{ width: 320 }}>
+    <Stepper
+      orientation="vertical"
+      currentStep={1}
+      steps={[
+        { label: 'Cart', description: 'Review items' },
+        { label: 'Shipping', description: 'Address & method' },
+        { label: 'Payment', description: 'Card or bank' },
+        { label: 'Confirm' },
+      ]}
+    />
+  </div>
+</Preview>
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%' }}>
+    <div>
+      <p style={{ fontSize: 12, color: 'var(--storefront-color-neutral-500)', marginBottom: 8 }}>Start</p>
+      <Stepper currentStep={0} steps={[{ label: 'A' }, { label: 'B' }, { label: 'C' }, { label: 'D' }]} />
+    </div>
+    <div>
+      <p style={{ fontSize: 12, color: 'var(--storefront-color-neutral-500)', marginBottom: 8 }}>Middle</p>
+      <Stepper currentStep={2} steps={[{ label: 'A' }, { label: 'B' }, { label: 'C' }, { label: 'D' }]} />
+    </div>
+    <div>
+      <p style={{ fontSize: 12, color: 'var(--storefront-color-neutral-500)', marginBottom: 8 }}>Complete</p>
+      <Stepper currentStep={4} steps={[{ label: 'A' }, { label: 'B' }, { label: 'C' }, { label: 'D' }]} />
+    </div>
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `steps` | `StepperStep[]` | _required_ | Ordered list of steps |
+| `currentStep` | `number` | _required_ | 0-based index; before = completed, after = upcoming |
+| `orientation` | `'horizontal' \| 'vertical'` | `'horizontal'` | Layout direction |
+| `onStepClick` | `(index: number) => void` | — | When provided, completed steps become clickable |
+
+### `StepperStep`
+
+| Field | Type | Description |
+|---|---|---|
+| `label` | `ReactNode` | Display label |
+| `description` | `ReactNode` | Supporting description |
+| `icon` | `ReactNode` | Custom icon (overrides number / checkmark) |
+
+## Accessibility
+
+- Renders as an ordered list `<ol aria-label="Progress">`
+- Current step has `aria-current="step"`
+- Clickable completed steps are real `<button>` elements with visible focus ring
+- Number/checkmark indicators are visual — labels are the source of truth for screen readers

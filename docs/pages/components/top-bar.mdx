@@ -1,0 +1,60 @@
+---
+title: TopBar
+---
+
+import { TopBar } from '../../../src/components/organisms/TopBar/TopBar';
+import { Preview } from '../../components/Preview';
+
+# TopBar
+
+The application top bar — logo or back button, search, notifications, and user avatar. Pair with `Sidebar` for the standard admin shell.
+
+## Variants
+
+| Variant | Use |
+|---|---|
+| `default` | Logo + app name on left, search center, user actions right |
+| `with-back-button` | Back button + page title (e.g. detail pages) |
+
+```tsx
+// Default top bar
+<TopBar
+  appName="Storefront"
+  searchPlaceholder="Search orders, customers, products…"
+  userInitials="SJ"
+  notificationCount={3}
+  onNotifications={() => setNotifOpen(true)}
+/>
+
+// Detail page top bar
+<TopBar
+  variant="with-back-button"
+  pageTitle="Order #ORD-1001"
+  onBack={() => router.back()}
+  userInitials="SJ"
+/>
+
+// Custom right slot
+<TopBar
+  appName="Storefront"
+  rightSlot={<CustomActions />}
+/>
+```
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'default' \| 'with-back-button'` | `'default'` | Layout variant |
+| `pageTitle` | `string` | `'Customers'` | Title next to back button (when `with-back-button`) |
+| `appName` | `string` | `'Storefront DS'` | App name in logo area |
+| `searchPlaceholder` | `string` | `'Search orders…'` | SearchBar placeholder |
+| `userInitials` | `string` | `'JD'` | Avatar initials |
+| `onBack` | `() => void` | — | Back button click |
+| `onNotifications` | `() => void` | — | Notifications bell click |
+| `notificationCount` | `number` | `0` | Count badge on the bell |
+| `rightSlot` | `ReactNode` | — | Override the default right section |
+
+## Composition
+
+Internally composes `SearchBar`, `Avatar`, and `Button`. Notifications dot uses semantic error tokens.

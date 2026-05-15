@@ -1,0 +1,57 @@
+---
+title: OrderCard
+---
+
+import { OrderCard } from '../../../src/components/organisms/OrderCard/OrderCard';
+import { Preview } from '../../components/Preview';
+
+# OrderCard
+
+A pre-composed order summary card with status badge, customer, items, total, and contextual primary action. Use OrderCard for compact order lists, recent-order rails, and quick-actions surfaces.
+
+For full order detail with line items and totals, use **LineItem** + **OrderSummary**.
+
+## Default
+
+<Preview padded>
+  <div style={{ width: 380 }}>
+    <OrderCard
+      status="processing"
+      orderId="#ORD-1001"
+      customerName="Sarah Johnson"
+      customerInitials="SJ"
+      orderDate="May 14, 2026"
+      total="$134.96"
+      items={[
+        { name: 'Linen Shirt', quantity: 1, price: '$79.00' },
+        { name: 'Leather Belt', quantity: 1, price: '$49.50' },
+      ]}
+    />
+  </div>
+</Preview>
+
+## Status variants
+
+The card's badge and primary action label change based on status:
+
+| Status | Badge | Primary action |
+|---|---|---|
+| `pending` | warning | Cancel |
+| `processing` | info | Track |
+| `completed` | success | Reorder |
+| `failed` | error | Retry |
+| `cancelled` | neutral | View Details |
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `status` | `OrderStatus` | _five mandated values_ | Drives badge + action |
+| `customerName` | `string` | — | Customer display name |
+| `customerInitials` | `string` | — | Avatar initials |
+| `orderId` | `string` | — | Order identifier (e.g. "#ORD-1001") |
+| `orderDate` | `string` | — | Formatted date string |
+| `items` | `OrderItem[]` | — | Line items in the order |
+| `total` | `string` | — | Formatted total (e.g. "$134.96") |
+| `onPrimaryAction` | `() => void` | — | Primary action click handler |
+| `onDetails` | `() => void` | — | Details click handler |

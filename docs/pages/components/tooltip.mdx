@@ -1,0 +1,70 @@
+---
+title: Tooltip
+---
+
+import { Tooltip } from '../../../src/components/atoms/Tooltip/Tooltip';
+import { Button } from '../../../src/components/atoms/Button/Button';
+import { Preview } from '../../components/Preview';
+
+# Tooltip
+
+A short text label that appears on hover or focus to clarify a control's purpose. Use Tooltips sparingly — if the UI needs constant explanation, redesign the UI.
+
+**When to use**: icon-only buttons, truncated text, disabled controls where the reason isn't obvious.
+**When not to use**: critical instructions, touch-only surfaces, interactive content (use `Popover`).
+
+## Default
+
+<Preview padded>
+  <Tooltip content="Save changes">
+    <Button variant="secondary">Hover me</Button>
+  </Tooltip>
+</Preview>
+
+```tsx
+<Tooltip content="Save changes">
+  <Button iconLeft={<SaveIcon />} aria-label="Save" />
+</Tooltip>
+
+// Controlled (e.g. onboarding tour)
+<Tooltip content="Click to begin" open={showHint}>
+  <Button>Start</Button>
+</Tooltip>
+```
+
+## Placements
+
+<Preview padded>
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, auto)', gap: 48 }}>
+    <Tooltip content="Top tooltip" placement="top" open>
+      <Button variant="secondary">Top</Button>
+    </Tooltip>
+    <Tooltip content="Bottom tooltip" placement="bottom" open>
+      <Button variant="secondary">Bottom</Button>
+    </Tooltip>
+    <Tooltip content="Left tooltip" placement="left" open>
+      <Button variant="secondary">Left</Button>
+    </Tooltip>
+    <Tooltip content="Right tooltip" placement="right" open>
+      <Button variant="secondary">Right</Button>
+    </Tooltip>
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `content` | `ReactNode` | _required_ | Tooltip body |
+| `placement` | `'top' \| 'bottom' \| 'left' \| 'right'` | `'top'` | Position relative to trigger |
+| `size` | `'sm' \| 'md'` | `'sm'` | Size |
+| `open` | `boolean` | — | Force open (controlled) |
+| `disabled` | `boolean` | `false` | Disable the tooltip entirely |
+| `children` | `ReactElement` | _required_ | Trigger element |
+
+## Accessibility
+
+- Tooltip content is linked to the trigger via `aria-describedby` when open
+- Renders with `role="tooltip"`
+- Opens on **keyboard focus** as well as hover — never make tooltips mouse-only
+- Always provide an `aria-label` on icon-only triggers

@@ -1,0 +1,58 @@
+---
+title: DataTable
+---
+
+import { DataTable } from '../../../src/components/organisms/DataTable/DataTable';
+import { Preview } from '../../components/Preview';
+
+# DataTable
+
+The full table experience for orders, customers, payments, refunds — search, status filtering, pagination, row selection, row actions, plus the three required data-fetching states (loading skeleton, empty, default).
+
+## Default
+
+<Preview padded>
+  <div style={{ width: '100%' }}>
+    <DataTable
+      title="Orders"
+      rows={[
+        { id: '1', orderId: '#ORD-1001', customerName: 'Sarah Johnson', customerInitials: 'SJ', status: 'processing', amount: '$134.96', date: 'May 14' },
+        { id: '2', orderId: '#ORD-1002', customerName: 'Marcus Lee',    customerInitials: 'ML', status: 'completed',  amount: '$249.00', date: 'May 13' },
+        { id: '3', orderId: '#ORD-1003', customerName: 'Priya Singh',   customerInitials: 'PS', status: 'pending',    amount: '$89.50',  date: 'May 13' },
+      ]}
+      currentPage={1}
+      totalPages={1}
+      totalCount={3}
+    />
+  </div>
+</Preview>
+
+## Variants
+
+DataTable handles four display states via the `variant` prop:
+
+- `default` — normal table with data
+- `loading-skeleton` — animated skeleton rows
+- `empty-state` — meaningful empty message + action
+- `row-selected` / `row-hover` — selection-aware variants
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `DataTableVariant` | `'default'` | Display state |
+| `title` | `string` | — | Table title |
+| `rows` | `DataTableRow[]` | — | Data rows |
+| `totalCount` | `number` | — | Total record count (footer label) |
+| `currentPage` | `number` | `1` | 1-based current page |
+| `totalPages` | `number` | `1` | Total pages |
+| `selectedIds` | `string[]` | — | Controlled selection |
+| `onSelectionChange` | `(ids: string[]) => void` | — | Selection change |
+| `onPageChange` | `(page: number) => void` | — | Pagination change |
+| `onRowView` | `(row) => void` | — | Row "View" action |
+| `onExport` | `() => void` | — | Header Export action |
+| `onNewOrder` | `() => void` | — | Header New Order action |
+
+## Composition
+
+Internally composes `SearchBar`, `Pagination`, `Avatar`, `Badge`, and `Button`. Status rendering uses the same five mandated values as `StatusBadge`.

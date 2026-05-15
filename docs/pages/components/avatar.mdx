@@ -1,0 +1,58 @@
+---
+title: Avatar
+---
+
+import { Avatar } from '../../../src/components/atoms/Avatar/Avatar';
+import { Preview } from '../../components/Preview';
+
+# Avatar
+
+A compact representation of a user — initials or photo, optional online indicator.
+
+## Default
+
+<Preview>
+  <Avatar initials="JD" />
+</Preview>
+
+```tsx
+<Avatar initials="JD" />
+<Avatar type="image" src={user.photoUrl} alt={user.name} />
+```
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+    <Avatar size="xs" initials="XS" />
+    <Avatar size="sm" initials="SM" />
+    <Avatar size="md" initials="MD" />
+    <Avatar size="lg" initials="LG" />
+  </div>
+</Preview>
+
+## With status indicator
+
+<Preview>
+  <div style={{ display: 'flex', gap: 16, alignItems: 'center' }}>
+    <Avatar initials="JD" showStatus />
+    <Avatar size="lg" initials="AB" showStatus />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `type` | `'initials' \| 'image'` | `'initials'` | Display mode |
+| `size` | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'` | Size |
+| `initials` | `string` | `'JD'` | Up to 2 chars displayed when `type='initials'` |
+| `src` | `string` | — | Image URL when `type='image'` |
+| `alt` | `string` | `''` | Alt text for the image |
+| `showStatus` | `boolean` | `false` | Render the online status dot |
+
+## Accessibility
+
+- When `type='initials'`, the initials text is set as `aria-label` so screen readers announce the person identifier
+- The status indicator has `aria-label="Online"`
+- For decorative images, leave `alt=""` (default); for meaningful images, pass a description

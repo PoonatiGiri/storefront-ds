@@ -1,0 +1,66 @@
+---
+title: FormField
+---
+
+import { FormField } from '../../../src/components/molecules/FormField/FormField';
+import { Preview } from '../../components/Preview';
+
+# FormField
+
+The full labelled input row — label, optional required marker, the `Input` atom, and helper/error text. Use FormField for every text input in a form rather than composing the pieces yourself.
+
+## Default
+
+<Preview>
+  <div style={{ width: 320 }}>
+    <FormField
+      label="Email address"
+      placeholder="you@example.com"
+      helperText="We will never share your email."
+    />
+  </div>
+</Preview>
+
+```tsx
+<FormField
+  label="Email address"
+  placeholder="you@example.com"
+  helperText="We will never share your email."
+  required
+/>
+
+<FormField
+  label="Email"
+  defaultValue="not-an-email"
+  errorMessage="Please enter a valid email address."
+/>
+```
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 320 }}>
+    <FormField label="Default" placeholder="Placeholder text" helperText="Helper text goes here." />
+    <FormField label="Required" placeholder="Placeholder" required helperText="This field is required." />
+    <FormField label="Error" defaultValue="Invalid value" errorMessage="This field is required." />
+    <FormField label="Disabled" placeholder="Placeholder text" helperText="Helper text goes here." disabled />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `label` | `string` | _required_ | Label above the input |
+| `required` | `boolean` | `false` | Show red asterisk |
+| `helperText` | `string` | — | Helper text below input |
+| `errorMessage` | `string` | — | Error message (activates error styling) |
+| `disabled` | `boolean` | `false` | Disable the field |
+| _All other_ | `InputProps` | — | Standard input attributes are forwarded |
+
+## Accessibility
+
+- Label is linked via `htmlFor`/`id` (auto-generated unless `id` is passed)
+- `aria-invalid` is set when `errorMessage` is present
+- `aria-describedby` links to the helper/error text
+- `aria-required` is set when `required` is true

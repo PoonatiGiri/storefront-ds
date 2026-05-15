@@ -1,0 +1,71 @@
+---
+title: Tag
+---
+
+import { Tag } from '../../../src/components/atoms/Tag/Tag';
+import { Preview } from '../../components/Preview';
+
+# Tag
+
+A small inline label for categorizing, filtering, or marking metadata. Tags are non-interactive by default but can be removable.
+
+**When to use**: filter selections, categorical metadata, inline statuses where `Badge` would be too quiet.
+**When not to use**: numeric counts (use `Badge`), order lifecycle (use `StatusBadge`).
+
+## Default
+
+<Preview>
+  <Tag>Label</Tag>
+</Preview>
+
+```tsx
+<Tag>Static label</Tag>
+<Tag variant="brand" onRemove={() => {}}>Region: EU</Tag>
+```
+
+## Variants
+
+<Preview>
+  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+    <Tag variant="neutral">Neutral</Tag>
+    <Tag variant="brand">Brand</Tag>
+    <Tag variant="success">Success</Tag>
+    <Tag variant="warning">Warning</Tag>
+    <Tag variant="error">Error</Tag>
+    <Tag variant="info">Info</Tag>
+  </div>
+</Preview>
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', gap: 8, alignItems: 'center' }}>
+    <Tag size="sm">Small</Tag>
+    <Tag size="md">Medium</Tag>
+  </div>
+</Preview>
+
+## Removable
+
+<Preview>
+  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+    <Tag variant="brand" onRemove={() => {}}>Region: EU</Tag>
+    <Tag variant="info" onRemove={() => {}}>Status: Active</Tag>
+    <Tag variant="success" onRemove={() => {}}>Tier: Premium</Tag>
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'neutral' \| 'brand' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'neutral'` | Visual variant |
+| `size` | `'sm' \| 'md'` | `'md'` | Size |
+| `iconLeft` | `ReactNode` | — | Icon before the label |
+| `onRemove` | `(e) => void` | — | When provided, shows an X remove button |
+| `removeLabel` | `string` | `'Remove'` | Accessible label for the remove button |
+
+## Accessibility
+
+- The remove button is a real `<button>` with a configurable `aria-label`
+- Non-removable tags are plain `<span>` — they don't appear in the tab order

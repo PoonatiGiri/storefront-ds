@@ -1,0 +1,65 @@
+---
+title: MetricCard
+---
+
+import { MetricCard } from '../../../src/components/organisms/MetricCard/MetricCard';
+import { Preview } from '../../components/Preview';
+
+# MetricCard
+
+A KPI tile showing a single metric with optional trend indicator. Use MetricCard for dashboards, summary strips, and overview pages.
+
+## Default
+
+<Preview padded>
+  <MetricCard
+    title="Total Revenue"
+    value="$24,530"
+    trend="up"
+    trendValue="12.5%"
+    period="vs last month"
+  />
+</Preview>
+
+```tsx
+<MetricCard
+  title="Total Revenue"
+  value="$24,530"
+  trend="up"
+  trendValue="12.5%"
+  period="vs last month"
+  size="md"
+/>
+```
+
+## Trends
+
+<Preview padded>
+  <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+    <MetricCard title="Revenue"  value="$24,530" trend="up"      trendValue="12.5%" period="vs last month" size="sm" />
+    <MetricCard title="Sessions" value="14,200"  trend="neutral" trendValue="0.0%"  period="vs last month" size="sm" />
+    <MetricCard title="Churn"    value="2.1%"    trend="down"    trendValue="3.2%"  period="vs last month" size="sm" />
+  </div>
+</Preview>
+
+## Sizes
+
+<Preview padded>
+  <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'flex-start' }}>
+    <MetricCard title="Revenue" value="$24,530" trend="up" trendValue="12.5%" period="vs last month" size="sm" />
+    <MetricCard title="Revenue" value="$24,530" trend="up" trendValue="12.5%" period="vs last month" size="md" />
+    <MetricCard title="Revenue" value="$24,530" trend="up" trendValue="12.5%" period="vs last month" size="lg" />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `title` | `string` | _required_ | Label in the card header |
+| `value` | `string` | _required_ | Formatted metric value (e.g. "$24,530") |
+| `trend` | `'up' \| 'neutral' \| 'down'` | — | Trend direction |
+| `trendValue` | `string` | — | Trend amount (e.g. "12.5%") |
+| `period` | `string` | — | Comparison period label |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Visual size |
+| `icon` | `ReactNode` | _bar chart_ | Icon in the top-right badge |

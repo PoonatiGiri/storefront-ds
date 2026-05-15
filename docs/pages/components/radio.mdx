@@ -1,0 +1,75 @@
+---
+title: Radio
+---
+
+import { Radio, RadioGroup } from '../../../src/components/atoms/Radio/Radio';
+import { Preview } from '../../components/Preview';
+
+# Radio
+
+Lets users pick exactly one option from a small set. Almost always rendered inside a **RadioGroup**.
+
+**When to use**: 2–6 mutually exclusive options where all should be visible at once.
+**When not to use**: more than 6 options (use `Dropdown`), multi-select (use `Checkbox`), immediate toggle (use `Switch`).
+
+## Default
+
+<Preview>
+  <RadioGroup name="shipping" defaultValue="standard" label="Shipping speed">
+    <Radio value="standard" label="Standard (3–5 days)" helperText="Free" />
+    <Radio value="express" label="Express (next day)" helperText="$12" />
+    <Radio value="overnight" label="Overnight" helperText="$28" />
+  </RadioGroup>
+</Preview>
+
+```tsx
+<RadioGroup name="shipping" defaultValue="standard" label="Shipping speed">
+  <Radio value="standard" label="Standard" />
+  <Radio value="express" label="Express" />
+</RadioGroup>
+
+// Controlled
+<RadioGroup name="plan" value={plan} onChange={setPlan} orientation="horizontal">
+  <Radio value="monthly" label="Monthly" />
+  <Radio value="annual" label="Annual" />
+</RadioGroup>
+```
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <RadioGroup name="states-default" defaultValue="b" label="Default">
+      <Radio value="a" label="Unselected" />
+      <Radio value="b" label="Selected" />
+    </RadioGroup>
+    <RadioGroup name="states-disabled" disabled defaultValue="b" label="Disabled">
+      <Radio value="a" label="Unselected" />
+      <Radio value="b" label="Selected" />
+    </RadioGroup>
+    <RadioGroup name="states-error" error defaultValue="" label="Error">
+      <Radio value="a" label="Pick one to continue" helperText="A choice is required." />
+      <Radio value="b" label="Or this one" />
+    </RadioGroup>
+  </div>
+</Preview>
+
+## RadioGroup props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `name` | `string` | _required_ | Shared form field name |
+| `value` | `string` | — | Controlled value |
+| `defaultValue` | `string` | — | Uncontrolled default |
+| `onChange` | `(value: string) => void` | — | Fires when selection changes |
+| `size` | `'sm' \| 'md'` | `'md'` | Applied to every child Radio |
+| `disabled` | `boolean` | `false` | Applied to every child Radio |
+| `error` | `boolean` | `false` | Applied to every child Radio |
+| `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | Layout direction |
+| `label` | `ReactNode` | — | Optional group label |
+
+## Accessibility
+
+- `RadioGroup` renders as `role="radiogroup"` with optional `aria-label`
+- Arrow keys move between radios in the same group natively
+- All children inherit `size`, `disabled`, and `error` from the group — override per-radio when needed

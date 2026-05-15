@@ -1,0 +1,118 @@
+---
+title: Tabs
+---
+
+import { Tabs, TabList, Tab, TabPanel } from '../../../src/components/molecules/Tabs/Tabs';
+import { Badge } from '../../../src/components/atoms/Badge/Badge';
+import { Preview } from '../../components/Preview';
+
+# Tabs
+
+Organizes content into parallel sections that share the same screen real estate.
+
+**When to use**: 2–7 sibling views of the same entity (Orders / Customers / Products), filters that don't change the URL.
+**When not to use**: one section depends on another, more than 7 sections, multi-step flow (use `Stepper`).
+
+## Default
+
+<Preview>
+  <div style={{ width: '100%' }}>
+    <Tabs defaultValue="orders">
+      <TabList ariaLabel="Account sections">
+        <Tab value="orders">Orders</Tab>
+        <Tab value="customers">Customers</Tab>
+        <Tab value="products">Products</Tab>
+      </TabList>
+      <TabPanel value="orders">Orders panel content.</TabPanel>
+      <TabPanel value="customers">Customers panel content.</TabPanel>
+      <TabPanel value="products">Products panel content.</TabPanel>
+    </Tabs>
+  </div>
+</Preview>
+
+```tsx
+// Uncontrolled
+<Tabs defaultValue="orders">
+  <TabList ariaLabel="Account sections">
+    <Tab value="orders" badge={<Badge label="12" />}>Orders</Tab>
+    <Tab value="customers">Customers</Tab>
+  </TabList>
+  <TabPanel value="orders"><OrdersTable /></TabPanel>
+  <TabPanel value="customers"><CustomersTable /></TabPanel>
+</Tabs>
+
+// Controlled
+<Tabs value={tab} onChange={setTab} variant="pill" size="sm">
+  ...
+</Tabs>
+```
+
+## Variants
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 32, width: '100%' }}>
+    <Tabs defaultValue="a" variant="line">
+      <TabList ariaLabel="Line variant">
+        <Tab value="a">All</Tab>
+        <Tab value="b">Active</Tab>
+        <Tab value="c">Archived</Tab>
+      </TabList>
+      <TabPanel value="a">All items</TabPanel>
+      <TabPanel value="b">Active items</TabPanel>
+      <TabPanel value="c">Archived items</TabPanel>
+    </Tabs>
+
+    <Tabs defaultValue="a" variant="pill">
+      <TabList ariaLabel="Pill variant">
+        <Tab value="a">All</Tab>
+        <Tab value="b">Active</Tab>
+        <Tab value="c">Archived</Tab>
+      </TabList>
+      <TabPanel value="a">All items</TabPanel>
+      <TabPanel value="b">Active items</TabPanel>
+      <TabPanel value="c">Archived items</TabPanel>
+    </Tabs>
+  </div>
+</Preview>
+
+## With badge and disabled state
+
+<Preview>
+  <Tabs defaultValue="orders">
+    <TabList>
+      <Tab value="orders" badge={<Badge label="12" />}>Orders</Tab>
+      <Tab value="customers">Customers</Tab>
+      <Tab value="archived" disabled>Archived</Tab>
+    </TabList>
+    <TabPanel value="orders">Orders panel with badge.</TabPanel>
+    <TabPanel value="customers">Customers panel.</TabPanel>
+    <TabPanel value="archived">Archived panel.</TabPanel>
+  </Tabs>
+</Preview>
+
+## Components
+
+| Component | Description |
+|---|---|
+| `Tabs` | Root provider — owns the active value |
+| `TabList` | Container for `Tab` triggers |
+| `Tab` | Individual trigger; takes a `value` matching a `TabPanel` |
+| `TabPanel` | Content shown when its `value` is active |
+
+## Props (Tabs)
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `string` | — | Controlled active value |
+| `defaultValue` | `string` | — | Uncontrolled default |
+| `onChange` | `(value: string) => void` | — | Fires when active changes |
+| `variant` | `'line' \| 'pill'` | `'line'` | Visual variant |
+| `size` | `'sm' \| 'md'` | `'md'` | Tab size |
+
+## Accessibility
+
+- Implements the WAI-ARIA Tabs pattern: `role="tablist"`, `role="tab"`, `role="tabpanel"`
+- Each tab links to its panel via `aria-controls` + `aria-labelledby`
+- Arrow keys move focus between tabs, `Home` / `End` jump to first/last
+- Only the active tab has `tabIndex=0`; others use `-1` so Tab moves into the panel
+- Inactive panels are unmounted to avoid duplicate content for screen readers

@@ -1,0 +1,84 @@
+---
+title: Dropdown
+---
+
+import { Dropdown } from '../../../src/components/molecules/Dropdown/Dropdown';
+import { Preview } from '../../components/Preview';
+
+# Dropdown
+
+A select-style menu with keyboard navigation. Use when the user picks one option from a list of more than 6 items, or when space is tight and showing all options inline isn't viable.
+
+**When to use**: 6+ options, narrow form columns, secondary filters.
+**When not to use**: ≤5 mutually exclusive options (use `Radio`), date selection (use `DatePicker`).
+
+## Default
+
+<Preview padded>
+  <div style={{ width: 240 }}>
+    <Dropdown
+      placeholder="Select option"
+      options={[
+        { label: 'Option 1', value: 'option-1' },
+        { label: 'Option 2', value: 'option-2' },
+        { label: 'Option 3', value: 'option-3' },
+      ]}
+      onChange={() => {}}
+    />
+  </div>
+</Preview>
+
+```tsx
+const [value, setValue] = useState<string | undefined>();
+
+<Dropdown
+  options={[
+    { label: 'Pending',    value: 'pending' },
+    { label: 'Processing', value: 'processing' },
+    { label: 'Completed',  value: 'completed' },
+  ]}
+  value={value}
+  onChange={setValue}
+  placeholder="Filter by status"
+/>
+```
+
+## Disabled
+
+<Preview padded>
+  <div style={{ width: 240 }}>
+    <Dropdown
+      placeholder="Select option"
+      disabled
+      options={[
+        { label: 'Option 1', value: 'option-1' },
+      ]}
+      onChange={() => {}}
+    />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `options` | `DropdownOption[]` | _required_ | Available choices |
+| `value` | `string` | — | Controlled value |
+| `onChange` | `(value: string) => void` | — | Fires when selection changes |
+| `placeholder` | `string` | — | Shown when no value is selected |
+| `disabled` | `boolean` | `false` | Disable the field |
+| `aria-label` | `string` | — | Accessible label when no visible label exists |
+
+### `DropdownOption`
+
+| Field | Type | Description |
+|---|---|---|
+| `label` | `string` | Visible text |
+| `value` | `string` | Underlying value |
+
+## Accessibility
+
+- Trigger is a real `<button>` with `aria-haspopup="listbox"` and `aria-expanded`
+- Menu is `role="listbox"` with options as `role="option"`
+- Arrow keys move selection, Enter commits, Escape closes
+- Always provide either a visible label (via `FormField`) or `aria-label`

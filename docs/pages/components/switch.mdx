@@ -1,0 +1,65 @@
+---
+title: Switch
+---
+
+import { Switch } from '../../../src/components/atoms/Switch/Switch';
+import { Preview } from '../../components/Preview';
+
+# Switch
+
+A binary on/off control for settings that take immediate effect.
+
+**When to use**: settings panels, "activate/deactivate" toggles, feature flags the user controls.
+**When not to use**: inside a form requiring submit (use `Checkbox`), mutually exclusive choices (use `Radio`).
+
+## Default
+
+<Preview>
+  <Switch label="Email notifications" defaultChecked />
+</Preview>
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Switch size="sm" label="Small switch" defaultChecked />
+    <Switch size="md" label="Medium switch" defaultChecked />
+  </div>
+</Preview>
+
+## Label positions
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Switch label="Label on right" defaultChecked />
+    <Switch label="Label on left" labelPosition="left" defaultChecked />
+  </div>
+</Preview>
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Switch label="Default off" />
+    <Switch label="Default on" defaultChecked />
+    <Switch label="Disabled off" disabled />
+    <Switch label="Disabled on" disabled defaultChecked />
+    <Switch label="With helper text" helperText="We'll notify you of every order." defaultChecked />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `size` | `'sm' \| 'md'` | `'md'` | Size |
+| `label` | `ReactNode` | — | Label next to the switch |
+| `helperText` | `ReactNode` | — | Helper text below the label |
+| `labelPosition` | `'left' \| 'right'` | `'right'` | Where the label sits |
+| `disabled` | `boolean` | `false` | Native disabled |
+
+## Accessibility
+
+- Renders as a native `<input type="checkbox">` with `role="switch"`
+- `Space` toggles, `Tab` moves focus
+- Label is linked via `htmlFor`/`id` — clicking the label also toggles

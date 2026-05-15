@@ -1,0 +1,58 @@
+---
+title: Input
+---
+
+import { Input } from '../../../src/components/atoms/Input/Input';
+import { Preview } from '../../components/Preview';
+
+# Input
+
+The text input primitive. For full form fields with label + helper/error text, compose with **FormField**.
+
+## Default
+
+<Preview>
+  <div style={{ width: 280 }}>
+    <Input placeholder="Enter your email" />
+  </div>
+</Preview>
+
+```tsx
+<Input placeholder="Enter your email" />
+<Input variant="error" defaultValue="invalid" />
+```
+
+## Variants
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 280 }}>
+    <Input placeholder="Default" />
+    <Input variant="error" defaultValue="Invalid value" />
+    <Input disabled placeholder="Disabled" />
+  </div>
+</Preview>
+
+## With icons / addons
+
+Standard HTML input attributes are forwarded — wrap with your own layout for prefix/suffix icons.
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'default' \| 'error'` | `'default'` | Visual variant |
+| `disabled` | `boolean` | `false` | Native disabled attribute |
+| _All other_ | `InputHTMLAttributes` | — | Standard input attributes are forwarded |
+
+## Composition
+
+For a labelled field with helper/error text and required marker, use **FormField**:
+
+```tsx
+<FormField
+  label="Email address"
+  placeholder="you@example.com"
+  helperText="We will never share your email."
+  required
+/>
+```

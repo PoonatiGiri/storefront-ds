@@ -1,0 +1,57 @@
+---
+title: Badge
+---
+
+import { Badge } from '../../../src/components/atoms/Badge/Badge';
+import { Preview } from '../../components/Preview';
+
+# Badge
+
+A small count or label indicator. Use Badge for numeric counts (unread, pending) or for neutral inline status. For order/payment lifecycle statuses, use **StatusBadge** instead.
+
+## Default
+
+<Preview>
+  <Badge label="12" />
+</Preview>
+
+```tsx
+<Badge label="12" />
+```
+
+## Variants
+
+<Preview>
+  <div style={{ display: 'flex', gap: 12, alignItems: 'center', flexWrap: 'wrap' }}>
+    <Badge type="default" label="Default" />
+    <Badge type="success" label="Success" />
+    <Badge type="warning" label="Warning" />
+    <Badge type="error" label="Error" />
+    <Badge type="info" label="Info" />
+  </div>
+</Preview>
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+    <Badge size="sm" label="Small" />
+    <Badge size="md" label="Medium" />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `type` | `'default' \| 'success' \| 'warning' \| 'error' \| 'info'` | `'default'` | Semantic variant |
+| `size` | `'sm' \| 'md'` | `'sm'` | Size |
+| `label` | `string` | `'Label'` | Text content |
+
+## Badge vs Tag vs StatusBadge
+
+| Use case | Component |
+|---|---|
+| Numeric count (unread, pending, etc.) | **Badge** |
+| Removable filter chip or general label | **Tag** |
+| Order / payment / refund lifecycle status | **StatusBadge** |

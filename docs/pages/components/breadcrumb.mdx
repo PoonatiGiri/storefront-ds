@@ -1,0 +1,86 @@
+---
+title: Breadcrumb
+---
+
+import { Breadcrumb } from '../../../src/components/molecules/Breadcrumb/Breadcrumb';
+import { Preview } from '../../components/Preview';
+
+# Breadcrumb
+
+Shows the user's location within a hierarchy and lets them jump back up. Use on detail pages where the user drilled down through a list.
+
+**When to use**: detail views inside nested sections, catalog navigation.
+**When not to use**: top-level pages with no parent, linear wizards (use `Stepper`).
+
+## Default
+
+<Preview>
+  <Breadcrumb
+    items={[
+      { label: 'Dashboard', href: '#' },
+      { label: 'Orders', href: '#' },
+      { label: 'Order #1024' },
+    ]}
+  />
+</Preview>
+
+```tsx
+<Breadcrumb
+  items={[
+    { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Orders',    href: '/orders' },
+    { label: 'Order #1024' }, // no href = current page
+  ]}
+/>
+```
+
+## Custom separator
+
+<Preview>
+  <Breadcrumb
+    items={[
+      { label: 'Dashboard', href: '#' },
+      { label: 'Orders', href: '#' },
+      { label: 'Order #1024' },
+    ]}
+    separator={<span style={{ color: 'var(--storefront-color-neutral-400)' }}>/</span>}
+  />
+</Preview>
+
+## Deep hierarchy with collapse
+
+<Preview>
+  <Breadcrumb
+    maxItems={3}
+    items={[
+      { label: 'Root', href: '#' },
+      { label: 'Section', href: '#' },
+      { label: 'Subsection', href: '#' },
+      { label: 'Detail', href: '#' },
+      { label: 'Current' },
+    ]}
+  />
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `items` | `BreadcrumbItem[]` | _required_ | Ordered list, root → current |
+| `separator` | `ReactNode` | chevron | Custom separator element |
+| `maxItems` | `number` | — | Collapse middle items if length exceeds this |
+
+### `BreadcrumbItem`
+
+| Field | Type | Description |
+|---|---|---|
+| `label` | `ReactNode` | Visible label |
+| `href` | `string` | Link href; omit for the current page |
+| `render` | `(label) => ReactNode` | Custom render (e.g. framework router link) |
+
+## Accessibility
+
+- Renders as `<nav aria-label="Breadcrumb">` with an ordered list inside
+- Current page (last item, no `href`) gets `aria-current="page"`
+- Separators are `aria-hidden="true"` — decorative
+- Use `render` to integrate your router so navigation stays client-side

@@ -1,0 +1,75 @@
+---
+title: EmptyState
+---
+
+import { EmptyState } from '../../../src/components/molecules/EmptyState/EmptyState';
+import { Button } from '../../../src/components/atoms/Button/Button';
+import { Preview } from '../../components/Preview';
+
+# EmptyState
+
+The placeholder shown when a list, table, or section has no content. A good empty state explains *why* and gives the user a clear next step.
+
+**When to use**: first-run experiences before data exists, filtered lists with no matches, disconnected integrations.
+**When not to use**: while loading (use `Skeleton`), recoverable errors (use `Alert`).
+
+## Default
+
+<Preview>
+  <div style={{ width: '100%', maxWidth: 560 }}>
+    <EmptyState
+      title="No orders yet"
+      description="When customers place orders, they'll show up here."
+      primaryAction={<Button>Create your first order</Button>}
+    />
+  </div>
+</Preview>
+
+```tsx
+// First-run
+<EmptyState
+  title="No orders yet"
+  description="When customers place orders, they'll show up here."
+  primaryAction={<Button>Create your first order</Button>}
+/>
+
+// Filtered-list empty
+<EmptyState
+  title="No results"
+  description="Try adjusting your filters."
+  secondaryAction={<Button variant="ghost">Clear filters</Button>}
+/>
+```
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 24, width: '100%' }}>
+    <EmptyState size="sm" title="Small empty state" description="For tight spaces like inline panels." />
+    <EmptyState size="md" title="Medium empty state" description="The default size for tabs and main panels." />
+    <EmptyState size="lg" title="Large empty state" description="Full-page empty states with prominent CTA." primaryAction={<Button>Get started</Button>} />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `title` | `ReactNode` | _required_ | Short, specific title |
+| `description` | `ReactNode` | — | Supporting description |
+| `icon` | `ReactNode` | _default_ | Custom icon or illustration |
+| `primaryAction` | `ReactNode` | — | Primary CTA (e.g. `<Button>`) |
+| `secondaryAction` | `ReactNode` | — | Secondary CTA |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Visual scale |
+
+## Do's and Don'ts
+
+**Do**
+- Always provide a meaningful title — never leave the space blank
+- Pair the title with a concrete next action when one exists
+- Match the empty state's size to the container
+
+**Don't**
+- Use empty states to communicate errors — `Alert` is for that
+- Stack multiple CTAs of equal weight — one primary, one secondary at most
+- Show illustrations that obscure the message

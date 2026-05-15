@@ -1,0 +1,62 @@
+---
+title: Pagination
+---
+
+import { Pagination } from '../../../src/components/molecules/Pagination/Pagination';
+import { Preview } from '../../components/Preview';
+
+# Pagination
+
+Page navigation for paged tables and lists. Use Pagination when total result count is known and the user benefits from jumping to a specific page.
+
+## Default
+
+<Preview>
+  <Pagination currentPage={2} totalPages={10} onPageChange={() => {}} />
+</Preview>
+
+```tsx
+const [page, setPage] = useState(1);
+
+<Pagination
+  currentPage={page}
+  totalPages={10}
+  onPageChange={setPage}
+  size="md"
+/>
+```
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
+    <Pagination size="sm" currentPage={2} totalPages={10} onPageChange={() => {}} />
+    <Pagination size="md" currentPage={2} totalPages={10} onPageChange={() => {}} />
+  </div>
+</Preview>
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, alignItems: 'flex-start' }}>
+    <Pagination currentPage={1} totalPages={10} onPageChange={() => {}} />
+    <Pagination currentPage={5} totalPages={10} onPageChange={() => {}} />
+    <Pagination currentPage={10} totalPages={10} onPageChange={() => {}} />
+    <Pagination currentPage={1} totalPages={3} onPageChange={() => {}} />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `currentPage` | `number` | _required_ | 1-based current page |
+| `totalPages` | `number` | _required_ | Total number of pages |
+| `onPageChange` | `(page: number) => void` | _required_ | Fires when a page is clicked |
+| `size` | `'sm' \| 'md'` | `'md'` | Size |
+
+## Accessibility
+
+- Renders as `<nav aria-label="Pagination">`
+- Current page is marked with `aria-current="page"`
+- Prev/Next buttons get appropriate `aria-label`s

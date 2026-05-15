@@ -1,0 +1,67 @@
+---
+title: Alert
+---
+
+import { Alert } from '../../../src/components/molecules/Alert/Alert';
+import { Button } from '../../../src/components/atoms/Button/Button';
+import { Preview } from '../../components/Preview';
+
+# Alert
+
+A static, inline banner that communicates status about a section, form, or page. Alerts persist until dismissed — they don't auto-disappear.
+
+**When to use**: page-level warnings, form-level errors spanning fields, success confirmations of saved actions.
+**When not to use**: transient confirmations like "Saved" (use `Toast`), per-field errors (use `FormField` error state).
+
+## Default
+
+<Preview>
+  <div style={{ width: 480 }}>
+    <Alert variant="info" title="Heads up">You have unsaved changes in this order.</Alert>
+  </div>
+</Preview>
+
+## Variants
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 480 }}>
+    <Alert variant="info" title="Heads up">A new version is available.</Alert>
+    <Alert variant="success" title="Order placed">Your order #1024 was created successfully.</Alert>
+    <Alert variant="warning" title="Stock low">Only 3 units left for SKU-001.</Alert>
+    <Alert variant="error" title="Payment failed">We couldn't process your card. Please try again.</Alert>
+  </div>
+</Preview>
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 480 }}>
+    <Alert variant="warning" title="Dismissible" onDismiss={() => {}}>You can dismiss this banner.</Alert>
+    <Alert
+      variant="error"
+      title="With action"
+      action={<Button variant="destructive" size="sm">Retry</Button>}
+      onDismiss={() => {}}
+    >
+      Payment failed — retry or contact support.
+    </Alert>
+    <Alert variant="success" icon={false} title="No icon">Alert with the icon disabled.</Alert>
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'info' \| 'success' \| 'warning' \| 'error'` | `'info'` | Semantic variant |
+| `title` | `ReactNode` | — | Heading |
+| `icon` | `ReactNode \| false` | _variant-specific_ | Custom icon, or `false` to hide |
+| `action` | `ReactNode` | — | Inline action (rendered next to body) |
+| `onDismiss` | `() => void` | — | When provided, shows a close button |
+| `dismissLabel` | `string` | `'Dismiss'` | Accessible label for close button |
+
+## Accessibility
+
+- Renders with `role="alert"` so screen readers announce it when it appears
+- Dismiss button has a configurable `dismissLabel`
+- Icons are decorative — variant meaning is conveyed through the title/body

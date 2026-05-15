@@ -1,0 +1,60 @@
+---
+title: Checkbox
+---
+
+import { Checkbox } from '../../../src/components/atoms/Checkbox/Checkbox';
+import { Preview } from '../../components/Preview';
+
+# Checkbox
+
+Lets users select one or many items from a set, or toggle a single option on/off. Supports an `indeterminate` state for "some-but-not-all" patterns.
+
+**When to use**: multi-select lists, filter panels, "select all" rows, opt-in toggles in forms.
+**When not to use**: exclusive choice (use `Radio`), immediate-effect binary setting (use `Switch`).
+
+## Default
+
+<Preview>
+  <Checkbox label="Send me product updates" />
+</Preview>
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Checkbox size="sm" label="Small checkbox" defaultChecked />
+    <Checkbox size="md" label="Medium checkbox" defaultChecked />
+  </div>
+</Preview>
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+    <Checkbox label="Unchecked" />
+    <Checkbox label="Checked" defaultChecked />
+    <Checkbox label="Indeterminate" indeterminate />
+    <Checkbox label="Disabled" disabled />
+    <Checkbox label="Disabled + checked" defaultChecked disabled />
+    <Checkbox label="Error" error helperText="Please accept the terms to continue." />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `size` | `'sm' \| 'md'` | `'md'` | Size |
+| `label` | `ReactNode` | — | Label rendered next to the checkbox |
+| `helperText` | `ReactNode` | — | Helper text below the label |
+| `error` | `boolean` | `false` | Error state |
+| `indeterminate` | `boolean` | `false` | Indeterminate state |
+| `disabled` | `boolean` | `false` | Native disabled |
+| _All other_ | `InputHTMLAttributes<HTMLInputElement>` | — | Standard checkbox attributes |
+
+## Accessibility
+
+- Uses native `<input type="checkbox">` — full keyboard support out of the box (`Space` toggles, `Tab` to move)
+- `label` is wired via `htmlFor`/`id`; clicking the label toggles the checkbox
+- `aria-invalid` is set when `error` is true and `aria-describedby` links to helper text
+- Indeterminate is set imperatively via DOM (matches the native API)

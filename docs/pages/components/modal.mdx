@@ -1,0 +1,69 @@
+---
+title: Modal
+---
+
+import { Modal, ModalHeader, ModalBody, ModalFooter } from '../../../src/components/organisms/Modal/Modal';
+import { Preview } from '../../components/Preview';
+
+# Modal
+
+A focused, blocking dialog rendered above the page. Use Modal when the user must make a decision, confirm a destructive action, or complete a short focused task.
+
+**When to use**: confirm destructive actions, short focused forms, important notices the user must acknowledge.
+**When not to use**: long workflows (use `Drawer`), transient confirmation (use `Toast`), non-blocking notice (use `Alert`).
+
+## Usage
+
+```tsx
+const [open, setOpen] = useState(false);
+
+<Button onClick={() => setOpen(true)}>Delete order</Button>
+
+<Modal
+  open={open}
+  onClose={() => setOpen(false)}
+  size="sm"
+  title="Delete this order?"
+  description="This will permanently remove order #1024."
+  footer={
+    <>
+      <Button variant="ghost" onClick={() => setOpen(false)}>Cancel</Button>
+      <Button variant="destructive" onClick={confirmDelete}>Delete</Button>
+    </>
+  }
+>
+  All associated refund records will be archived for 30 days.
+</Modal>
+```
+
+For advanced layouts use the compound slots: `ModalHeader`, `ModalBody`, `ModalFooter`.
+
+## Sizes
+
+`sm` (max-w-sm) · `md` (max-w-md) · `lg` (max-w-lg) · `xl` (max-w-2xl)
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `open` | `boolean` | _required_ | Controls visibility |
+| `onClose` | `() => void` | _required_ | Fires on overlay/Esc/close button |
+| `size` | `'sm' \| 'md' \| 'lg' \| 'xl'` | `'md'` | Width preset |
+| `title` | `ReactNode` | — | Header title |
+| `description` | `ReactNode` | — | Subtitle below title |
+| `footer` | `ReactNode` | — | Footer content (usually actions) |
+| `hideCloseButton` | `boolean` | `false` | Hide the X |
+| `disableOverlayClose` | `boolean` | `false` | Disable overlay click → close |
+| `disableEscClose` | `boolean` | `false` | Disable Esc → close |
+| `closeLabel` | `string` | `'Close'` | Accessible label for X |
+
+## Accessibility
+
+- Renders as `role="dialog"` with `aria-modal="true"`
+- Title is wired via `aria-labelledby`, description via `aria-describedby`
+- **Focus is trapped** inside the modal — Tab/Shift+Tab cycle within
+- Escape closes (toggle with `disableEscClose`)
+- Overlay click closes (toggle with `disableOverlayClose`)
+- On open, focus moves to the first focusable element; on close, focus returns to the trigger
+- Body scroll is locked while the modal is open
+- Renders into `document.body` via React portal — z-index issues with parent stacking contexts are avoided

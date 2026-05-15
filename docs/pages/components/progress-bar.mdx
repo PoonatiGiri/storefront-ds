@@ -1,0 +1,78 @@
+---
+title: ProgressBar
+---
+
+import { ProgressBar } from '../../../src/components/atoms/ProgressBar/ProgressBar';
+import { Preview } from '../../components/Preview';
+
+# ProgressBar
+
+Shows the completion percentage of a task. Use when the operation has a measurable, ongoing duration the user benefits from seeing.
+
+**When to use**: file uploads, exports, multi-step wizards, long-running background jobs.
+**When not to use**: short operations (use `Spinner`), layout placeholder (use `Skeleton`).
+
+## Default
+
+<Preview>
+  <div style={{ width: 320 }}>
+    <ProgressBar value={62} label="Uploading…" showValue />
+  </div>
+</Preview>
+
+```tsx
+<ProgressBar value={62} max={100} label="Uploading…" showValue />
+
+// Indeterminate (no value)
+<ProgressBar label="Processing your export" ariaLabel="Processing" />
+```
+
+## Variants
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 320 }}>
+    <ProgressBar value={62} variant="brand" label="Brand" showValue />
+    <ProgressBar value={88} variant="success" label="Success" showValue />
+    <ProgressBar value={45} variant="warning" label="Warning" showValue />
+    <ProgressBar value={12} variant="error" label="Error" showValue />
+  </div>
+</Preview>
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 320 }}>
+    <ProgressBar value={60} size="sm" label="Small" />
+    <ProgressBar value={60} size="md" label="Medium" />
+    <ProgressBar value={60} size="lg" label="Large" />
+  </div>
+</Preview>
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 16, width: 320 }}>
+    <ProgressBar value={0} label="Empty" showValue />
+    <ProgressBar value={40} label="In progress" showValue />
+    <ProgressBar value={100} variant="success" label="Complete" showValue />
+    <ProgressBar label="Indeterminate" ariaLabel="Processing" />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `value` | `number` | — | Current value (omit for indeterminate mode) |
+| `max` | `number` | `100` | Maximum value |
+| `variant` | `'brand' \| 'success' \| 'warning' \| 'error'` | `'brand'` | Color variant |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Bar thickness |
+| `label` | `ReactNode` | — | Visible label above the bar |
+| `showValue` | `boolean` | `false` | Show numeric value (e.g. "62%") |
+| `ariaLabel` | `string` | — | Accessible label when no visible `label` |
+
+## Accessibility
+
+- Renders with `role="progressbar"` + `aria-valuemin/max/now`
+- In indeterminate mode, `aria-valuenow` is omitted (per ARIA spec)
+- Always provide either a visible `label` or `ariaLabel`

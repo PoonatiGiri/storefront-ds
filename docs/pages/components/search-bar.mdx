@@ -1,0 +1,57 @@
+---
+title: SearchBar
+---
+
+import { SearchBar } from '../../../src/components/molecules/SearchBar/SearchBar';
+import { Preview } from '../../components/Preview';
+
+# SearchBar
+
+A search input with search icon, clear button, and built-in keyboard ergonomics. Use SearchBar anywhere you have a free-text filter over a list, table, or catalog.
+
+## Default
+
+<Preview>
+  <div style={{ width: 320 }}>
+    <SearchBar placeholder="Search orders…" />
+  </div>
+</Preview>
+
+```tsx
+const [query, setQuery] = useState('');
+
+<SearchBar
+  placeholder="Search orders…"
+  value={query}
+  onChange={(e) => setQuery(e.target.value)}
+  onClear={() => setQuery('')}
+/>
+```
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: 12, width: 320 }}>
+    <SearchBar placeholder="Empty" />
+    <SearchBar defaultValue="filled query" />
+    <SearchBar disabled placeholder="Disabled" />
+  </div>
+</Preview>
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `placeholder` | `string` | `'Search…'` | Placeholder |
+| `value` | `string` | — | Controlled value |
+| `defaultValue` | `string` | — | Uncontrolled default |
+| `onChange` | `(e) => void` | — | Standard onChange |
+| `onClear` | `() => void` | — | Called when the clear (×) button is clicked |
+| `disabled` | `boolean` | `false` | Disable the field |
+| _All other_ | `InputHTMLAttributes` | — | Standard input attributes (except `type`) |
+
+## Accessibility
+
+- The search icon is decorative (`aria-hidden="true"`)
+- The clear button has `aria-label="Clear search"`
+- The input has `type="search"` — browsers may render a native clear button on top, which is intentional
