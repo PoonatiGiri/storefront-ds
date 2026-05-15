@@ -38,8 +38,6 @@ const config: DocsThemeConfig = {
       />
     </>
   ),
-  primaryHue: 222,
-  primarySaturation: 80,
   sidebar: {
     defaultMenuCollapseLevel: 1,
     toggleButton: true,

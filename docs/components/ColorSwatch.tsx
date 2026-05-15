@@ -111,7 +111,7 @@ function semanticSwatches(
 
 export function ColorTokenGrid() {
   const neutralSwatches: SwatchProps[] = (
-    Object.keys(colors.neutral) as Array<keyof typeof colors.neutral>
+    Object.keys(colors.neutral) as unknown as Array<keyof typeof colors.neutral>
   ).map((shade) => ({
     name: `neutral/${shade}`,
     value: colors.neutral[shade],

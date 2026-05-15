@@ -26,9 +26,13 @@
     "**/*.ts",
     "**/*.tsx",
     "**/*.mdx",
-    "../src/components/**/*",
-    "../src/tokens/**/*",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules", "**/*.stories.tsx", "**/*.figma.tsx"]
+  "exclude": [
+    "node_modules",
+    "**/*.stories.tsx",
+    "**/*.figma.tsx",
+    "../src/**/*.stories.tsx",
+    "../src/**/*.figma.tsx"
+  ]
 }
