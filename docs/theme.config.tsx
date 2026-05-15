@@ -22,11 +22,7 @@ const config: DocsThemeConfig = {
   docsRepositoryBase:
     'https://github.com/PoonatiGiri/storefront-ds/tree/main/docs',
   footer: {
-    content: (
-      <span>
-        © {new Date().getFullYear()} Storefront DS · MIT License · A B2B commerce design system
-      </span>
-    ),
+    content: '© 2026 Storefront DS · MIT License · A B2B commerce design system',
   },
   head: (
     <>
@@ -38,13 +34,10 @@ const config: DocsThemeConfig = {
       <meta property="og:title" content="Storefront DS" />
       <meta
         property="og:description"
-        content="A B2B SaaS / commerce design system: 36 components, 123 tokens, all built with React + Tailwind + Figma."
+        content="A B2B commerce design system: 36 components, 123 tokens, React + Tailwind + Figma."
       />
     </>
   ),
-  useNextSeoProps: () => ({
-    titleTemplate: '%s · Storefront DS',
-  }),
   primaryHue: 222,
   primarySaturation: 80,
   sidebar: {
@@ -54,11 +47,8 @@ const config: DocsThemeConfig = {
   toc: {
     backToTop: true,
   },
-  feedback: {
-    content: null,
-  },
   editLink: {
-    content: 'Edit this page on GitHub',
+    content: 'Edit this page on GitHub →',
   },
 };
 
