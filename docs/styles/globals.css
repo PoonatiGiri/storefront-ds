@@ -1,0 +1,30 @@
+@import "tailwindcss";
+@import "../../src/index.css";
+
+@source "../../src/components/**/*.{ts,tsx}";
+@source "../**/*.{ts,tsx,mdx}";
+
+/* Nextra theme overrides — keep brand tokens applied inside docs pages */
+.nx-bg-primary-100 {
+  background-color: var(--storefront-color-brand-primary-disabled);
+}
+
+/* Live preview container helpers */
+.ds-preview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--storefront-spacing-8);
+  background-color: var(--storefront-color-neutral-50);
+  border: 1px solid var(--storefront-color-surface-border);
+  border-radius: var(--storefront-radius-lg);
+  margin: var(--storefront-spacing-4) 0;
+}
+
+.ds-preview--padded {
+  padding: var(--storefront-spacing-12);
+}
+
+.ds-preview > * {
+  max-width: 100%;
+}

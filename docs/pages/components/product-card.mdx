@@ -1,0 +1,135 @@
+---
+title: ProductCard
+---
+
+import { Button } from '../../../src/components/atoms/Button/Button';
+import { Tag } from '../../../src/components/atoms/Tag/Tag';
+import { ProductCard } from '../../../src/components/organisms/ProductCard/ProductCard';
+import { Preview } from '../../components/Preview';
+
+# ProductCard
+
+The product tile used across catalog grids, search results, related-product strips, and merchandising
+rails. Composes `PriceDisplay` for amount rendering and `Tag` for the overlay badge.
+
+## Default
+
+<Preview padded>
+  <div style={{ width: 280 }}>
+    <ProductCard
+      name="Linen Tailored Shirt"
+      meta="Apparel"
+      price={79}
+      originalPrice={129}
+      currency="USD"
+      stockStatus="in-stock"
+      action={<Button size="sm" className="w-full">Add to cart</Button>}
+    />
+  </div>
+</Preview>
+
+```tsx
+<ProductCard
+  name="Linen Tailored Shirt"
+  meta="Apparel"
+  price={79}
+  originalPrice={129}
+  currency="USD"
+  stockStatus="in-stock"
+  action={<Button size="sm" className="w-full">Add to cart</Button>}
+/>
+```
+
+## With badge and sale price
+
+<Preview padded>
+  <div style={{ width: 280 }}>
+    <ProductCard
+      name="Linen Tailored Shirt"
+      meta="Apparel"
+      price={79}
+      originalPrice={129}
+      currency="USD"
+      badge={<Tag size="sm" variant="brand">New</Tag>}
+      stockStatus="in-stock"
+    />
+  </div>
+</Preview>
+
+```tsx
+<ProductCard
+  name="Linen Tailored Shirt"
+  meta="Apparel"
+  price={79}
+  originalPrice={129}
+  currency="USD"
+  badge={<Tag size="sm" variant="brand">New</Tag>}
+  stockStatus="in-stock"
+/>
+```
+
+## Stock states
+
+<Preview padded>
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, width: '100%' }}>
+    <ProductCard name="In stock" price={79} currency="USD" stockStatus="in-stock" />
+    <ProductCard name="Low stock" price={79} currency="USD" stockStatus="low" />
+    <ProductCard name="Out of stock" price={79} currency="USD" stockStatus="out-of-stock" />
+  </div>
+</Preview>
+
+The `out-of-stock` state renders a "Sold out" overlay across the image without hiding the rest of the
+card content — users can still see what's coming back.
+
+## Horizontal layout
+
+<Preview>
+  <div style={{ width: '100%', maxWidth: 480 }}>
+    <ProductCard
+      name="Premium Leather Belt"
+      meta="Accessories"
+      price={49.5}
+      currency="USD"
+      orientation="horizontal"
+      stockStatus="in-stock"
+      action={<Button size="sm">Quick view</Button>}
+    />
+  </div>
+</Preview>
+
+```tsx
+<ProductCard orientation="horizontal" name="..." price={...} currency="USD" />
+```
+
+Use horizontal for list-style surfaces (cart drawer, related products in a sidebar). Vertical is the
+default for grid layouts.
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `name` | `ReactNode` | _required_ | Product name |
+| `image` | `string` | — | Image URL |
+| `imageAlt` | `string` | `""` | Alt text for the image |
+| `meta` | `ReactNode` | — | Vendor / brand / category line above the name |
+| `price` | `number \| null \| undefined` | _required_ | Current price (major units) |
+| `originalPrice` | `number \| null` | — | If higher than `price`, renders strikethrough + discount |
+| `currency` | `string` | _required_ | ISO 4217 currency code |
+| `locale` | `string` | `'en-US'` | BCP-47 locale for the price |
+| `stockStatus` | `'in-stock' \| 'low' \| 'out-of-stock'` | — | Stock indicator |
+| `badge` | `ReactNode` | — | Tag rendered top-left over the image |
+| `action` | `ReactNode` | — | Action slot below the price (typically "Add to cart") |
+| `orientation` | `'vertical' \| 'horizontal'` | `'vertical'` | Layout |
+| `onSelect` | `() => void` | — | When provided, makes the whole card a keyboard-accessible button |
+
+## Composition
+
+- Price rendering is delegated to `PriceDisplay` — strikethrough + discount logic stays consistent
+- `badge` accepts either a string (renders as a brand `Tag`) or any node (custom Tag, icon, etc.)
+- The `action` slot stops click + keydown propagation so clicking "Add to cart" doesn't also trigger `onSelect`
+
+## Accessibility
+
+- With `onSelect`, the card becomes `role="button"` with `tabIndex=0` and responds to `Enter`/`Space`
+- The action slot's events are scoped so it doesn't double-fire
+- Always provide `imageAlt` when the image carries info not in the name (e.g. "Front view in sand colorway")

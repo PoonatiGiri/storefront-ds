@@ -1,0 +1,120 @@
+---
+title: Get started
+---
+
+# Get started
+
+Storefront DS is currently distributed as source — clone the repo, import the components, and ship.
+A standalone npm package is on the roadmap.
+
+## Prerequisites
+
+- **Node 20+** (managed via your tool of choice — `nvm`, `fnm`, `volta`)
+- A React **19** project (works with 18 too, with one minor adjustment around `forwardRef` if you're on RSC)
+- **Tailwind v4** in your project — components depend on its `@theme` variable system
+
+## 1. Get the source
+
+```bash
+git clone https://github.com/PoonatiGiri/storefront-ds.git
+cd storefront-ds
+npm install
+```
+
+Or add as a git submodule if you'd rather pin a specific commit:
+
+```bash
+git submodule add https://github.com/PoonatiGiri/storefront-ds.git vendor/storefront-ds
+```
+
+## 2. Import the design tokens
+
+Storefront DS ships its tokens as CSS variables. Import the token CSS once at the entry of your app
+(usually `src/main.tsx` or `app/layout.tsx`):
+
+```ts
+import 'storefront-ds/src/index.css';
+```
+
+This defines every `--storefront-*` variable and registers them with Tailwind v4's `@theme`. Every
+component reads from these variables, so theming is a one-place change.
+
+## 3. Use a component
+
+```tsx
+import { Button, ProductCard } from 'storefront-ds/src/components';
+
+export function ProductsPage() {
+  return (
+    <main>
+      <ProductCard
+        name="Linen Tailored Shirt"
+        meta="Apparel"
+        price={79}
+        originalPrice={129}
+        currency="USD"
+        stockStatus="in-stock"
+        action={<Button size="sm" className="w-full">Add to cart</Button>}
+      />
+    </main>
+  );
+}
+```
+
+That's it. Components are typed end-to-end, accept refs, and follow predictable prop conventions —
+the **Components** section documents each one with examples and props.
+
+## Project structure once installed
+
+```
+storefront-ds/
+├── src/
+│   ├── components/
+│   │   ├── atoms/       # Button, Input, Badge, Avatar, Tag, …
+│   │   ├── molecules/   # Alert, Toast, Tabs, DatePicker, PriceDisplay, …
+│   │   └── organisms/   # DataTable, Modal, ProductCard, OrderSummary, …
+│   ├── tokens/          # All design tokens as TypeScript files
+│   └── index.css        # CSS variable definitions
+├── agents/              # AI agents for component QA, token audit, coverage
+└── package.json
+```
+
+## Theming
+
+Override any `--storefront-*` variable in your app's CSS to retheme the entire system:
+
+```css
+:root {
+  /* Take the system from blue to your brand teal */
+  --storefront-color-brand-primary-default: #0E7C7B;
+  --storefront-color-brand-primary-hover:   #0A5A59;
+  --storefront-color-brand-primary-active:  #074847;
+  --storefront-color-brand-primary-disabled:#A7DBDA;
+}
+```
+
+Tailwind v4's `@theme` map (defined in `src/index.css`) automatically reflects this — every component
+re-renders with the new tone.
+
+## Figma source
+
+The Figma file lives at [figma.com/design/2P3ina6EjiCFUORJtD56hE](https://www.figma.com/design/2P3ina6EjiCFUORJtD56hE) — 123 variables,
+14 components with full Code Connect mappings. Duplicate it to your team's workspace as the starting
+point for your design work.
+
+## Next.js / Vite
+
+Both work out of the box. Tailwind v4 + Next 15+ and Tailwind v4 + Vite are explicitly tested.
+
+For **Next.js App Router**, the `Modal` and `Toast` components use `react-dom`'s `createPortal` —
+mark consumer files with `'use client'` if your route is otherwise an RSC.
+
+## Storybook
+
+If you want to browse components offline, the project ships a Storybook:
+
+```bash
+npm run storybook
+```
+
+…or visit the [hosted Storybook](https://poonatigiri.github.io/storefront-ds).

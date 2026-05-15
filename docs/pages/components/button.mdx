@@ -1,0 +1,100 @@
+---
+title: Button
+---
+
+import { Button } from '../../../src/components/atoms/Button/Button';
+import { Preview } from '../../components/Preview';
+
+# Button
+
+The foundational interactive element. Use Button for any action that triggers a change — submitting a
+form, navigating, opening a dialog, or performing a destructive operation.
+
+## Default
+
+<Preview>
+  <Button>Save changes</Button>
+</Preview>
+
+```tsx
+<Button>Save changes</Button>
+```
+
+## Variants
+
+<Preview>
+  <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
+    <Button variant="primary">Primary</Button>
+    <Button variant="secondary">Secondary</Button>
+    <Button variant="ghost">Ghost</Button>
+    <Button variant="destructive">Destructive</Button>
+  </div>
+</Preview>
+
+```tsx
+<Button variant="primary">Primary</Button>
+<Button variant="secondary">Secondary</Button>
+<Button variant="ghost">Ghost</Button>
+<Button variant="destructive">Destructive</Button>
+```
+
+- **primary** — the single most important action on a page
+- **secondary** — supporting actions like Cancel, Export
+- **ghost** — low-emphasis inline actions (table row actions, toolbar buttons)
+- **destructive** — irreversible actions only (delete, revoke)
+
+## Sizes
+
+<Preview>
+  <div style={{ display: 'flex', gap: 12, alignItems: 'center' }}>
+    <Button size="sm">Small</Button>
+    <Button size="md">Medium</Button>
+    <Button size="lg">Large</Button>
+  </div>
+</Preview>
+
+## States
+
+<Preview>
+  <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', alignItems: 'center' }}>
+    <Button>Default</Button>
+    <Button disabled>Disabled</Button>
+    <Button loading>Saving…</Button>
+  </div>
+</Preview>
+
+`loading` automatically disables interaction and sets `aria-busy="true"`.
+
+## Props
+
+| Prop | Type | Default | Description |
+|---|---|---|---|
+| `variant` | `'primary' \| 'secondary' \| 'ghost' \| 'destructive'` | `'primary'` | Visual style |
+| `size` | `'sm' \| 'md' \| 'lg'` | `'md'` | Size of the button |
+| `loading` | `boolean` | `false` | Shows a spinner and disables interaction |
+| `iconLeft` | `ReactNode` | — | Icon placed before the label |
+| `iconRight` | `ReactNode` | — | Icon placed after the label |
+| `disabled` | `boolean` | `false` | Native disabled attribute |
+| `className` | `string` | — | Forwarded to the underlying `<button>` |
+| _All other_ | `ButtonHTMLAttributes<HTMLButtonElement>` | — | Standard button props are forwarded |
+
+## Accessibility
+
+- All button states are keyboard accessible via `Tab` and `Enter`/`Space`
+- `loading` sets `aria-busy="true"` automatically
+- `disabled` uses the native HTML `disabled` attribute — no `aria-disabled` needed
+- Icon-only usage must add `aria-label` to the button element
+- Focus ring uses `focus-visible:` so it only appears for keyboard navigation, never on mouse click
+
+## Do's and Don'ts
+
+**Do**
+- Use `primary` for the single most important action on a page
+- Use `ghost` for low-emphasis actions that appear inline with content
+- Use `loading` when an async operation is in progress — never let the user click twice
+- Use `destructive` for irreversible actions only
+
+**Don't**
+- Place two `primary` buttons side-by-side — one action should be primary
+- Use `disabled` when the reason is unclear — prefer showing validation errors instead
+- Hard-code `pointer-events-none` separately — `loading` and `disabled` both apply it

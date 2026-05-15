@@ -1,0 +1,103 @@
+---
+title: Tokens
+---
+
+import { ColorTokenGrid } from '../components/ColorSwatch';
+import { SpacingScale } from '../components/SpacingScale';
+import { RadiusScale } from '../components/RadiusScale';
+import { ShadowScale } from '../components/ShadowScale';
+import { TypographyScale } from '../components/TypographyScale';
+
+# Design tokens
+
+123 tokens drive every visual decision in Storefront DS — colors, typography, spacing, radius, and shadow.
+Tokens are defined once in `src/tokens/` (as TypeScript) and surfaced as CSS variables in `src/index.css`.
+
+**Naming**
+
+```
+--storefront-{category}-{name}
+```
+
+| Category | Covers |
+|---|---|
+| `color` | All color primitives and semantic aliases |
+| `spacing` | Padding, margin, gap |
+| `typography` | Font size, weight, line height, letter spacing |
+| `radius` | Border radius |
+| `shadow` | Box shadows |
+
+## Colors
+
+Brand colors come in four states each (`default` / `hover` / `active` / `disabled`) so interactive
+components don't need to fabricate hover/active shades. Semantic colors follow the same pattern.
+Neutrals cover a 10-step scale.
+
+<ColorTokenGrid />
+
+## Typography
+
+Five typographic families (display, heading, body, label, code) with size variants in each. Use
+**heading** for page-level hierarchy, **body** for prose, **label** for short UI text, **display**
+sparingly for hero moments.
+
+<TypographyScale />
+
+## Spacing
+
+A 4-pixel-base scale with sub-scale steps where components need finer control. Use named tokens —
+never arbitrary Tailwind values like `p-[7px]`.
+
+<SpacingScale />
+
+## Radius
+
+Six steps from none to fully rounded. Components default to `md` for buttons and inputs, `lg` for
+cards, `full` for pills and badges.
+
+<RadiusScale />
+
+## Shadow
+
+Four elevation steps. `sm` for resting cards, `md` for elevated cards, `lg` for popovers and modals.
+
+<ShadowScale />
+
+---
+
+## Using tokens in your code
+
+In a component, prefer the CSS variable directly so that future theme overrides flow through:
+
+```tsx
+<div className="bg-[var(--storefront-color-brand-primary-default)] text-white" />
+```
+
+In plain CSS:
+
+```css
+.cta {
+  background: var(--storefront-color-brand-primary-default);
+  padding: var(--storefront-spacing-4);
+  border-radius: var(--storefront-radius-md);
+  box-shadow: var(--storefront-shadow-sm);
+}
+```
+
+In TypeScript (for computed values like inline charts):
+
+```ts
+import { colors } from 'storefront-ds/src/tokens/colors';
+
+const series = [colors.brand.primary.default, colors.brand.accent.default];
+```
+
+## Adding or changing a token
+
+Tokens are the contract between Figma and code. To change one:
+
+1. Update the value in Figma (the source of truth) and re-run the variable export
+2. Update the matching value in `src/tokens/*.ts` and `src/index.css`
+3. Run `npm run agent:token-audit` to confirm no component hardcodes an old value
+
+Never edit one without the other — the Figma → code drift is the most common DS failure mode.

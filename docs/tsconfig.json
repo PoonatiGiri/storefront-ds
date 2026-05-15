@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [{ "name": "next" }],
+    "paths": {
+      "@/*": ["./*"],
+      "@storefront-ds": ["../src/components/index.ts"],
+      "@storefront-ds/*": ["../src/components/*"],
+      "@storefront-tokens/*": ["../src/tokens/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.mdx",
+    "../src/components/**/*",
+    "../src/tokens/**/*",
+    ".next/types/**/*.ts"
+  ],
+  "exclude": ["node_modules", "**/*.stories.tsx", "**/*.figma.tsx"]
+}

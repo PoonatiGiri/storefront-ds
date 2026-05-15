@@ -1,0 +1,96 @@
+---
+title: Principles
+---
+
+# Principles
+
+The decisions behind Storefront DS — what we optimize for, what we refuse, and how we make trade-offs
+when they show up.
+
+## 1. Tokens are the only source of color, type, and space
+
+Every visual value lives in `src/tokens/` and is surfaced as a CSS variable. Components reference variables;
+they never embed raw hex, pixel sizes, or font weights. Theming is one place, drift is impossible.
+
+**In practice:**
+- ✅ `bg-[var(--storefront-color-brand-primary-default)]`
+- ❌ `bg-blue-600` or `bg-[#2563EB]`
+- ❌ `w-[137px]` — there's a token for that
+- The `token-audit` agent catches violations before they merge
+
+## 2. Atomic structure isn't a suggestion
+
+Atoms → molecules → organisms. A molecule cannot be built before its atom dependencies exist. An organism
+cannot include a primitive that isn't already an atom.
+
+**Why:** the dependency graph stays a DAG. Refactoring an atom safely touches everything downstream;
+you can never accidentally tangle two organisms together.
+
+## 3. The five-status rule
+
+Order, payment, refund, payout — every commerce lifecycle uses exactly these five values:
+
+| Status | When to use |
+|---|---|
+| `pending` | Action required (customer, ops, or provider) |
+| `processing` | In flight — work is happening, no user action |
+| `completed` | Terminal success |
+| `failed` | Terminal failure — needs investigation or retry |
+| `cancelled` | Voluntarily aborted |
+
+Adding a new status (e.g. "on hold", "refunded") requires explicit design review. The shared vocabulary
+is what makes status filters, badges, and timelines composable.
+
+## 4. Currency is never formatted inline
+
+Every monetary value goes through `AmountDisplay` or `PriceDisplay`. They handle locale rules, currency
+symbols, missing values, and the strikethrough pattern. You will never see `${price}` in this codebase.
+
+## 5. Every interactive component handles six states
+
+`default`, `hover`, `focus`, `active`, `disabled`, `error`. Focus uses `focus-visible:`, never `:focus`
+alone. Disabled uses the native HTML attribute plus a Tailwind variant — never a JS-only intercept.
+
+## 6. Accessibility is a build, not a polish
+
+- All interactive components keyboard-navigable from day one
+- Icon-only buttons require `aria-label`
+- Focus rings are visible and never removed without a replacement
+- `Modal` traps focus, restores focus on close, locks body scroll, and responds to Escape
+- `Toast` uses `role="status"` with `aria-live="polite"` — announced but not interrupting
+
+## 7. Data-driven components handle their three layout states
+
+Tables, lists, cards, and any data-fetching surface implement:
+
+- **Loading skeleton** — animated placeholder, never a centered spinner
+- **Empty state** — meaningful message + action, never blank space
+- **Error state** — recoverable when possible (`Retry` action)
+
+The `EmptyState` component is the shape every empty surface uses; the `Skeleton` atom is the shape every
+loading surface uses. Consistency means users learn the system once.
+
+## 8. Composability beats configurability
+
+A component with 30 props is harder to use than three components composed together. Where possible:
+
+- ✅ `<Modal title="…" footer={<><Button/><Button/></>}>{body}</Modal>`
+- ❌ `<Modal title=… body=… primaryCta=… secondaryCta=… onPrimary=… onSecondary=… />`
+
+When in doubt: expose slots, not flags.
+
+## 9. The Figma file is the source of truth
+
+Components are built **after** the Figma frame exists — never from memory or assumption. The Figma Code
+Connect mapping in each `.figma.tsx` keeps the two surfaces aligned: when a designer drags a component
+out of the Figma library, the generated code matches the React component exactly.
+
+## 10. Quality is enforced by agents
+
+Three AI agents run on the codebase:
+
+- **Component QA** — verifies every component matches its Figma frame, has all six states, all stories, and is accessible
+- **Token Audit** — flags any hardcoded color, spacing, or typography value
+- **Coverage Check** — reports atom → organism dependency completeness
+
+Agents run on every PR. Drift gets caught before it lands.

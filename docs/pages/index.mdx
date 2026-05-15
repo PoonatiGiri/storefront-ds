@@ -1,0 +1,232 @@
+---
+title: Storefront DS — a B2B commerce design system
+---
+
+import { Button } from '../../src/components/atoms/Button/Button';
+import { Tag } from '../../src/components/atoms/Tag/Tag';
+import { StatusBadge } from '../../src/components/molecules/StatusBadge/StatusBadge';
+import { PriceDisplay } from '../../src/components/molecules/PriceDisplay/PriceDisplay';
+import { ProductCard } from '../../src/components/organisms/ProductCard/ProductCard';
+import { Preview } from '../components/Preview';
+
+<div
+  style={{
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    gap: 24,
+    padding: '96px 24px 64px',
+    textAlign: 'center',
+    background:
+      'radial-gradient(circle at 30% 0%, var(--storefront-color-brand-primary-disabled)20 0%, transparent 40%), radial-gradient(circle at 70% 0%, var(--storefront-color-brand-accent-disabled)20 0%, transparent 40%)',
+  }}
+>
+  <Tag variant="brand" size="md">v0.1 · open source</Tag>
+  <h1
+    style={{
+      fontSize: 'clamp(40px, 6vw, 72px)',
+      lineHeight: 1.05,
+      fontWeight: 800,
+      letterSpacing: '-0.025em',
+      margin: 0,
+      maxWidth: 880,
+      color: 'var(--storefront-color-surface-foreground)',
+    }}
+  >
+    The design system{' '}
+    <span
+      style={{
+        background:
+          'linear-gradient(135deg, var(--storefront-color-brand-primary-default), var(--storefront-color-brand-accent-default))',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent',
+        backgroundClip: 'text',
+      }}
+    >
+      B2B commerce
+    </span>{' '}
+    teams ship on.
+  </h1>
+  <p
+    style={{
+      fontSize: 18,
+      lineHeight: 1.6,
+      color: 'var(--storefront-color-neutral-600)',
+      maxWidth: 640,
+      margin: 0,
+    }}
+  >
+    36 production-ready React components. 123 design tokens. Built with TypeScript, Tailwind, and
+    Figma. Open source, drop into your storefront.
+  </p>
+  <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', marginTop: 8 }}>
+    <a href="/install" style={{ textDecoration: 'none' }}>
+      <Button size="lg">Get started</Button>
+    </a>
+    <a href="/components" style={{ textDecoration: 'none' }}>
+      <Button size="lg" variant="secondary">Browse components</Button>
+    </a>
+  </div>
+  <div
+    style={{
+      display: 'flex',
+      gap: 24,
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      marginTop: 16,
+      fontSize: 13,
+      color: 'var(--storefront-color-neutral-500)',
+    }}
+  >
+    <span>⚛ React 19</span>
+    <span>TypeScript strict</span>
+    <span>Tailwind v4</span>
+    <span>Figma Code Connect</span>
+    <span>WCAG 2.1 AA</span>
+  </div>
+</div>
+
+<div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 24px 96px' }}>
+
+## Built for real commerce flows
+
+<Preview padded>
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 16, width: '100%' }}>
+    <ProductCard
+      name="Linen Tailored Shirt"
+      meta="Apparel"
+      price={79}
+      originalPrice={129}
+      currency="USD"
+      stockStatus="in-stock"
+    />
+    <ProductCard
+      name="Premium Leather Belt"
+      meta="Accessories"
+      price={49.5}
+      currency="USD"
+      stockStatus="low"
+    />
+    <ProductCard
+      name="Wool Crew Sweater"
+      meta="Apparel"
+      price={120}
+      currency="USD"
+      stockStatus="out-of-stock"
+    />
+  </div>
+</Preview>
+
+Product browsing, carts, checkout flows, order management, refunds — every commerce surface has the
+component it needs, not a generic shell you have to reskin.
+
+## Designed end-to-end
+
+<div
+  style={{
+    display: 'grid',
+    gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+    gap: 20,
+    margin: '24px 0',
+  }}
+>
+  <div
+    style={{
+      padding: 24,
+      borderRadius: 'var(--storefront-radius-lg)',
+      border: '1px solid var(--storefront-color-surface-border)',
+      background: 'var(--storefront-color-surface-background)',
+    }}
+  >
+    <h3 style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 600 }}>Tokens</h3>
+    <p style={{ margin: 0, color: 'var(--storefront-color-neutral-600)', fontSize: 14, lineHeight: 1.6 }}>
+      123 design tokens for color, typography, spacing, radius, and shadow — wired identically in Figma and
+      code so designers and engineers stay in sync.
+    </p>
+  </div>
+  <div
+    style={{
+      padding: 24,
+      borderRadius: 'var(--storefront-radius-lg)',
+      border: '1px solid var(--storefront-color-surface-border)',
+      background: 'var(--storefront-color-surface-background)',
+    }}
+  >
+    <h3 style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 600 }}>Components</h3>
+    <p style={{ margin: 0, color: 'var(--storefront-color-neutral-600)', fontSize: 14, lineHeight: 1.6 }}>
+      36 components across atoms, molecules, and organisms — every state, every variant, every size
+      documented and accessible.
+    </p>
+  </div>
+  <div
+    style={{
+      padding: 24,
+      borderRadius: 'var(--storefront-radius-lg)',
+      border: '1px solid var(--storefront-color-surface-border)',
+      background: 'var(--storefront-color-surface-background)',
+    }}
+  >
+    <h3 style={{ margin: '0 0 8px', fontSize: 18, fontWeight: 600 }}>Patterns</h3>
+    <p style={{ margin: 0, color: 'var(--storefront-color-neutral-600)', fontSize: 14, lineHeight: 1.6 }}>
+      Composed flows — product browse, cart, checkout, order detail, refund — assembled from the same
+      primitives so consistency is automatic.
+    </p>
+  </div>
+</div>
+
+## Status that actually works for commerce
+
+<Preview>
+  <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', justifyContent: 'center' }}>
+    <StatusBadge status="pending" />
+    <StatusBadge status="processing" />
+    <StatusBadge status="completed" />
+    <StatusBadge status="failed" />
+    <StatusBadge status="cancelled" />
+  </div>
+</Preview>
+
+The five mandated order lifecycle statuses. Not eight, not three — exactly the set commerce flows need,
+applied consistently across orders, payments, payouts, refunds.
+
+## Prices, the right way
+
+<Preview>
+  <div style={{ display: 'flex', gap: 32, flexWrap: 'wrap', justifyContent: 'center', alignItems: 'center' }}>
+    <PriceDisplay amount={79} originalAmount={129} currency="USD" showDiscount size="lg" />
+    <PriceDisplay amount={124999} originalAmount={199999} currency="INR" locale="en-IN" showDiscount size="lg" />
+    <PriceDisplay amount={4900} currency="JPY" locale="ja-JP" size="lg" />
+  </div>
+</Preview>
+
+Locale-aware currency formatting, original-price strikethrough, discount badge. One component, every
+storefront, every market.
+
+## Open & extendable
+
+Storefront DS ships as a monorepo with React components, design tokens, Figma Code Connect mappings, and
+Storybook stories. Fork it, theme it, extend it — it's MIT-licensed.
+
+<div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 24 }}>
+  <a href="/install" style={{ textDecoration: 'none' }}>
+    <Button>Get started →</Button>
+  </a>
+  <a
+    href="https://github.com/PoonatiGiri/storefront-ds"
+    target="_blank"
+    rel="noreferrer"
+    style={{ textDecoration: 'none' }}
+  >
+    <Button variant="ghost">View on GitHub</Button>
+  </a>
+  <a
+    href="https://poonatigiri.github.io/storefront-ds"
+    target="_blank"
+    rel="noreferrer"
+    style={{ textDecoration: 'none' }}
+  >
+    <Button variant="ghost">Open Storybook</Button>
+  </a>
+</div>
+
+</div>
