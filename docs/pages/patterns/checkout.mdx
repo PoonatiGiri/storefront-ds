@@ -1,0 +1,165 @@
+---
+title: Checkout flow
+---
+
+import { Stepper } from '../../../src/components/molecules/Stepper/Stepper';
+import { LineItem } from '../../../src/components/molecules/LineItem/LineItem';
+import { OrderSummary } from '../../../src/components/organisms/OrderSummary/OrderSummary';
+import { Button } from '../../../src/components/atoms/Button/Button';
+import { FormField } from '../../../src/components/molecules/FormField/FormField';
+import { Radio, RadioGroup } from '../../../src/components/atoms/Radio/Radio';
+import { Preview } from '../../components/Preview';
+
+# Checkout flow
+
+Cart → shipping → payment → confirm. Built from `Stepper`, `LineItem`, `OrderSummary`, `FormField`, `Radio`, `Button` — no new components needed.
+
+## Step indicator
+
+<Preview>
+  <div style={{ width: '100%' }}>
+    <Stepper
+      currentStep={1}
+      steps={[
+        { label: 'Cart', description: 'Review items' },
+        { label: 'Shipping', description: 'Address & method' },
+        { label: 'Payment', description: 'Card or bank' },
+        { label: 'Confirm', description: 'Place the order' },
+      ]}
+    />
+  </div>
+</Preview>
+
+## Step 1 — Cart review
+
+<Preview padded>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 32, width: '100%' }}>
+    <div style={{ background: 'white', borderRadius: 8, border: '1px solid var(--storefront-color-surface-border)', padding: 16 }}>
+      <h3 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 12px' }}>Your cart</h3>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
+        <div style={{ borderBottom: '1px solid var(--storefront-color-neutral-200)' }}>
+          <LineItem
+            size="sm"
+            name="Linen Tailored Shirt"
+            variant="Size M / Sand"
+            unitPrice={79}
+            currency="USD"
+            quantity={1}
+            onRemove={() => {}}
+          />
+        </div>
+        <div style={{ borderBottom: '1px solid var(--storefront-color-neutral-200)' }}>
+          <LineItem
+            size="sm"
+            name="Premium Leather Belt"
+            variant="Brown / 34"
+            unitPrice={49.5}
+            currency="USD"
+            quantity={2}
+            onRemove={() => {}}
+          />
+        </div>
+      </div>
+    </div>
+    <OrderSummary
+      title={null}
+      currency="USD"
+      total={207.5}
+      lines={[
+        { label: 'Subtotal', amount: 178 },
+        { label: 'Shipping', amount: 12 },
+        { label: 'Tax', amount: 17.5, muted: true },
+      ]}
+      footer={<Button className="w-full">Continue to shipping</Button>}
+    />
+  </div>
+</Preview>
+
+## Step 2 — Shipping
+
+<Preview padded>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 32, width: '100%' }}>
+    <div style={{ background: 'white', borderRadius: 8, border: '1px solid var(--storefront-color-surface-border)', padding: 24, display: 'flex', flexDirection: 'column', gap: 16 }}>
+      <h3 style={{ fontSize: 16, fontWeight: 600, margin: 0 }}>Shipping address</h3>
+      <FormField label="Full name" required placeholder="Sarah Johnson" />
+      <FormField label="Email" required placeholder="sarah@example.com" />
+      <FormField label="Street address" required placeholder="221B Baker Street" />
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
+        <FormField label="City" required placeholder="London" />
+        <FormField label="ZIP / Postal" required placeholder="NW1 6XE" />
+      </div>
+      <RadioGroup name="shipping-method" defaultValue="express" label="Shipping method">
+        <Radio value="standard" label="Standard (3–5 days)" helperText="Free over $200" />
+        <Radio value="express" label="Express (next day)" helperText="$12" />
+        <Radio value="overnight" label="Overnight" helperText="$28" />
+      </RadioGroup>
+    </div>
+    <OrderSummary
+      title={null}
+      currency="USD"
+      total={207.5}
+      lines={[
+        { label: 'Subtotal', amount: 178 },
+        { label: 'Shipping', amount: 12 },
+        { label: 'Tax', amount: 17.5, muted: true },
+      ]}
+      footer={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <Button className="w-full">Continue to payment</Button>
+          <Button variant="ghost" className="w-full">Back to cart</Button>
+        </div>
+      }
+    />
+  </div>
+</Preview>
+
+## Step 4 — Confirm
+
+<Preview padded>
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 32, width: '100%' }}>
+    <div style={{ background: 'white', borderRadius: 8, border: '1px solid var(--storefront-color-surface-border)', padding: 24, display: 'flex', flexDirection: 'column', gap: 24 }}>
+      <div>
+        <h3 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 8px' }}>Shipping to</h3>
+        <p style={{ margin: 0, color: 'var(--storefront-color-neutral-600)', fontSize: 14, lineHeight: 1.6 }}>
+          Sarah Johnson<br />
+          221B Baker Street<br />
+          London, NW1 6XE<br />
+          Express delivery (next day)
+        </p>
+      </div>
+      <div>
+        <h3 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 8px' }}>Paying with</h3>
+        <p style={{ margin: 0, color: 'var(--storefront-color-neutral-600)', fontSize: 14 }}>
+          Visa ending in <strong>4242</strong>
+        </p>
+      </div>
+      <div>
+        <h3 style={{ fontSize: 16, fontWeight: 600, margin: '0 0 8px' }}>Items</h3>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div style={{ borderBottom: '1px solid var(--storefront-color-neutral-200)' }}>
+            <LineItem size="sm" name="Linen Tailored Shirt" variant="Size M / Sand" unitPrice={79} currency="USD" quantity={1} />
+          </div>
+          <LineItem size="sm" name="Premium Leather Belt" variant="Brown / 34" unitPrice={49.5} currency="USD" quantity={2} />
+        </div>
+      </div>
+    </div>
+    <OrderSummary
+      title={null}
+      currency="USD"
+      total={207.5}
+      lines={[
+        { label: 'Subtotal', amount: 178 },
+        { label: 'Shipping', amount: 12 },
+        { label: 'Tax', amount: 17.5 },
+      ]}
+      footer={
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <Button className="w-full">Place order — $207.50</Button>
+          <p style={{ margin: 0, fontSize: 12, textAlign: 'center', color: 'var(--storefront-color-neutral-500)' }}>
+            By placing this order you agree to our Terms.
+          </p>
+        </div>
+      }
+    />
+  </div>
+</Preview>

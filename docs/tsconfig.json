@@ -18,7 +18,9 @@
       "@/*": ["./*"],
       "@storefront-ds": ["../src/components/index.ts"],
       "@storefront-ds/*": ["../src/components/*"],
-      "@storefront-tokens/*": ["../src/tokens/*"]
+      "@storefront-tokens/*": ["../src/tokens/*"],
+      "react": ["./node_modules/@types/react"],
+      "react-dom": ["./node_modules/@types/react-dom"]
     }
   },
   "include": [

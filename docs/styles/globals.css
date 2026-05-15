@@ -348,3 +348,94 @@
 .ds-preview > * {
   max-width: 100%;
 }
+
+/* ── Docs site visual polish ───────────────────────────────────────────── */
+
+/* Tighten body typography for a more product-feeling docs site */
+.nextra-content {
+  letter-spacing: -0.005em;
+}
+
+/* Heading rhythm — larger h1, accent rail on h2 */
+.nextra-content h1 {
+  font-size: 2.5rem !important;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+}
+
+.nextra-content h2 {
+  position: relative;
+  padding-left: 1rem;
+  margin-top: 3.5rem;
+}
+
+.nextra-content h2::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+  bottom: 0.35em;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(
+    180deg,
+    var(--storefront-color-brand-primary-default),
+    var(--storefront-color-brand-accent-default)
+  );
+}
+
+.nextra-content h3 {
+  margin-top: 2.5rem;
+}
+
+/* Inline code — subtler chip */
+.nextra-content :not(pre) > code {
+  background: var(--storefront-color-neutral-100);
+  border: 1px solid var(--storefront-color-surface-border);
+  color: var(--storefront-color-surface-foreground);
+  padding: 0.1em 0.4em;
+  border-radius: 4px;
+  font-size: 0.85em;
+}
+
+/* Tables — cleaner borders */
+.nextra-content table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.nextra-content thead th {
+  background: var(--storefront-color-neutral-50);
+  border-bottom: 1px solid var(--storefront-color-surface-border);
+  font-weight: 600;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--storefront-color-neutral-600);
+}
+
+/* Sidebar — slightly denser */
+.nextra-sidebar a {
+  font-size: 13.5px !important;
+  padding-top: 0.32rem !important;
+  padding-bottom: 0.32rem !important;
+}
+
+.nextra-sidebar .nextra-collapse-button {
+  font-weight: 600;
+}
+
+/* Selection color tied to brand */
+::selection {
+  background: var(--storefront-color-brand-primary-disabled);
+  color: var(--storefront-color-brand-primary-active);
+}
+
+/* Smoother focus rings, brand-tinted */
+*:focus-visible {
+  outline: 2px solid var(--storefront-color-brand-primary-default);
+  outline-offset: 2px;
+  border-radius: 2px;
+}

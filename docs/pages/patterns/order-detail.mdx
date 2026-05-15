@@ -1,0 +1,127 @@
+---
+title: Order detail
+---
+
+import { StatusBadge } from '../../../src/components/molecules/StatusBadge/StatusBadge';
+import { LineItem } from '../../../src/components/molecules/LineItem/LineItem';
+import { OrderSummary } from '../../../src/components/organisms/OrderSummary/OrderSummary';
+import { Avatar } from '../../../src/components/atoms/Avatar/Avatar';
+import { Button } from '../../../src/components/atoms/Button/Button';
+import { Tag } from '../../../src/components/atoms/Tag/Tag';
+import { Breadcrumb } from '../../../src/components/molecules/Breadcrumb/Breadcrumb';
+import { Preview } from '../../components/Preview';
+
+# Order detail
+
+The view a store operator sees when investigating, fulfilling, or refunding an order. Composed from `StatusBadge`, `LineItem`, `OrderSummary`, `Avatar`, `Button`, `Tag`, `Breadcrumb`.
+
+## Full layout
+
+<Preview padded>
+  <div style={{ width: '100%', display: 'flex', flexDirection: 'column', gap: 24 }}>
+    <Breadcrumb
+      items={[
+        { label: 'Dashboard', href: '#' },
+        { label: 'Orders', href: '#' },
+        { label: 'Order #ORD-1024' },
+      ]}
+    />
+
+    <div style={{ display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+        <h1 style={{ fontSize: 28, fontWeight: 700, margin: 0, letterSpacing: '-0.01em' }}>
+          Order #ORD-1024
+        </h1>
+        <p style={{ margin: 0, color: 'var(--storefront-color-neutral-500)', fontSize: 14 }}>
+          Placed May 14, 2026 · 09:42 IST
+        </p>
+      </div>
+      <div style={{ marginLeft: 'auto', display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+        <StatusBadge status="processing" />
+        <Tag variant="info">Priority</Tag>
+      </div>
+    </div>
+
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: 32 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div style={{ background: 'white', border: '1px solid var(--storefront-color-surface-border)', borderRadius: 8, padding: 24 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 16 }}>
+            <Avatar initials="SJ" size="md" />
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              <span style={{ fontSize: 14, fontWeight: 600 }}>Sarah Johnson</span>
+              <span style={{ fontSize: 12, color: 'var(--storefront-color-neutral-500)' }}>
+                sarah@example.com · Customer since Jan 2024
+              </span>
+            </div>
+            <Button variant="ghost" size="sm" style={{ marginLeft: 'auto' }}>View profile</Button>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24, fontSize: 14 }}>
+            <div>
+              <h3 style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--storefront-color-neutral-500)', margin: '0 0 8px' }}>
+                Shipping
+              </h3>
+              <p style={{ margin: 0, color: 'var(--storefront-color-surface-foreground)', lineHeight: 1.6 }}>
+                221B Baker Street<br />
+                London, NW1 6XE<br />
+                Express delivery
+              </p>
+            </div>
+            <div>
+              <h3 style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.04em', color: 'var(--storefront-color-neutral-500)', margin: '0 0 8px' }}>
+                Payment
+              </h3>
+              <p style={{ margin: 0, color: 'var(--storefront-color-surface-foreground)', lineHeight: 1.6 }}>
+                Visa ending in 4242<br />
+                Authorized
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div style={{ background: 'white', border: '1px solid var(--storefront-color-surface-border)', borderRadius: 8 }}>
+          <div style={{ padding: 16, borderBottom: '1px solid var(--storefront-color-surface-border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <h3 style={{ fontSize: 16, fontWeight: 600, margin: 0 }}>Items</h3>
+            <Button variant="ghost" size="sm">Refund items…</Button>
+          </div>
+          <div style={{ padding: '0 16px' }}>
+            <div style={{ borderBottom: '1px solid var(--storefront-color-neutral-200)' }}>
+              <LineItem
+                name="Linen Tailored Shirt"
+                variant="Size M / Sand"
+                sku="LIN-M-SND"
+                unitPrice={79}
+                currency="USD"
+                quantity={1}
+              />
+            </div>
+            <LineItem
+              name="Premium Leather Belt"
+              variant="Brown / 34"
+              sku="BLT-34-BR"
+              unitPrice={49.5}
+              currency="USD"
+              quantity={2}
+            />
+          </div>
+        </div>
+      </div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <OrderSummary
+          currency="USD"
+          total={207.5}
+          lines={[
+            { label: 'Subtotal', amount: 178 },
+            { label: 'Shipping', amount: 12 },
+            { label: 'Tax', amount: 17.5 },
+          ]}
+        />
+        <div style={{ background: 'white', border: '1px solid var(--storefront-color-surface-border)', borderRadius: 8, padding: 16, display: 'flex', flexDirection: 'column', gap: 8 }}>
+          <Button>Mark as fulfilled</Button>
+          <Button variant="secondary">Send tracking update</Button>
+          <Button variant="ghost">Print packing slip</Button>
+        </div>
+      </div>
+    </div>
+  </div>
+</Preview>

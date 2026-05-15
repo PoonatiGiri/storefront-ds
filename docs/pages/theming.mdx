@@ -1,0 +1,82 @@
+---
+title: Theming
+---
+
+import { ThemePlayground } from '../components/ThemePlayground';
+
+# Theming
+
+Every visual decision in Storefront DS lives in a CSS variable — change the variables, the whole system rerenders. Below is a live playground: pick a preset, tweak the brand color, or drag the radius slider, and watch every component update in real time.
+
+<ThemePlayground />
+
+## How it works
+
+Every token is a CSS custom property under the `--storefront-*` namespace, declared once at the `:root` level in `src/index.css`. Components reference these variables directly via Tailwind:
+
+```tsx
+<button className="bg-[var(--storefront-color-brand-primary-default)] hover:bg-[var(--storefront-color-brand-primary-hover)]">
+  Click me
+</button>
+```
+
+Because the variables cascade, overriding them anywhere in the document tree retheme that subtree. Most teams scope overrides to `:root` for app-wide theming, but you can scope to a component, a route, or even a data attribute for multi-tenant whitelabeling.
+
+## Recipe: theme by route
+
+```css
+/* app.css */
+[data-tenant="acme"] {
+  --storefront-color-brand-primary-default: #FF6B35;
+  --storefront-color-brand-primary-hover:   #E55A2B;
+}
+
+[data-tenant="globex"] {
+  --storefront-color-brand-primary-default: #0066CC;
+  --storefront-color-brand-primary-hover:   #0052A3;
+}
+```
+
+```tsx
+<body data-tenant={tenant.id}>
+  <App />
+</body>
+```
+
+Every component that uses `--storefront-color-brand-primary-default` inside that subtree automatically rerenders with the tenant's brand.
+
+## Recipe: dark mode (preview)
+
+Dark mode is on the [roadmap](#) — the token system is already structured for it. The pattern will be:
+
+```css
+@media (prefers-color-scheme: dark) {
+  :root {
+    --storefront-color-surface-background: #0F172A;
+    --storefront-color-surface-foreground: #F1F5F9;
+    --storefront-color-surface-border:     #1E293B;
+    /* ...adjust neutral and brand-disabled tints accordingly */
+  }
+}
+```
+
+The brand and semantic colors stay roughly the same — only the surface and neutral scales invert.
+
+## Tokens you can safely override
+
+Most-impactful overrides — they cascade through hundreds of usages:
+
+| Token | What it affects |
+|---|---|
+| `--storefront-color-brand-primary-*` | All primary buttons, links, focus rings, brand accents |
+| `--storefront-color-brand-accent-*` | Secondary brand surfaces (gradients, decorative) |
+| `--storefront-color-surface-background` | Body background |
+| `--storefront-color-surface-foreground` | Default text color |
+| `--storefront-radius-md` / `lg` / `xl` | Buttons, cards, modals — roundness of the system |
+| `--storefront-typography-body-md-size` | Base body font size |
+
+Avoid overriding semantic colors (success/warning/error/info) — they have cultural meaning and screen-reader implications.
+
+## What the playground does NOT change
+
+For the demo's sake, the playground keeps these constant: neutral scale, semantic colors, typography. In a real theme override you can change those too — but they're rarely the right place to start.

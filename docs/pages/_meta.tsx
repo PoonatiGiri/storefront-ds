@@ -23,4 +23,12 @@ export default {
     title: 'Components',
     type: 'page',
   },
+  patterns: {
+    title: 'Patterns',
+    type: 'page',
+  },
+  theming: {
+    title: 'Theming',
+    type: 'page',
+  },
 };
