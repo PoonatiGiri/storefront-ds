@@ -7,6 +7,10 @@ export default {
       layout: 'raw',
     },
   },
+  'use-cases': {
+    title: 'Use cases',
+    type: 'page',
+  },
   install: {
     title: 'Get started',
     type: 'page',

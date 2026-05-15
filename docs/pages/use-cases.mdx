@@ -1,0 +1,389 @@
+---
+title: Use cases
+---
+
+import { Button } from '../../src/components/atoms/Button/Button';
+import { Tag } from '../../src/components/atoms/Tag/Tag';
+import { StatusBadge } from '../../src/components/molecules/StatusBadge/StatusBadge';
+import { PriceDisplay } from '../../src/components/molecules/PriceDisplay/PriceDisplay';
+import { ProductCard } from '../../src/components/organisms/ProductCard/ProductCard';
+import { MetricCard } from '../../src/components/organisms/MetricCard/MetricCard';
+import { Preview } from '../components/Preview';
+
+# Use cases
+
+Storefront DS is built for B2B commerce — but "B2B commerce" covers a lot of ground. Below is who actually picks this system up, what they build with it, and why they stay.
+
+## Who it's for
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+  gap: 16,
+  marginTop: 24,
+  marginBottom: 48,
+}}>
+
+<div style={{
+  padding: 24,
+  borderRadius: 12,
+  border: '1px solid var(--storefront-color-surface-border)',
+  background: 'var(--storefront-color-surface-background)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+}}>
+  <Tag variant="brand" size="sm">Indie & early-stage founders</Tag>
+  <h3 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Ship a credible storefront in a weekend</h3>
+  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    You're a solo founder or two-person team. You don't have a designer.
+    You need product cards, a cart, a checkout, an order admin — yesterday.
+    Clone the repo, theme the brand color, ship.
+  </p>
+</div>
+
+<div style={{
+  padding: 24,
+  borderRadius: 12,
+  border: '1px solid var(--storefront-color-surface-border)',
+  background: 'var(--storefront-color-surface-background)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+}}>
+  <Tag variant="info" size="sm">B2B SaaS product teams</Tag>
+  <h3 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Bring consistency to a sprawling admin</h3>
+  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    Your dashboard has accumulated five button styles, three modal patterns,
+    and two ways to show order status. Replace them all with one system —
+    incrementally, file by file. Tokens are CSS variables, so you can swap
+    a component without rewriting your CSS.
+  </p>
+</div>
+
+<div style={{
+  padding: 24,
+  borderRadius: 12,
+  border: '1px solid var(--storefront-color-surface-border)',
+  background: 'var(--storefront-color-surface-background)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+}}>
+  <Tag variant="success" size="sm">Design teams</Tag>
+  <h3 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Figma + code, in lockstep</h3>
+  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    Every component has a Figma frame and a Code Connect mapping. Drag
+    a Button out of the Figma library, get the exact React prop names in
+    the generated code. Designers and engineers stop translating between
+    each other.
+  </p>
+</div>
+
+<div style={{
+  padding: 24,
+  borderRadius: 12,
+  border: '1px solid var(--storefront-color-surface-border)',
+  background: 'var(--storefront-color-surface-background)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+}}>
+  <Tag variant="warning" size="sm">Agencies & consultancies</Tag>
+  <h3 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>One system, every client brand</h3>
+  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    Build the components once, retheme per client by overriding tokens.
+    See the <a href="/theming">Theming playground</a> — switch from blue
+    to teal to coral in a single click. Same components, different brand.
+  </p>
+</div>
+
+<div style={{
+  padding: 24,
+  borderRadius: 12,
+  border: '1px solid var(--storefront-color-surface-border)',
+  background: 'var(--storefront-color-surface-background)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+}}>
+  <Tag variant="error" size="sm">Internal tools teams</Tag>
+  <h3 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>Make ops tools that don't feel like ops tools</h3>
+  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    Customer support, fulfillment, refund admin — internal tools deserve
+    real product polish. The DataTable, FilterPanel, OrderCard, and
+    StatusBadge are built for these surfaces specifically.
+  </p>
+</div>
+
+<div style={{
+  padding: 24,
+  borderRadius: 12,
+  border: '1px solid var(--storefront-color-surface-border)',
+  background: 'var(--storefront-color-surface-background)',
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 12,
+}}>
+  <Tag size="sm">Portfolio & learning</Tag>
+  <h3 style={{ margin: 0, fontSize: 18, fontWeight: 600 }}>A real DS to study and fork</h3>
+  <p style={{ margin: 0, fontSize: 14, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    Designers and frontend engineers learning DS construction can read the
+    full source — tokens, atomic structure, Figma sync, Storybook, Chromatic,
+    docs site. Fork it as a starting point for your own.
+  </p>
+</div>
+
+</div>
+
+## What you can build with it
+
+<Preview padded>
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: 16, width: '100%' }}>
+    <ProductCard
+      name="Linen Tailored Shirt"
+      meta="Apparel"
+      price={79}
+      originalPrice={129}
+      currency="USD"
+      stockStatus="in-stock"
+      action={<Button size="sm" className="w-full">Add to cart</Button>}
+    />
+    <ProductCard
+      name="Premium Leather Belt"
+      meta="Accessories"
+      price={49.5}
+      currency="USD"
+      stockStatus="low"
+    />
+    <ProductCard
+      name="Wool Crew Sweater"
+      meta="Apparel"
+      price={120}
+      currency="USD"
+      stockStatus="out-of-stock"
+    />
+    <ProductCard
+      name="Canvas Weekender"
+      meta="Bags"
+      price={189}
+      originalPrice={249}
+      currency="USD"
+      stockStatus="in-stock"
+    />
+  </div>
+</Preview>
+
+### Customer-facing storefront
+
+Product browse, search, product detail, cart, checkout — the things customers see. The same `ProductCard`, `PriceDisplay`, and `StatusBadge` work whether you're a single-SKU DTC brand or a 10,000-SKU marketplace.
+
+→ See the [Checkout pattern](/patterns/checkout)
+
+### Order management admin
+
+The operator view — list orders, drill in, fulfill, refund. `DataTable`, `OrderCard`, `OrderSummary`, `FilterPanel`, and the canonical 5-status `StatusBadge` cover the entire lifecycle.
+
+→ See the [Order detail pattern](/patterns/order-detail)
+
+### Merchant dashboards & KPIs
+
+<Preview padded>
+  <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 12, width: '100%' }}>
+    <MetricCard title="Revenue" value="$24,530" trend="up" trendValue="12.5%" period="vs last month" size="sm" />
+    <MetricCard title="Orders" value="186" trend="up" trendValue="8.2%" period="vs last month" size="sm" />
+    <MetricCard title="AOV" value="$131.88" trend="neutral" trendValue="0.4%" period="vs last month" size="sm" />
+    <MetricCard title="Conversion" value="3.2%" trend="down" trendValue="0.8%" period="vs last month" size="sm" />
+  </div>
+</Preview>
+
+`MetricCard` for KPI tiles, `DataTable` for activity rails, `Tabs` to switch between time ranges. Pair with your charting library of choice — Storefront DS handles everything that isn't the chart itself.
+
+→ See the [Dashboard pattern](/patterns/dashboard)
+
+### Refund & returns workflows
+
+`OrderSummary` natively handles negative totals — pass a negative amount and the component renders correctly with the discount color and `+/-` sign. Pair with `LineItem` for selecting which items to refund.
+
+### Multi-tenant white-label commerce
+
+If you're an agency or commerce-as-a-service platform, retheme per tenant by scoping CSS variable overrides:
+
+```css
+[data-tenant="acme"]  { --storefront-color-brand-primary-default: #FF6B35; }
+[data-tenant="globex"] { --storefront-color-brand-primary-default: #0066CC; }
+```
+
+Every component cascades — change one variable, the whole subtree updates. See [Theming](/theming) for the live playground.
+
+### Headless commerce frontends
+
+Storefront DS doesn't care where your data comes from. Plug it into Shopify Storefront API, Commerce.js, Medusa, BigCommerce, Saleor, or your own GraphQL — the components accept data props, nothing more.
+
+## Why teams choose Storefront DS
+
+<div style={{
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+  gap: 16,
+  marginTop: 24,
+  marginBottom: 32,
+}}>
+
+<div style={{
+  padding: 20,
+  borderRadius: 8,
+  background: 'var(--storefront-color-neutral-50)',
+  border: '1px solid var(--storefront-color-surface-border)',
+}}>
+  <h3 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 600 }}>
+    Built for real commerce flows
+  </h3>
+  <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    Not a generic component set re-skinned. The 5 mandated order statuses,
+    AmountDisplay for every currency, PriceDisplay for sale prices —
+    commerce primitives baked in from day one.
+  </p>
+</div>
+
+<div style={{
+  padding: 20,
+  borderRadius: 8,
+  background: 'var(--storefront-color-neutral-50)',
+  border: '1px solid var(--storefront-color-surface-border)',
+}}>
+  <h3 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 600 }}>
+    Token-first, theme anywhere
+  </h3>
+  <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    Zero hardcoded values. 123 tokens drive every visual decision.
+    Retheme per route, per tenant, per dark-mode — override CSS variables
+    and the whole system rerenders.
+  </p>
+</div>
+
+<div style={{
+  padding: 20,
+  borderRadius: 8,
+  background: 'var(--storefront-color-neutral-50)',
+  border: '1px solid var(--storefront-color-surface-border)',
+}}>
+  <h3 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 600 }}>
+    Designer-engineer parity
+  </h3>
+  <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    Every component has a Figma frame mapped via Figma Code Connect.
+    The component a designer drags out is the same one the engineer
+    imports — no translation, no drift.
+  </p>
+</div>
+
+<div style={{
+  padding: 20,
+  borderRadius: 8,
+  background: 'var(--storefront-color-neutral-50)',
+  border: '1px solid var(--storefront-color-surface-border)',
+}}>
+  <h3 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 600 }}>
+    Accessibility is a build, not a polish
+  </h3>
+  <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    WCAG 2.1 AA across all interactive components. Focus traps in modals,
+    arrow-key navigation in tabs, screen-reader announcements on toasts —
+    not bolted on after launch.
+  </p>
+</div>
+
+<div style={{
+  padding: 20,
+  borderRadius: 8,
+  background: 'var(--storefront-color-neutral-50)',
+  border: '1px solid var(--storefront-color-surface-border)',
+}}>
+  <h3 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 600 }}>
+    Open source, MIT-licensed
+  </h3>
+  <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    Fork it, vendor it, change it. No paid tiers, no enterprise gates,
+    no telemetry. The full Figma file, Storybook, and source are public.
+  </p>
+</div>
+
+<div style={{
+  padding: 20,
+  borderRadius: 8,
+  background: 'var(--storefront-color-neutral-50)',
+  border: '1px solid var(--storefront-color-surface-border)',
+}}>
+  <h3 style={{ margin: '0 0 8px', fontSize: 15, fontWeight: 600 }}>
+    Modern stack, no surprises
+  </h3>
+  <p style={{ margin: 0, fontSize: 13, lineHeight: 1.6, color: 'var(--storefront-color-neutral-600)' }}>
+    React 19. TypeScript strict. Tailwind v4. No legacy bindings,
+    no proprietary CSS-in-JS, no animation engine you have to learn.
+    Works in Next.js, Remix, Vite, Astro.
+  </p>
+</div>
+
+</div>
+
+## Status of common requirements
+
+<div style={{
+  display: 'flex',
+  flexDirection: 'column',
+  gap: 8,
+  marginTop: 16,
+  marginBottom: 48,
+}}>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <StatusBadge status="completed" size="sm" />
+    <span style={{ fontSize: 14 }}>36 production-ready components</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <StatusBadge status="completed" size="sm" />
+    <span style={{ fontSize: 14 }}>123 design tokens (color, type, spacing, radius, shadow)</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <StatusBadge status="completed" size="sm" />
+    <span style={{ fontSize: 14 }}>Figma Code Connect on every component</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <StatusBadge status="completed" size="sm" />
+    <span style={{ fontSize: 14 }}>Storybook + Chromatic visual regression</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <StatusBadge status="completed" size="sm" />
+    <span style={{ fontSize: 14 }}>Live theming playground</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <StatusBadge status="processing" size="sm" />
+    <span style={{ fontSize: 14 }}>Dark mode (token system is ready; visual pass in progress)</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <StatusBadge status="processing" size="sm" />
+    <span style={{ fontSize: 14 }}>npm package distribution (currently distributed as source)</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <StatusBadge status="pending" size="sm" />
+    <span style={{ fontSize: 14 }}>Mobile-first responsive variants (desktop-first today)</span>
+  </div>
+  <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <StatusBadge status="pending" size="sm" />
+    <span style={{ fontSize: 14 }}>i18n / RTL support (en-US only today)</span>
+  </div>
+</div>
+
+## Ready to try it?
+
+<div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', marginTop: 16 }}>
+  <a href="/install" style={{ textDecoration: 'none' }}>
+    <Button size="lg">Get started →</Button>
+  </a>
+  <a href="/components" style={{ textDecoration: 'none' }}>
+    <Button size="lg" variant="secondary">Browse components</Button>
+  </a>
+  <a href="/theming" style={{ textDecoration: 'none' }}>
+    <Button size="lg" variant="ghost">Try the playground</Button>
+  </a>
+</div>
