@@ -22,7 +22,27 @@ const config: DocsThemeConfig = {
   docsRepositoryBase:
     'https://github.com/PoonatiGiri/storefront-ds/tree/main/docs',
   footer: {
-    content: '© 2026 Storefront DS · MIT License · A B2B commerce design system',
+    content: (
+      <span style={{ display: 'inline-flex', flexWrap: 'wrap', alignItems: 'center', gap: 8 }}>
+        <span>© 2026 Storefront DS · MIT License</span>
+        <span aria-hidden style={{ opacity: 0.4 }}>·</span>
+        <span>
+          Designed and built by{' '}
+          <a
+            href="https://www.linkedin.com/in/giri-poonati/"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              color: 'var(--storefront-color-brand-primary-default)',
+              textDecoration: 'none',
+              fontWeight: 600,
+            }}
+          >
+            Giri Poonati
+          </a>
+        </span>
+      </span>
+    ),
   },
   head: (
     <>
